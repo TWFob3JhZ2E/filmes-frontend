@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Função para carregar filmes novos
     function carregarFilmesNovos() {
-        fetch('http://127.0.0.1:5001/filmes/novos')  // Alterando para a nova rota de filmes novos
+        fetch(`${BACKEND_URL}/filmes/novos`)
             .then(response => response.json())
             .then(filmes => {
                 filmes.forEach(filme => {
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     card.innerHTML = `
                         <img src="${filme.capa}" alt="${filme.titulo}">
                         <h3>${filme.titulo}</h3>
-                        <a href="https://superflixapi.cc/filme/${filme.id}" target="_blank" class="assistir-btn">Assistir</a>
+                        <a href="https://superflixapi.co/filme/${filme.id}" target="_blank" class="assistir-btn">Assistir</a>
                     `;
                     destaquesContainer.appendChild(card);
                 });
@@ -20,9 +20,9 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => console.error('Erro ao carregar filmes novos:', error));
     }
 
-    // Função para carregar séries (se necessário, pode ser removido)
+    // Função para carregar séries (opcional)
     function carregarSeries() {
-        fetch('http://127.0.0.1:5001/series')
+        fetch(`${BACKEND_URL}/series`)
             .then(response => response.json())
             .then(series => {
                 series.forEach(serie => {
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     card.innerHTML = `
                         <img src="${serie.capa}" alt="${serie.titulo}">
                         <h3>${serie.titulo}</h3>
-                        <a href="https://superflixapi.cc/serie/${serie.id}" target="_blank" class="assistir-btn">Assistir</a>
+                        <a href="https://superflixapi.co/serie/${serie.id}" target="_blank" class="assistir-btn">Assistir</a>
                     `;
                     destaquesContainer.appendChild(card);
                 });
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => console.error('Erro ao carregar séries:', error));
     }
 
-    // Carregar somente filmes novos e séries quando a página for carregada
+    // Chamar funções ao carregar a página
     carregarFilmesNovos();
-    carregarSeries();  // Esta função pode ser removida se você não for mais usar séries
+    // carregarSeries(); // Descomente se quiser exibir séries também
 });
