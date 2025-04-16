@@ -1,5 +1,4 @@
-// URL da API no Render — você pode mover isso para config.js se quiser
-const BACKEND_URL = "https://filmes-flask.onrender.com";
+
 
 // Função de buscar sugestões
 async function buscarSugestoes(texto) {

@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lista de Filmes - StarMovies</title>
   <link rel="stylesheet" href="../GERAL/style.css">
   <link rel="icon" href="../IMG/Logo1.png" type="image/x-icon">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3644493409290942"
+     crossorigin="anonymous"></script>
 </head>
+
 <body>
   <header>
     <div class="logo">
@@ -15,16 +19,19 @@
     <nav>
       <ul>
         <li><a href="../index.html">Início</a></li>
-        <li><a href="filmes.html">Filmes</a></li>
-        <li><a href="series.html">Séries</a></li>
+        <li><a href="/PAGES/filmes.html">Filmes</a></li>
+        <li><a href="/PAGES/series.html">Séries</a></li>
+        <li><a href="/PAGES/sobre.html">Sobre</a></li>
+        <li><a href="/PAGES/politicas.html">politicas</a></li>
         <li class="search">
           <form onsubmit="return false;" style="position: relative;">
-            <input type="text" placeholder="Buscar..." id="search" autocomplete="off" oninput="buscarSugestoes(this.value)">
+            <input type="text" placeholder="Buscar..." id="search" autocomplete="off"
+              oninput="buscarSugestoes(this.value)">
             <div id="sugestoes"></div>
-          </form>   
+          </form>
         </li>
       </ul>
-    </nav>    
+    </nav>
   </header>
 
   <div class="orange-bar"></div>
@@ -92,4 +99,5 @@
     carregarFilmes();
   </script>
 </body>
+
 </html>
