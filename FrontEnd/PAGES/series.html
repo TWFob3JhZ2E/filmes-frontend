@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lista de Séries - StarMovies</title>
   <link rel="stylesheet" href="../GERAL/style.css">
-  <link rel="icon" href="../FrontEnd/IMG/Logo1.png" type="image/x-icon">
+  <link rel="icon" href="../IMG/Logo1.png" type="image/x-icon">
 </head>
 <body>
   <header>
@@ -45,13 +45,13 @@
   </footer>
 
   <script src="../pesqui.js"></script>
+  <script src="../Conex/Config.js"></script>
 
   <script>
     let paginaAtual = 1;
 
-    // Carregar séries da nova rota paginada
     function carregarSeries() {
-      fetch(`http://127.0.0.1:5001/series/pagina?pagina=${paginaAtual}`)
+      fetch(`${BACKEND_URL}/series/pagina?pagina=${paginaAtual}`)
         .then(response => response.json())
         .then(series => {
           const seriesContainer = document.getElementById('series-container');
@@ -69,14 +69,12 @@
             seriesContainer.appendChild(serieElement);
           });
 
-          // Atualizar estado dos botões
           document.getElementById('prev-btn').disabled = paginaAtual === 1;
           document.getElementById('next-btn').disabled = series.length < 50;
         })
         .catch(error => console.error('Erro ao carregar séries:', error));
     }
 
-    // Navegação
     document.getElementById('prev-btn').addEventListener('click', () => {
       if (paginaAtual > 1) {
         paginaAtual--;
@@ -98,7 +96,6 @@
       });
     }
 
-    // Carregar a primeira página
     carregarSeries();
   </script>
 </body>
