@@ -9,11 +9,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 filmes.forEach(filme => {
                     const card = document.createElement("div");
                     card.classList.add("movie-card");
+
+                    const playerURL = `${window.location.origin}/PAGES/player.html?id=${filme.id}`;
+
                     card.innerHTML = `
                         <img src="${filme.capa}" alt="${filme.titulo}">
                         <h3>${filme.titulo}</h3>
-                        <a href="https://superflixapi.co/filme/${filme.id}" target="_blank" class="assistir-btn">Assistir</a>
+                        <a href="${playerURL}" class="assistir-btn">Assistir</a>
                     `;
+
                     destaquesContainer.appendChild(card);
                 });
             })
@@ -28,11 +32,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 series.forEach(serie => {
                     const card = document.createElement("div");
                     card.classList.add("movie-card");
+
+                    const playerURL = `${window.location.origin}/PAGES/player.html?id=${serie.id}`;
+
                     card.innerHTML = `
                         <img src="${serie.capa}" alt="${serie.titulo}">
                         <h3>${serie.titulo}</h3>
-                        <a href="https://superflixapi.co/serie/${serie.id}" target="_blank" class="assistir-btn">Assistir</a>
+                        <a href="${playerURL}" class="assistir-btn">Assistir</a>
                     `;
+
                     destaquesContainer.appendChild(card);
                 });
             })
