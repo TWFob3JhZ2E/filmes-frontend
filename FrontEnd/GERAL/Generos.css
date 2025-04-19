@@ -1,0 +1,164 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #101010;
+    color: #fff;
+    line-height: 1.6;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 3rem;
+    background-color: #121212;
+    position: relative;
+}
+
+header .logo h1 {
+    font-size: 3rem;
+    color: #f4a300;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+}
+
+nav ul li {
+    position: relative;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 0.5rem 1.2rem;
+    border-radius: 30px;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+nav ul li a:hover,
+nav ul li a:focus {
+    color: #222;
+    background-color: #f4a300;
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    outline: none;
+}
+
+.orange-bar {
+    width: 100%;
+    height: 0.5rem;
+    background-color: #f4a300;
+}
+
+.destaques {
+    margin: 2.5rem 0;
+    text-align: center;
+}
+
+.destaques h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #f4a300;
+}
+
+.destaques-cards {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.genre-card {
+    position: relative;
+    background-color: #333;
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 100%;
+    max-width: 18rem;
+    text-align: center;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+    /* Altura fixa para os cards */
+}
+
+.genre-card h3 {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 1.4rem;
+    color: #f4a300;
+    font-weight: 600;
+    text-transform: capitalize;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 0.5rem;
+    border-radius: 10px;
+}
+
+.genre-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+footer {
+    background-color: #121212;
+    color: #fff;
+    text-align: center;
+    padding: 2rem 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .destaques h2 {
+        font-size: 2rem;
+    }
+
+    .genre-card {
+        max-width: 14rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .genre-card {
+        max-width: 100%;
+        margin-bottom: 1.5rem;
+    }
+
+    footer p {
+        font-size: 1rem;
+    }
+}
