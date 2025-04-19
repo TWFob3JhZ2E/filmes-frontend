@@ -7,11 +7,11 @@
 
 /* --------------------------- Estilos gerais --------------------------- */
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #1c1c1c;
+  font-family: 'Roboto', sans-serif;
+  background-color: #121212;
   color: #fff;
-  line-height: 1.5;
-  padding-top: 5rem; /* Para dar um espaçamento ao topo da página */
+  line-height: 1.6;
+  padding-top: 6rem; /* Espaçamento adicional para o cabeçalho fixo */
 }
 
 /* --------------------------- HEADER --------------------------- */
@@ -20,12 +20,14 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 1.25rem 2.5rem;
-  background-color: #222;
+  background-color: rgba(34, 34, 34, 0.8); /* Fundo semi-transparente */
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 10;
+  backdrop-filter: blur(10px); /* Efeito de desfoque no fundo */
+  transition: background-color 0.3s ease;
 }
 
 header .logo h1 {
@@ -36,11 +38,15 @@ header .logo h1 {
   letter-spacing: 1px;
 }
 
+header:hover {
+  background-color: rgba(34, 34, 34, 1); /* Efeito de transição suave */
+}
+
 /* --------------------------- Player de Vídeo --------------------------- */
 #player-container {
   text-align: center;
   padding: 2rem;
-  margin-top: 6rem; /* Para garantir que não sobreponha o header */
+  margin-top: 8rem; /* Ajuste para garantir que não sobreponha o header */
   background-color: #333;
   border-radius: 12px;
   max-width: 1000px;
@@ -77,7 +83,7 @@ header .logo h1 {
 
 #info-filme {
   flex: 1;
-  max-width: 60%; /* Garante que o texto ocupe 60% da largura */
+  max-width: 60%;
 }
 
 #movie-name {
@@ -101,22 +107,22 @@ header .logo h1 {
   text-align: justify;
 }
 
+/* Efeito de hover na capa do filme */
 #capa {
   width: 250px;
   height: 375px;
   object-fit: cover;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin-top: -50px; /* Ajuste para colocar mais no topo */
-  margin-right: -20px; /* Ajuste para colocar mais à direita */
-  transition: transform 0.3s ease;
+  position: relative;
+  margin-top: -50px;
+  margin-right: -20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 #capa:hover {
-  transform: scale(1.05); /* Efeito de hover na capa */
+  transform: scale(1.05);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.9);
 }
 
 /* --------------------------- Propagandas --------------------------- */
@@ -127,6 +133,7 @@ header .logo h1 {
   border-radius: 8px;
   text-align: center;
   max-width: 1000px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
 }
 
 .ads-container h3 {
@@ -142,11 +149,13 @@ header .logo h1 {
   margin: 1rem 0;
   border-radius: 4px;
   font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
 .ad:hover {
   background-color: #f4a300;
   cursor: pointer;
+  transform: scale(1.03);
 }
 
 /* --------------------------- FOOTER --------------------------- */
@@ -164,4 +173,11 @@ footer {
 footer p {
   margin: 0;
   font-size: 1rem;
+  opacity: 0.7;
+}
+
+/* Adicionando um efeito de brilho ao logo do header */
+header .logo h1:hover {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 165, 0, 0.7);
 }
