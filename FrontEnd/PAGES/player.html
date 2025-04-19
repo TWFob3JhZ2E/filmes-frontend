@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Assistir Filme ou Série</title>
     <link rel="stylesheet" href="../GERAL/StyleWatch.css" />
     <link rel="icon" href="../FrontEnd/IMG/Logo1.png" type="image/x-icon">
+    <style>
+        .ads-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        #generos {
+            font-size: 14px;
+            color: #666;
+        }
+
+        #descricao {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        #capa {
+            width: 200px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
+
 <body>
     <header>
         <div class="logo">
@@ -28,64 +52,60 @@
         <div id="movie-name"></div>
         <div id="generos"></div>
         <div id="descricao"></div>
-        <img id="capa" src="" alt="Capa do Filme" style="width: 200px; margin-top: 10px;" />
+        <img id="capa" src="" alt="Capa do Filme" />
     </div>
 
     <footer>
         <p>&copy; 2025 StarMovies. Todos os direitos reservados.</p>
     </footer>
 
+    <!-- Configuração do Backend -->
+    <script src="/Conex/Config.js"></script>
+
     <!-- Script para carregar título e configurar player -->
     <script>
         document.addEventListener("DOMContentLoaded", async function () {
             const urlParams = new URLSearchParams(window.location.search);
-            const id = urlParams.get("id");
-            const season = urlParams.get("season");
-            const episode = urlParams.get("episode");
+            const filme_id = urlParams.get("id");
 
-            if (!id) {
-                document.getElementById("player-container").innerHTML = "<p>Filme ou Série não encontrado.</p>";
+            if (!filme_id) {
+                document.getElementById("player-container").innerHTML = "<p>Filme não encontrado.</p>";
                 return;
             }
 
-            const tipo = id.startsWith("tt") ? "filme" : "serie";
-            let playerUrl = `https://superflixapi.co/${tipo}/${id}`;
-            if (tipo === "serie" && season && episode) {
-                playerUrl += `/${season}/${episode}`;
-            }
-
-            const parametros = "#noLink#noEpList#color:6c5ce7#transparent";
-            document.getElementById("player").src = playerUrl + parametros;
-
-            const endpoint = tipo === "filme"
-                ? `http://127.0.0.1:5001/filmes/pagina?id=${id}`
-                : `http://127.0.0.1:5001/series/pagina?id=${id}`;
+            // Busca o filme a partir da URL de Backend do Render
+            const url = `${BACKEND_URL}/filme/detalhes?id=${filme_id}`;
 
             try {
-                const res = await fetch(endpoint);
+                const res = await fetch(url);
                 const data = await res.json();
-                const filme = data.find(f => f.id === id);
 
-                if (filme) {
+                if (data.erro) {
+                    document.getElementById("titulo-serie").textContent = "Filme não encontrado.";
+                } else {
+                    // Atualizando as informações na página
+                    const filme = data;
                     const titulo = filme.titulo;
                     const descricao = filme.descricao;
                     const capa = filme.capa;
                     const generos = filme.generos.join(", ");
 
                     document.getElementById("titulo-serie").textContent = `Assistindo: ${titulo}`;
-                    document.getElementById("movie-name").textContent = `ID: ${id}`;
+                    document.getElementById("movie-name").textContent = `ID: ${filme_id}`;
                     document.getElementById("descricao").textContent = descricao;
                     document.getElementById("generos").textContent = `Gêneros: ${generos}`;
                     document.getElementById("capa").src = capa;
-                } else {
-                    document.getElementById("titulo-serie").textContent = "Filme ou Série não encontrado.";
+
+                    // Ajuste do player, você pode personalizar a URL do iframe
+                    document.getElementById("player").src = `https://superflixapi.co/filme/${filme_id}`;
                 }
             } catch (e) {
-                console.error("Erro ao buscar título:", e);
-                document.getElementById("titulo-serie").textContent = `Erro ao carregar informações para o filme/série: ${id}`;
+                console.error("Erro ao buscar filme:", e);
+                document.getElementById("titulo-serie").textContent = "Erro ao carregar filme.";
             }
         });
     </script>
 
 </body>
+
 </html>
