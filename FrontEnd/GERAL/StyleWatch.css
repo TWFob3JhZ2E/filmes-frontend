@@ -44,7 +44,7 @@ header:hover {
 
 /* --------------------------- Player de Vídeo --------------------------- */
 #player-container {
-  text-align: center;
+  text-align: left;
   padding: 2rem;
   margin-top: 8rem; /* Ajuste para garantir que não sobreponha o header */
   background-color: #333;
@@ -53,6 +53,8 @@ header:hover {
   margin-left: auto;
   margin-right: auto;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  display: flex; /* Flexbox para alinhar a capa e os detalhes lado a lado */
+  gap: 2rem; /* Espaçamento entre a capa e os detalhes */
 }
 
 #player {
@@ -74,15 +76,13 @@ header:hover {
 
 #detalhes-filme {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-top: 2rem;
+  justify-content: flex-start;
+  flex-direction: column; /* Organiza os detalhes em uma coluna */
+  flex: 1;
   text-align: left;
-  gap: 2rem;
 }
 
 #info-filme {
-  flex: 1;
   max-width: 60%;
 }
 
@@ -107,16 +107,13 @@ header:hover {
   text-align: justify;
 }
 
-/* Efeito de hover na capa do filme */
+/* Capa do filme à esquerda */
 #capa {
   width: 250px;
   height: 375px;
   object-fit: cover;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
-  position: relative;
-  margin-top: -50px;
-  margin-right: -20px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
