@@ -7,13 +7,7 @@
     <title>Assistir Filme ou Série</title>
     <link rel="stylesheet" href="../GERAL/StyleWatch.css" />
     <link rel="icon" href="../FrontEnd/IMG/Logo1.png" type="image/x-icon">
-    <style>
-        .ads-container {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-    </style>
+
 </head>
 
 <body>
@@ -31,65 +25,37 @@
     </header>
 
     <!-- Anúncio acima do player -->
+    <div class="ads-container">
         <script type="text/javascript">
             atOptions = {
-                'key' : 'ce04a28c61dd91222942a54edcdfefa3',
-                'format' : 'iframe',
-                'height' : 250,
-                'width' : 300,
-                'params' : {}
+                'key': 'ce04a28c61dd91222942a54edcdfefa3',
+                'format': 'iframe',
+                'height': 250,
+                'width': 300,
+                'params': {}
             };
         </script>
         <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js"></script>
     </div>
-        <script type="text/javascript">
-            atOptions = {
-                'key' : 'ce04a28c61dd91222942a54edcdfefa3',
-                'format' : 'iframe',
-                'height' : 250,
-                'width' : 300,
-                'params' : {}
-            };
-        </script>
-        <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js"></script>
-    </div>
-        <script type="text/javascript">
-            atOptions = {
-                'key' : 'ce04a28c61dd91222942a54edcdfefa3',
-                'format' : 'iframe',
-                'height' : 250,
-                'width' : 300,
-                'params' : {}
-            };
-        </script>
-        <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js"></script>
-    </div>
-        <script type="text/javascript">
-            atOptions = {
-                'key' : 'ce04a28c61dd91222942a54edcdfefa3',
-                'format' : 'iframe',
-                'height' : 250,
-                'width' : 300,
-                'params' : {}
-            };
-        </script>
-        <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js"></script>
-    </div>
-
-
-
 
     <!-- Container do Player -->
     <div id="player-container">
         <h2 id="titulo-serie">Carregando título...</h2>
         <iframe id="player" frameborder="0" allowfullscreen style="width: 100%; height: 500px;"></iframe>
         <div id="movie-name"></div>
+
+        <!-- Detalhes do filme -->
+        <div id="detalhes-filme" style="display:none;">
+            <img id="capa-filme" src="" alt="Capa do filme" />
+            <div id="info-filme">
+                <p id="descricao-filme"></p>
+                <p id="generos-filme"></p>
+            </div>
+        </div>
     </div>
 
     <!-- Anúncio abaixo do player -->
-        </script>
-
-
+    <div class="ads-container">
         <script async="async" data-cfasync="false" src="//pl26406530.profitableratecpm.com/6212237595b591e4197a075fd5b8b929/invoke.js"></script>
         <div id="container-6212237595b591e4197a075fd5b8b929"></div>
     </div>
@@ -98,7 +64,7 @@
         <p>&copy; 2025 StarMovies. Todos os direitos reservados.</p>
     </footer>
 
-    <!-- Script para carregar título e configurar player -->
+    <!-- Script para configurar player e carregar dados -->
     <script>
         document.addEventListener("DOMContentLoaded", async function () {
             const urlParams = new URLSearchParams(window.location.search);
@@ -120,22 +86,22 @@
             const parametros = "#noLink#noEpList#color:6c5ce7#transparent";
             document.getElementById("player").src = playerUrl + parametros;
 
-            const endpoint = tipo === "filme"
-                ? `http://127.0.0.1:5001/filme/titulo?id=${id}`
-                : `http://127.0.0.1:5001/serie/titulo?id=${id}`;
-
             try {
-                const res = await fetch(endpoint);
+                const res = await fetch(`http://127.0.0.1:5001/filme/detalhes?id=${id}`);
                 const data = await res.json();
-                const titulo = data.titulo || id;
 
-                document.getElementById("titulo-serie").textContent = `Assistindo: ${titulo}`;
-                document.getElementById("movie-name").textContent =
-                    `ID: ${id}` +
+                document.getElementById("titulo-serie").textContent = `Assistindo: ${data.titulo}`;
+                document.getElementById("movie-name").textContent = `ID: ${data.id}` +
                     (season ? ` | Temporada ${season}` : '') +
                     (episode ? ` | Episódio ${episode}` : '');
+
+                document.getElementById("capa-filme").src = data.capa;
+                document.getElementById("descricao-filme").textContent = data.descricao;
+                document.getElementById("generos-filme").textContent = "Gêneros: " + data.generos.join(', ');
+                document.getElementById("detalhes-filme").style.display = "flex";
+
             } catch (e) {
-                console.error("Erro ao buscar título:", e);
+                console.error("Erro ao buscar detalhes:", e);
                 document.getElementById("titulo-serie").textContent = `Assistindo: ${id}`;
             }
         });
