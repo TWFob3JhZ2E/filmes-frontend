@@ -48,46 +48,69 @@
     <script>
         document.addEventListener("DOMContentLoaded", async function () {
             const urlParams = new URLSearchParams(window.location.search);
-            const filme_id = urlParams.get("id");
-
-            if (!filme_id) {
-                document.getElementById("player-container").innerHTML = "<p>Filme não encontrado.</p>";
+            const id = urlParams.get("id");
+    
+            if (!id) {
+                document.getElementById("player-container").innerHTML = "<p>Filme ou Série não encontrado.</p>";
                 return;
             }
-
-            // Busca o filme a partir da URL de Backend do Render
-            const url = `${BACKEND_URL}/filme/detalhes?id=${filme_id}`;
-
+    
+            // Vamos tentar primeiro buscar como filme
+            let url = `${BACKEND_URL}/filme/detalhes?id=${id}`;
+    
             try {
-                const res = await fetch(url);
-                const data = await res.json();
-
+                let res = await fetch(url);
+                let data = await res.json();
+    
                 if (data.erro) {
-                    document.getElementById("titulo-serie").textContent = "Filme não encontrado.";
+                    // Se não for um filme, tentamos como série
+                    url = `${BACKEND_URL}/serie/detalhes?id=${id}`;
+                    res = await fetch(url);
+                    data = await res.json();
+    
+                    if (data.erro) {
+                        document.getElementById("titulo-serie").textContent = "Filme/Série não encontrado.";
+                    } else {
+                        // Atualizando as informações da série
+                        const serie = data;
+                        const titulo = serie.titulo;
+                        const descricao = serie.descricao;
+                        const capa = serie.capa;
+                        const generos = serie.generos.join(", ");
+    
+                        document.getElementById("titulo-serie").textContent = `Assistindo: ${titulo}`;
+                        document.getElementById("movie-name").textContent = `ID: ${id}`;
+                        document.getElementById("descricao").textContent = descricao;
+                        document.getElementById("generos").textContent = `Gêneros: ${generos}`;
+                        document.getElementById("capa").src = capa;
+    
+                        // Ajuste do player, URL do iframe para a série
+                        document.getElementById("player").src = `https://superflixapi.co/serie/${id}`;
+                    }
                 } else {
-                    // Atualizando as informações na página
+                    // Atualizando as informações do filme
                     const filme = data;
                     const titulo = filme.titulo;
                     const descricao = filme.descricao;
                     const capa = filme.capa;
                     const generos = filme.generos.join(", ");
-
+    
                     document.getElementById("titulo-serie").textContent = `Assistindo: ${titulo}`;
-                    document.getElementById("movie-name").textContent = `ID: ${filme_id}`;
+                    document.getElementById("movie-name").textContent = `ID: ${id}`;
                     document.getElementById("descricao").textContent = descricao;
                     document.getElementById("generos").textContent = `Gêneros: ${generos}`;
                     document.getElementById("capa").src = capa;
-
-                    // Ajuste do player, você pode personalizar a URL do iframe
-                    document.getElementById("player").src = `https://superflixapi.co/filme/${filme_id}`;
+    
+                    // Ajuste do player, URL do iframe para o filme
+                    document.getElementById("player").src = `https://superflixapi.co/filme/${id}`;
                 }
             } catch (e) {
-                console.error("Erro ao buscar filme:", e);
-                document.getElementById("titulo-serie").textContent = "Erro ao carregar filme.";
+                console.error("Erro ao buscar:", e);
+                document.getElementById("titulo-serie").textContent = "Erro ao carregar conteúdo.";
             }
         });
     </script>
-
+    
 </body>
 
 </html>
