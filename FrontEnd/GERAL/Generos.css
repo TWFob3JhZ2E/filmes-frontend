@@ -89,8 +89,8 @@ nav ul li.search {
 /* GENRE CARDS GRID */
 .destaques-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -100,14 +100,25 @@ nav ul li.search {
     position: relative;
     background-color: #222;
     border-radius: 1rem;
-    height: 200px;
+    aspect-ratio: 2 / 3;
     background-size: cover;
     background-position: center;
     overflow: hidden;
     transition: all 0.3s ease;
     cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
 }
 
+/* Overlay escuro para contraste */
+.genre-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent 60%);
+    z-index: 0;
+}
+
+/* Título do card */
 .genre-card h3 {
     position: absolute;
     bottom: 10px;
@@ -119,11 +130,13 @@ nav ul li.search {
     padding: 0.4rem 0.8rem;
     border-radius: 8px;
     text-transform: capitalize;
+    z-index: 1;
 }
 
+/* Efeito hover */
 .genre-card:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
 }
 
 /* FOOTER */
@@ -166,7 +179,7 @@ footer p {
 
 @media (max-width: 480px) {
     .genre-card {
-        height: 180px;
+        aspect-ratio: 2 / 3;
     }
 
     .genre-card h3 {
