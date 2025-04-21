@@ -49,6 +49,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Chamar funções ao carregar a página
     carregarFilmesNovos();
-    series();
+    carregarSeries();
     // carregarSeries(); // Descomente se quiser exibir séries também
 });
