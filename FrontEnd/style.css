@@ -211,7 +211,7 @@ nav ul li.search button:hover {
   font-size: 1.2rem;
   font-weight: 600;
   color: #fff;
-  background: linear-gradient(45deg, #2bff00, #ffffff);
+  background: linear-gradient(45deg, #0f5a01, #ffffff);
   border: none;
   border-radius: 50px;
   text-align: center;
@@ -223,7 +223,7 @@ nav ul li.search button:hover {
 
 .assistir-btn:hover,
 .assistir-btn:focus {
-  background: linear-gradient(45deg, #ffffff, #23e509);
+  background: linear-gradient(45deg, #ffffff, #0e6b02);
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(9, 229, 9, 0.5);
   outline: none;
