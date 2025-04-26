@@ -42,6 +42,76 @@ header .logo h1:hover {
   transform: scale(1.05);
 }
 
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #e0e0e0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 0.6rem 1.5rem;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+nav ul li a:hover,
+nav ul li a:focus {
+  color: #fff;
+  background-color: #e50914;
+  transform: translateY(-2px); /* Elevação suave */
+  box-shadow: 0 4px 10px rgba(229, 9, 20, 0.3);
+  outline: none;
+}
+
+
+/* Campo de pesquisa */
+nav ul li.search form {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+nav ul li.search input[type="text"] {
+  padding: 0.6rem 2.5rem 0.6rem 1rem;
+  border: 1px solid #444;
+  border-radius: 25px;
+  background-color: #1c1c1c;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+nav ul li.search input[type="text"]:focus {
+  border-color: #e50914;
+  background-color: #222;
+  box-shadow: 0 0 8px rgba(229, 9, 20, 0.3);
+  outline: none;
+}
+
+nav ul li.search button {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.4rem;
+  background-color: transparent;
+  border: none;
+  color: #e50914;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+nav ul li.search button:hover {
+  color: #fff;
+}
+
+
 /* --------------------------- Player de Vídeo --------------------------- */
 #player-container {
   text-align: center;
