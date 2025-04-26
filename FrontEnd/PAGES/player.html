@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Assistir Filme ou Série</title>
+    <title>Assistir Filme ou Série - StarMovies</title>
     <link rel="stylesheet" href="../GERAL/StyleWatch.css" />
     <link rel="icon" href="../FrontEnd/IMG/Logo1.png" type="image/x-icon">
 </head>
-
 <body>
     <header>
         <div class="logo">
@@ -19,27 +17,45 @@
                 <li><a href="../index.html">Início</a></li>
                 <li><a href="filmes.html">Filmes</a></li>
                 <li><a href="series.html">Séries</a></li>
-                <li><a href="/PAGES/Generos.html">Generos</a></li>
+                <li><a href="/PAGES/Generos.html">Gêneros</a></li>
+                <li class="search">
+                    <form role="search">
+                        <input type="text" placeholder="Buscar filmes ou séries..." aria-label="Buscar filmes ou séries" />
+                        <button type="submit" aria-label="Pesquisar">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                        </button>
+                    </form>
+                </li>
             </ul>
         </nav>
     </header>
+    <div class="orange-bar"></div>
 
-    <div id="player-container">
+    <main id="player-container" aria-live="polite">
         <h2 id="titulo-serie">Carregando título...</h2>
-        <div id="detalhes-filme">
+        <iframe id="player" frameborder="0" allowfullscreen aria-label="Player de vídeo"></iframe>
+        <a href="#" class="assistir-btn" id="assistir-btn">Assistir Agora</a>
+        <section id="detalhes-filme">
             <div id="info-filme">
-                <div id="movie-name">Nome do Filme</div>
-                <div id="generos">Ação, Aventura</div>
-                <div id="descricao">Aqui vai a descrição do filme, explicando um pouco mais sobre a história e o que o público pode esperar.</div>
+                <h3 id="movie-name">Nome do Filme</h3>
+                <p id="generos">Ação, Aventura</p>
+                <p id="descricao">Aqui vai a descrição do filme, explicando um pouco mais sobre a história e o que o público pode esperar.</p>
             </div>
             <img id="capa" src="capa-do-filme.jpg" alt="Capa do Filme" />
-        </div>
-        <iframe id="player" frameborder="0" allowfullscreen></iframe>
-    </div>
-    
+        </section>
+
+        <section class="ads-container" aria-label="Anúncios">
+            <h3>Patrocinadores</h3>
+            <div class="ad">Anúncio 1 - Conheça nossos parceiros!</div>
+            <div class="ad">Anúncio 2 - Ofertas exclusivas para você!</div>
+        </section>
+    </main>
 
     <footer>
-        <p>&copy; 2025 StarMovies. Todos os direitos reservados.</p>
+        <p>© 2025 StarMovies. Todos os direitos reservados.</p>
     </footer>
 
     <!-- Configuração do Backend -->
@@ -50,68 +66,62 @@
         document.addEventListener("DOMContentLoaded", async function () {
             const urlParams = new URLSearchParams(window.location.search);
             const id = urlParams.get("id");
-    
+            const playerContainer = document.getElementById("player-container");
+            const assistirBtn = document.getElementById("assistir-btn");
+
             if (!id) {
-                document.getElementById("player-container").innerHTML = "<p>Filme ou Série não encontrado.</p>";
+                playerContainer.innerHTML = "<p>Filme ou Série não encontrado.</p>";
                 return;
             }
-    
+
             // Vamos tentar primeiro buscar como filme
             let url = `${BACKEND_URL}/filme/detalhes?id=${id}`;
-    
+
             try {
                 let res = await fetch(url);
                 let data = await res.json();
-    
+
                 if (data.erro) {
                     // Se não for um filme, tentamos como série
                     url = `${BACKEND_URL}/serie/detalhes?id=${id}`;
                     res = await fetch(url);
                     data = await res.json();
-    
+
                     if (data.erro) {
                         document.getElementById("titulo-serie").textContent = "Filme/Série não encontrado.";
                     } else {
                         // Atualizando as informações da série
                         const serie = data;
-                        const titulo = serie.titulo;
-                        const descricao = serie.descricao;
-                        const capa = serie.capa;
-                        const generos = serie.generos.join(", ");
-    
-                        document.getElementById("titulo-serie").textContent = `Assistindo: ${titulo}`;
-                        document.getElementById("movie-name").textContent = `ID: ${id}`;
-                        document.getElementById("descricao").textContent = descricao;
-                        document.getElementById("generos").textContent = `Gêneros: ${generos}`;
-                        document.getElementById("capa").src = capa;
-    
-                        // Ajuste do player, URL do iframe para a série
-                        document.getElementById("player").src = `https://superflixapi.co/serie/${id}`;
+                        updatePlayerContent(serie, id, "serie");
                     }
                 } else {
                     // Atualizando as informações do filme
                     const filme = data;
-                    const titulo = filme.titulo;
-                    const descricao = filme.descricao;
-                    const capa = filme.capa;
-                    const generos = filme.generos.join(", ");
-    
-                    document.getElementById("titulo-serie").textContent = `Assistindo: ${titulo}`;
-                    document.getElementById("movie-name").textContent = `ID: ${id}`;
-                    document.getElementById("descricao").textContent = descricao;
-                    document.getElementById("generos").textContent = `Gêneros: ${generos}`;
-                    document.getElementById("capa").src = capa;
-    
-                    // Ajuste do player, URL do iframe para o filme
-                    document.getElementById("player").src = `https://superflixapi.co/filme/${id}`;
+                    updatePlayerContent(filme, id, "filme");
                 }
             } catch (e) {
                 console.error("Erro ao buscar:", e);
                 document.getElementById("titulo-serie").textContent = "Erro ao carregar conteúdo.";
             }
+
+            // Função para atualizar o conteúdo do player
+            function updatePlayerContent(content, id, type) {
+                const { titulo, descricao, capa, generos } = content;
+                document.getElementById("titulo-serie").textContent = `Assistindo: ${titulo}`;
+                document.getElementById("movie-name").textContent = `ID: ${id}`;
+                document.getElementById("descricao").textContent = descricao;
+                document.getElementById("generos").textContent = `Gêneros: ${generos.join(", ")}`;
+                document.getElementById("capa").src = capa;
+                document.getElementById("capa").alt = `Capa de ${titulo}`;
+
+                // Configurar o player
+                const playerSrc = `https://superflixapi.co/${type}/${id}`;
+                document.getElementById("player").src = playerSrc;
+
+                // Atualizar o botão "Assistir"
+                assistirBtn.href = playerSrc;
+            }
         });
     </script>
-    
 </body>
-
 </html>
