@@ -1,3 +1,4 @@
+
 /* --------------------------- Reset básico --------------------------- */
 * {
   margin: 0;
@@ -5,13 +6,12 @@
   box-sizing: border-box;
 }
 
-/* --------------------------- Estilos gerais --------------------------- */
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #121212;
-  color: #fff;
-  line-height: 1.6;
-  padding-top: 6rem;
+  font-family: 'Poppins', sans-serif; /* Mesma fonte do site */
+  background-color: #0a0a0a; /* Fundo escuro profundo */
+  color: #e0e0e0; /* Texto claro */
+  line-height: 1.8;
+  scroll-behavior: smooth;
 }
 
 /* --------------------------- HEADER --------------------------- */
@@ -19,56 +19,56 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.25rem 2.5rem;
-  background-color: rgba(34, 34, 34, 0.8);
+  padding: 1.5rem 4rem;
+  background: linear-gradient(180deg, #141414, #0a0a0a); /* Gradiente do site */
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 10;
-  backdrop-filter: blur(10px);
-  transition: background-color 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 header .logo h1 {
+  font-family: 'Montserrat', sans-serif; /* Mesma fonte do logo */
   font-size: 2.5rem;
-  color: #f4a300;
-  font-weight: 700;
-  margin: 0;
-  letter-spacing: 1px;
+  color: #e50914; /* Vermelho vibrante */
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: transform 0.3s ease;
 }
 
-header:hover {
-  background-color: rgba(34, 34, 34, 1);
+header .logo h1:hover {
+  transform: scale(1.05); /* Efeito de hover do site */
 }
 
 /* --------------------------- Player de Vídeo --------------------------- */
 #player-container {
   text-align: center;
-  padding: 2rem;
-  margin-top: 8rem;
-  background-color: #333;
+  padding: 3rem 2rem;
+  margin: 3rem auto;
+  background-color: #1c1c1c; /* Fundo consistente com os cards do site */
   border-radius: 12px;
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 1200px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
 }
 
 #player {
   width: 100%;
-  height: 600px;
+  max-height: 600px;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
 }
 
 #titulo-serie {
-  font-size: 2.2rem;
-  color: #f4a300;
-  margin-bottom: 1.5rem;
-  font-weight: 700;
+  font-family: 'Montserrat', sans-serif; /* Mesma fonte dos títulos */
+  font-size: 2.8rem;
+  color: #e50914; /* Vermelho vibrante */
+  margin-bottom: 2rem;
   text-transform: uppercase;
   letter-spacing: 1px;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
 }
 
 #detalhes-filme {
@@ -77,7 +77,6 @@ header:hover {
   gap: 2rem;
   margin-top: 2rem;
   text-align: left;
-  justify-content: flex-start;
 }
 
 #info-filme {
@@ -86,24 +85,24 @@ header:hover {
 }
 
 #movie-name {
+  font-family: 'Montserrat', sans-serif;
   font-size: 2rem;
   color: #fff;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 #generos {
   font-size: 1.2rem;
-  color: #f4a300;
-  font-weight: bold;
+  color: #e50914; /* Cor consistente */
+  font-weight: 500;
   margin-top: 0.5rem;
 }
 
 #descricao {
-  font-size: 1.1rem;
-  color: #ccc;
+  font-size: 1rem;
+  color: #b3b3b3; /* Mesma cor dos textos secundários */
   margin-top: 1.5rem;
   line-height: 1.8;
-  text-align: justify;
 }
 
 /* Estilos para a capa do filme */
@@ -117,62 +116,175 @@ header:hover {
 }
 
 #capa:hover {
-  transform: scale(1.05);
+  transform: scale(1.05); /* Mesmo efeito dos cards */
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.9);
+}
+
+/* Botão Assistir (reutilizando o estilo do site) */
+.assistir-btn {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(45deg, #e50914, #b20710); /* Gradiente vermelho */
+  border: none;
+  border-radius: 50px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin: 1.5rem 0;
+}
+
+.assistir-btn:hover,
+.assistir-btn:focus {
+  background: linear-gradient(45deg, #b20710, #e50914);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(229, 9, 20, 0.5);
+  outline: none;
+}
+
+.assistir-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(229, 9, 20, 0.3);
 }
 
 /* --------------------------- Propagandas --------------------------- */
 .ads-container {
-  margin: 2rem auto;
-  padding: 1rem;
-  background-color: #444;
-  border-radius: 8px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #1c1c1c; /* Fundo consistente */
+  border-radius: 12px;
   text-align: center;
-  max-width: 1000px;
+  max-width: 1200px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
 }
 
 .ads-container h3 {
-  font-size: 1.5rem;
-  color: #f4a300;
-  margin-bottom: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2rem;
+  color: #e50914;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
 }
 
 .ad {
-  background-color: #555;
-  color: #fff;
-  padding: 1rem;
+  background-color: #222; /* Tom mais escuro */
+  color: #e0e0e0;
+  padding: 1.5rem;
   margin: 1rem 0;
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 1rem;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .ad:hover {
-  background-color: #f4a300;
-  cursor: pointer;
+  background-color: #e50914; /* Cor de hover consistente */
+  color: #fff;
   transform: scale(1.03);
+  box-shadow: 0 4px 10px rgba(229, 9, 20, 0.3);
 }
 
 /* --------------------------- FOOTER --------------------------- */
 footer {
-  background-color: #222;
-  color: #fff;
+  background: linear-gradient(180deg, #0a0a0a, #141414); /* Gradiente do site */
+  color: #b3b3b3;
   text-align: center;
-  padding: 1.25rem 0;
-  position: relative;
-  bottom: 0;
-  width: 100%;
+  padding: 3rem 2rem;
   margin-top: 3rem;
 }
 
 footer p {
-  margin: 0;
   font-size: 1rem;
-  opacity: 0.7;
+  margin: 0;
+  letter-spacing: 0.5px;
 }
 
-header .logo h1:hover {
-  color: #fff;
-  text-shadow: 0 0 10px rgba(255, 165, 0, 0.7);
+/* --------------------------- Responsividade --------------------------- */
+@media (max-width: 1024px) {
+  #player-container {
+    padding: 2rem 1.5rem;
+    max-width: 100%;
+  }
+
+  #player {
+    max-height: 500px;
+  }
+
+  #detalhes-filme {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  #info-filme {
+    max-width: 100%;
+  }
+
+  #capa {
+    width: 200px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  header .logo h1 {
+    font-size: 2rem;
+  }
+
+  #titulo-serie {
+    font-size: 2.2rem;
+  }
+
+  #player {
+    max-height: 400px;
+  }
+
+  #movie-name {
+    font-size: 1.8rem;
+  }
+
+  #generos {
+    font-size: 1rem;
+  }
+
+  #descricao {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #player-container {
+    padding: 1.5rem 1rem;
+    margin: 2rem 1rem;
+  }
+
+  #titulo-serie {
+    font-size: 1.8rem;
+  }
+
+  #player {
+    max-height: 300px;
+  }
+
+  #capa {
+    width: 150px;
+    height: 225px;
+  }
+
+  .assistir-btn {
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .ads-container {
+    padding: 1.5rem 1rem;
+  }
 }
