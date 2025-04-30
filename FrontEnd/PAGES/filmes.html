@@ -6,48 +6,6 @@
   <title>Lista de Filmes - StarMovies</title>
   <link rel="stylesheet" href="../GERAL/style.css">
   <link rel="icon" href="../IMG/Logo1.png" type="image/x-icon">
-  <style>
-    #pagination-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      margin: 20px 0;
-    }
-    .page-btn {
-      padding: 8px 12px;
-      border: 1px solid #ccc;
-      background: #f9f9f9;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    .page-btn.active {
-      background: #007bff;
-      color: white;
-      border-color: #007bff;
-    }
-    .page-btn:hover {
-      background: #e0e0e0;
-    }
-    #prev-btn, #next-btn {
-      padding: 8px 12px;
-      border: 1px solid #ccc;
-      background: #f9f9f9;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    #prev-btn:disabled, #next-btn:disabled {
-      background: #e0e0e0;
-      cursor: not-allowed;
-    }
-    #page-input {
-      width: 60px;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      text-align: center;
-    }
-  </style>
 </head>
 <body>
   <header>
@@ -117,13 +75,14 @@
 
   <h2>Filmes Populares</h2>
   <main>
+    <div id="filmes-container"></div>
+    
     <div id="pagination-container">
       <button id="prev-btn" aria-label="Página anterior">Anterior</button>
       <div id="page-numbers"></div>
       <button id="next-btn" aria-label="Próxima página">Próximo</button>
       <input type="number" id="page-input" min="1" placeholder="Página" aria-label="Ir para página específica">
     </div>
-    <div id="filmes-container"></div>
   </main>
 
   <div>
