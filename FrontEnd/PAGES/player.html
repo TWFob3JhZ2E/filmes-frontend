@@ -43,6 +43,7 @@
         <iframe id="player" frameborder="0" allowfullscreen aria-label="Player de vídeo"></iframe>
         <section id="detalhes-filme">
             <div id="info-filme">
+                <h3>Em caso de erro, reinicie a pagina e bom filme :3</h3>
                 <h3 id="movie-name">Nome do Filme</h3>
                 <p id="generos">Ação, Aventura</p>
                 <p id="descricao">Aqui vai a descrição do filme, explicando um pouco mais sobre a história e o que o
@@ -144,7 +145,6 @@
             } catch (e) {
                 console.error("Erro ao buscar:", e);
                 document.getElementById("titulo-serie").textContent = "seu play esta carregando";
-                document.getElementById("titulo-serie").textContent = "em caso de erro reinicie a pagina";
             }
 
             // Função para atualizar o conteúdo do player
