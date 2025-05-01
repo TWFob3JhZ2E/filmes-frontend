@@ -31,7 +31,7 @@ async function buscarSugestoes(texto) {
             div.appendChild(span);
 
             div.onclick = () => {
-                window.location.href = `PAGES/player.html?id=${item.id}`;
+                window.location.href = `player.html?id=${item.id}`;
             };
 
             sugestoesDiv.appendChild(div);
