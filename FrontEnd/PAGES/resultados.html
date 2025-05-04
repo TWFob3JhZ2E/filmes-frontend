@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados por Gênero</title>
+    <link rel="stylesheet" href="../GERAL/Resul.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>StarMovies</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Início</a></li>
+                <li><a href="/PAGES/filmes.html">Filmes</a></li>
+                <li><a href="/PAGES/series.html">Séries</a></li>
+                <li><a href="/PAGES/Generos.html">Gêneros</a></li>
+                <li><a href="/PAGES/sobre.html">Sobre</a></li>
+                <li class="search">
+                    <form onsubmit="return false;" style="position: relative;">
+                        <input type="text" placeholder="Buscar gênero..." id="search" autocomplete="off" oninput="buscarSugestoes(this.value)">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                        <div id="sugestoes"></div>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="orange-bar"></div>
+    <section class="resultados">
+        <h2>Resultados para "<span id="genero"></span>"</h2>
+        <div class="resultados-grid" id="resultados"></div>
+        <div id="pagination-container">
+            <button id="prev-btn" disabled>Anterior</button>
+            <input type="number" id="page-input" min="1" value="1">
+            <button id="next-btn">Próximo</button>
+        </div>
+    </section>
+    <footer>
+        <p>© 2025 Filmes Inc. - Todos os direitos reservados.</p>
+    </footer>
+    <script>
+        let currentPage = 1;
+        let totalPages = 1;
+        let currentGenero = '';
+
+        async function buscarSugestoes(query) {
+            const sugestoesDiv = document.getElementById('sugestoes');
+            sugestoesDiv.innerHTML = '';
+
+            if (!query) return;
+
+            try {
+                const response = await fetch(`/buscar_generos?q=${encodeURIComponent(query)}`);
+                const generos = await response.json();
+
+                if (generos.length === 0) {
+                    sugestoesDiv.innerHTML = '<div class="sugestao-item"><span>Nenhum gênero encontrado</span></div>';
+                    return;
+                }
+
+                generos.forEach(genero => {
+                    const sugestao = document.createElement('div');
+                    sugestao.classList.add('sugestao-item');
+                    sugestao.innerHTML = `<span>${genero}</span>`;
+                    sugestao.onclick = () => {
+                        document.getElementById('search').value = genero;
+                        sugestoesDiv.innerHTML = '';
+                        window.location.href = `/resultados.html?genero=${encodeURIComponent(genero)}`;
+                    };
+                    sugestoesDiv.appendChild(sugestao);
+                });
+            } catch (error) {
+                console.error('Erro ao buscar gêneros:', error);
+                sugestoesDiv.innerHTML = '<div class="sugestao-item"><span>Erro ao carregar sugestões</span></div>';
+            }
+        }
+
+        async function carregarResultados(pagina = 1) {
+            const params = new URLSearchParams(window.location.search);
+            const genero = params.get('genero');
+            if (!genero) {
+                document.getElementById('resultados').innerHTML = '<p>Gênero não especificado</p>';
+                return;
+            }
+
+            currentGenero = genero;
+            document.getElementById('genero').textContent = genero;
+
+            try {
+                const response = await fetch(`/buscar_por_genero?genero=${encodeURIComponent(genero)}&pagina=${pagina}`);
+                const data = await response.json();
+
+                const resultadosDiv = document.getElementById('resultados');
+                resultadosDiv.innerHTML = '';
+
+                if (data.mensagem) {
+                    resultadosDiv.innerHTML = `<p>${data.mensagem}</p>`;
+                    return;
+                }
+
+                data.resultados.forEach(item => {
+                    const card = document.createElement('div');
+                    card.classList.add('resultado-item');
+                    card.innerHTML = `
+                        <img src="${item.capa}" alt="${item.titulo}">
+                        <div class="overlay">
+                            <h3>${item.titulo}</h3>
+                            <p>${item.qualidade}</p>
+                        </div>
+                    `;
+                    card.onclick = () => {
+                        const tipo = item.qualidade.includes('Série') ? 'serie' : 'filme';
+                        window.location.href = `/${tipo}/detalhes?id=${item.id}`;
+                    };
+                    resultadosDiv.appendChild(card);
+                });
+
+                // Atualizar paginação
+                currentPage = data.pagina_atual;
+                totalPages = data.total_paginas;
+                document.getElementById('page-input').value = currentPage;
+                document.getElementById('page-input').max = totalPages;
+
+                const prevBtn = document.getElementById('prev-btn');
+                const nextBtn = document.getElementById('next-btn');
+                prevBtn.disabled = currentPage === 1;
+                nextBtn.disabled = currentPage === totalPages;
+            } catch (error) {
+                console.error('Erro ao carregar resultados:', error);
+                document.getElementById('resultados').innerHTML = '<p>Erro ao carregar resultados</p>';
+            }
+        }
+
+        // Configurar eventos de paginação
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            if (currentPage > 1) {
+                carregarResultados(currentPage - 1);
+            }
+        });
+
+        document.getElementById('next-btn').addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                carregarResultados(currentPage + 1);
+            }
+        });
+
+        document.getElementById('page-input').addEventListener('change', (e) => {
+            let pagina = parseInt(e.target.value);
+            if (pagina < 1) pagina = 1;
+            if (pagina > totalPages) pagina = totalPages;
+            carregarResultados(pagina);
+        });
+
+        // Carrega os resultados ao abrir a página
+        carregarResultados();
+    </script>
+</body>
+</html>
