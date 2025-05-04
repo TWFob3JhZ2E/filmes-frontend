@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gêneros de Filmes</title>
     <link rel="stylesheet" href="../GERAL/Generos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
@@ -21,6 +22,7 @@
                 <li class="search">
                     <form onsubmit="return false;" style="position: relative;">
                         <input type="text" placeholder="Buscar gênero..." id="search" autocomplete="off" oninput="buscarSugestoes(this.value)">
+                        <button type="submit"><i class="fas fa-search"></i></button>
                         <div id="sugestoes"></div>
                     </form>
                 </li>
@@ -31,7 +33,7 @@
     <section class="destaques">
         <h2>Principais Gêneros</h2>
         <div class="destaques-cards">
-            <div class="genre-card" style="background-image: url('../capas/WICK.jpg');" onclick="filtrarPorGenero('Action')">
+            <div class="genre-card" style="background-image: url('../capas/WICK.jpg');" onclick="filtrarPorGenero('Ação')">
                 <h3>Ação</h3>
             </div>
             <div class="genre-card" style="background-image: url('../capas/diverti.png');" onclick="filtrarPorGenero('Animação')">
@@ -96,7 +98,7 @@
     <script>
         async function buscarSugestoes(query) {
             const sugestoesDiv = document.getElementById('sugestoes');
-            sugestoesDiv.innerHTML = ''; // Limpa sugestões anteriores
+            sugestoesDiv.innerHTML = '';
 
             if (!query) return;
 
@@ -105,14 +107,14 @@
                 const generos = await response.json();
 
                 if (generos.length === 0) {
-                    sugestoesDiv.innerHTML = '<p>Nenhum gênero encontrado</p>';
+                    sugestoesDiv.innerHTML = '<div class="sugestao-item"><span>Nenhum gênero encontrado</span></div>';
                     return;
                 }
 
                 generos.forEach(genero => {
                     const sugestao = document.createElement('div');
-                    sugestao.textContent = genero;
-                    sugestao.classList.add('sugestao');
+                    sugestao.classList.add('sugestao-item');
+                    sugestao.innerHTML = `<span>${genero}</span>`;
                     sugestao.onclick = () => {
                         document.getElementById('search').value = genero;
                         sugestoesDiv.innerHTML = '';
@@ -122,11 +124,12 @@
                 });
             } catch (error) {
                 console.error('Erro ao buscar gêneros:', error);
-                sugestoesDiv.innerHTML = '<p>Erro ao carregar sugestões</p>';
+                sugestoesDiv.innerHTML = '<div class="sugestao-item"><span>Erro ao carregar sugestões</span></div>';
             }
         }
 
         function filtrarPorGenero(genero) {
+            console.log(`Redirecionando para: /resultados.html?genero=${encodeURIComponent(genero)}`);
             window.location.href = `/resultados.html?genero=${encodeURIComponent(genero)}`;
         }
     </script>
