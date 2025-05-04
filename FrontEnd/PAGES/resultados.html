@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultados por Gênero</title>
     <link rel="stylesheet" href="../GERAL/Resul.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
@@ -13,7 +14,7 @@
         </div>
         <nav>
             <ul>
-                <li><a href="../index.html">Início</a></li>
+                <li><a href="/index.html">Início</a></li>
                 <li><a href="/PAGES/filmes.html">Filmes</a></li>
                 <li><a href="/PAGES/series.html">Séries</a></li>
                 <li><a href="/PAGES/Generos.html">Gêneros</a></li>
@@ -39,8 +40,9 @@
         </div>
     </section>
     <footer>
-        <p>© 2025 Filmes Inc. - Todos os direitos reservados.</p>
+        <p>© 2025 StarMovies - Todos os direitos reservados.</p>
     </footer>
+    <script src="/Conex/Config.js"></script>
     <script>
         let currentPage = 1;
         let totalPages = 1;
@@ -53,7 +55,7 @@
             if (!query) return;
 
             try {
-                const response = await fetch(`/buscar_generos?q=${encodeURIComponent(query)}`);
+                const response = await fetch(`${BACKEND_URL}/buscar_generos?q=${encodeURIComponent(query)}`);
                 const generos = await response.json();
 
                 if (generos.length === 0) {
@@ -68,7 +70,7 @@
                     sugestao.onclick = () => {
                         document.getElementById('search').value = genero;
                         sugestoesDiv.innerHTML = '';
-                        window.location.href = `/resultados.html?genero=${encodeURIComponent(genero)}`;
+                        window.location.href = `/PAGES/resultados.html?genero=${encodeURIComponent(genero)}`;
                     };
                     sugestoesDiv.appendChild(sugestao);
                 });
@@ -90,7 +92,7 @@
             document.getElementById('genero').textContent = genero;
 
             try {
-                const response = await fetch(`/buscar_por_genero?genero=${encodeURIComponent(genero)}&pagina=${pagina}`);
+                const response = await fetch(`${BACKEND_URL}/buscar_por_genero?genero=${encodeURIComponent(genero)}&pagina=${pagina}`);
                 const data = await response.json();
 
                 const resultadosDiv = document.getElementById('resultados');
@@ -113,7 +115,7 @@
                     `;
                     card.onclick = () => {
                         const tipo = item.qualidade.includes('Série') ? 'serie' : 'filme';
-                        window.location.href = `/${tipo}/detalhes?id=${item.id}`;
+                        window.location.href = `/PAGES/detalhes.html?tipo=${tipo}&id=${item.id}`;
                     };
                     resultadosDiv.appendChild(card);
                 });
