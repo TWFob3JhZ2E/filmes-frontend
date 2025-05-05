@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/GERAL/StyleWatch.css">
     <link rel="icon" href="/IMG/Logo1.png" type="image/x-icon">
     <style>
-        /* Estilos adicionais para mensagens de erro */
+        /* Estilos para mensagens de erro */
         .error-message {
             color: #e50914;
             font-size: 1.2rem;
@@ -17,6 +17,46 @@
             background-color: #1c1c1c;
             border-radius: 8px;
         }
+
+        /* Estilos para o loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #fff;
+            border-top: 5px solid #ff6200;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loader p {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loader.hidden {
+            display: none;
+        }
+
         #player {
             width: 100%;
             min-height: 500px;
@@ -52,8 +92,13 @@
     <div class="orange-bar"></div>
 
     <main id="player-container" aria-live="polite">
+        <!-- Loader -->
+        <div id="loader" class="loader">
+            <div class="spinner"></div>
+            <p>Carregando filme, por favor aguarde...</p>
+        </div>
         <h2 id="titulo-serie">Carregando título...</h2>
-        <iframe id="player" frameborder="0" allowfullscreen aria-label="Player de vídeo"></iframe>
+        <iframe id="player" loading="lazy" frameborder="0" allowfullscreen aria-label="Player de vídeo"></iframe>
         <section id="detalhes-filme">
             <div id="info-filme">
                 <h3>Em caso de erro, reinicie a página e bom filme :3</h3>
@@ -113,44 +158,47 @@
             const urlParams = new URLSearchParams(window.location.search);
             const id = urlParams.get("id");
             const playerContainer = document.getElementById("player-container");
+            const loader = document.getElementById("loader");
 
             if (!id) {
+                loader.classList.add("hidden");
                 playerContainer.innerHTML = '<p class="error-message">Erro: Nenhum ID fornecido na URL.</p>';
                 return;
             }
 
-            async function fetchContent(type, url) {
-                try {
-                    const response = await fetch(url);
-                    if (!response.ok) {
-                        throw new Error(`HTTP ${response.status}`);
-                    }
-                    return await response.json();
-                } catch (error) {
-                    console.error(`Erro ao buscar ${type}:`, error);
-                    return { erro: `Erro ao buscar ${type}` };
-                }
-            }
+            async function fetchContent(id) {
+                const filmeUrl = `${BACKEND_URL}/filme/detalhes?id=${id}`;
+                const serieUrl = `${BACKEND_URL}/serie/detalhes?id=${id}`;
 
-            // Tenta buscar como filme primeiro
-            let url = `${BACKEND_URL}/filme/detalhes?id=${id}`;
-            let data = await fetchContent('filme', url);
+                const [filmeResponse, serieResponse] = await Promise.all([
+                    fetch(filmeUrl).then(res => res.json()).catch(() => ({ erro: 'Erro ao buscar filme' })),
+                    fetch(serieUrl).then(res => res.json()).catch(() => ({ erro: 'Erro ao buscar série' }))
+                ]);
 
-            if (data.erro) {
-                // Se não for filme, tenta como série
-                url = `${BACKEND_URL}/serie/detalhes?id=${id}`;
-                data = await fetchContent('série', url);
-
-                if (data.erro) {
-                    playerContainer.innerHTML = '<p class="error-message">Filme ou série não encontrado. Verifique o ID ou tente novamente mais tarde.</p>';
-                    document.getElementById("titulo-serie").textContent = "Erro ao carregar";
-                    return;
+                if (!filmeResponse.erro) {
+                    return { data: filmeResponse, type: 'filme' };
+                } else if (!serieResponse.erro) {
+                    return { data: serieResponse, type: 'serie' };
                 } else {
-                    updatePlayerContent(data, id, "serie");
+                    return { erro: 'Filme ou série não encontrado' };
                 }
-            } else {
-                updatePlayerContent(data, id, "filme");
             }
+
+            // Mostrar loader
+            loader.classList.remove("hidden");
+
+            const result = await fetchContent(id);
+
+            // Esconder loader
+            loader.classList.add("hidden");
+
+            if (result.erro) {
+                playerContainer.innerHTML = '<p class="error-message">Filme ou série não encontrado. Verifique o ID ou tente novamente mais tarde.</p>';
+                document.getElementById("titulo-serie").textContent = "Erro ao carregar";
+                return;
+            }
+
+            updatePlayerContent(result.data, id, result.type);
 
             function updatePlayerContent(content, id, type) {
                 const {
@@ -161,6 +209,7 @@
                     qualidade = "Qualidade desconhecida"
                 } = content;
 
+                // Atualizar detalhes primeiro
                 document.getElementById("titulo-serie").textContent = `Assistindo: ${titulo}`;
                 document.getElementById("movie-name").textContent = titulo;
                 document.getElementById("descricao").textContent = descricao;
@@ -168,8 +217,8 @@
                 document.getElementById("capa").src = capa;
                 document.getElementById("capa").alt = `Capa de ${titulo}`;
 
-                // Configurar o player
-                const playerSrc = `https://superflixapi.in/${type}/${id}`;
+                // Carregar iframe após detalhes
+                const playerSrc = `https://superflixapi.nexus/${type}/${id}`;
                 const player = document.getElementById("player");
                 player.src = playerSrc;
                 player.title = `Assistindo ${titulo}`;
