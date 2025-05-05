@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assistir Filme ou Série - StarMovies</title>
-    <link rel="stylesheet" href="../GERAL/StyleWatch.css" />
-    <link rel="icon" href="../FrontEnd/IMG/Logo1.png" type="image/x-icon">
+    <link rel="stylesheet" href="/GERAL/StyleWatch.css">
+    <link rel="icon" href="/IMG/Logo1.png" type="image/x-icon">
+    <style>
+        /* Estilos adicionais para mensagens de erro */
+        .error-message {
+            color: #e50914;
+            font-size: 1.2rem;
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            background-color: #1c1c1c;
+            border-radius: 8px;
+        }
+        #player {
+            width: 100%;
+            min-height: 500px;
+            background-color: #000;
+        }
+    </style>
 </head>
-
 <body>
     <header>
         <div class="logo">
@@ -16,17 +31,15 @@
         </div>
         <nav>
             <ul>
-                <li><a href="../index.html">Início</a></li>
-                <li><a href="filmes.html">Filmes</a></li>
-                <li><a href="series.html">Séries</a></li>
+                <li><a href="/index.html">Início</a></li>
+                <li><a href="/PAGES/filmes.html">Filmes</a></li>
+                <li><a href="/PAGES/series.html">Séries</a></li>
                 <li><a href="/PAGES/Generos.html">Gêneros</a></li>
                 <li class="search">
-                    <form role="search">
-                        <input type="text" placeholder="Buscar filmes ou séries..."
-                            aria-label="Buscar filmes ou séries" />
+                    <form role="search" onsubmit="return false;">
+                        <input type="text" placeholder="Buscar filmes ou séries..." aria-label="Buscar filmes ou séries" id="search-input">
                         <button type="submit" aria-label="Pesquisar">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <circle cx="11" cy="11" r="8"></circle>
                                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                             </svg>
@@ -43,19 +56,16 @@
         <iframe id="player" frameborder="0" allowfullscreen aria-label="Player de vídeo"></iframe>
         <section id="detalhes-filme">
             <div id="info-filme">
-                <h3>Em caso de erro, reinicie a pagina e bom filme :3</h3>
+                <h3>Em caso de erro, reinicie a página e bom filme :3</h3>
                 <h3 id="movie-name">Nome do Filme</h3>
-                <p id="generos">Ação, Aventura</p>
-                <p id="descricao">Aqui vai a descrição do filme, explicando um pouco mais sobre a história e o que o
-                    público pode esperar.</p>
+                <p id="generos">Gêneros: Carregando...</p>
+                <p id="descricao">Carregando descrição...</p>
             </div>
-            <img id="capa" src="capa-do-filme.jpg" alt="Capa do Filme" />
+            <img id="capa" src="/IMG/placeholder.jpg" alt="Capa do Filme" />
         </section>
 
         <section class="ads-container" aria-label="Anúncios">
-
-            <script async="async" data-cfasync="false"
-                src="//pl26406530.profitableratecpm.com/6212237595b591e4197a075fd5b8b929/invoke.js"></script>
+            <script async="async" data-cfasync="false" src="//pl26406530.profitableratecpm.com/6212237595b591e4197a075fd5b8b929/invoke.js"></script>
             <div id="container-6212237595b591e4197a075fd5b8b929"></div>
 
             <script type="text/javascript">
@@ -67,8 +77,7 @@
                     'params': {}
                 };
             </script>
-            <script type="text/javascript"
-                src="//www.highperformanceformat.com/b38227437180d69db263a0b06fc48d56/invoke.js"></script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/b38227437180d69db263a0b06fc48d56/invoke.js"></script>
 
             <script type="text/javascript">
                 atOptions = {
@@ -79,9 +88,8 @@
                     'params': {}
                 };
             </script>
-            <script type="text/javascript"
-                src="//www.highperformanceformat.com/b38227437180d69db263a0b06fc48d56/invoke.js"></script>
-                
+            <script type="text/javascript" src="//www.highperformanceformat.com/b38227437180d69db263a0b06fc48d56/invoke.js"></script>
+
             <script type="text/javascript">
                 atOptions = {
                     'key': 'b38227437180d69db263a0b06fc48d56',
@@ -91,9 +99,7 @@
                     'params': {}
                 };
             </script>
-            <script type="text/javascript"
-                src="//www.highperformanceformat.com/b38227437180d69db263a0b06fc48d56/invoke.js"></script>
-
+            <script type="text/javascript" src="//www.highperformanceformat.com/b38227437180d69db263a0b06fc48d56/invoke.js"></script>
         </section>
     </main>
 
@@ -101,71 +107,74 @@
         <p>© 2025 StarMovies. Todos os direitos reservados.</p>
     </footer>
 
-    <!-- Configuração do Backend -->
     <script src="/Conex/Config.js"></script>
-
-    <!-- Script para carregar título e configurar player -->
     <script>
         document.addEventListener("DOMContentLoaded", async function () {
             const urlParams = new URLSearchParams(window.location.search);
             const id = urlParams.get("id");
             const playerContainer = document.getElementById("player-container");
-            const assistirBtn = document.getElementById("assistir-btn");
 
             if (!id) {
-                playerContainer.innerHTML = "<p>Filme ou Série não encontrado.</p>";
+                playerContainer.innerHTML = '<p class="error-message">Erro: Nenhum ID fornecido na URL.</p>';
                 return;
             }
 
-            // Vamos tentar primeiro buscar como filme
-            let url = `${BACKEND_URL}/filme/detalhes?id=${id}`;
-
-            try {
-                let res = await fetch(url);
-                let data = await res.json();
-
-                if (data.erro) {
-                    // Se não for um filme, tentamos como série
-                    url = `${BACKEND_URL}/serie/detalhes?id=${id}`;
-                    res = await fetch(url);
-                    data = await res.json();
-
-                    if (data.erro) {
-                        document.getElementById("titulo-serie").textContent = "Filme/Série não encontrado.";
-                    } else {
-                        // Atualizando as informações da série
-                        const serie = data;
-                        updatePlayerContent(serie, id, "serie");
+            async function fetchContent(type, url) {
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
                     }
-                } else {
-                    // Atualizando as informações do filme
-                    const filme = data;
-                    updatePlayerContent(filme, id, "filme");
+                    return await response.json();
+                } catch (error) {
+                    console.error(`Erro ao buscar ${type}:`, error);
+                    return { erro: `Erro ao buscar ${type}` };
                 }
-            } catch (e) {
-                console.error("Erro ao buscar:", e);
-                document.getElementById("titulo-serie").textContent = "seu play esta carregando";
             }
 
-            // Função para atualizar o conteúdo do player
+            // Tenta buscar como filme primeiro
+            let url = `${BACKEND_URL}/filme/detalhes?id=${id}`;
+            let data = await fetchContent('filme', url);
+
+            if (data.erro) {
+                // Se não for filme, tenta como série
+                url = `${BACKEND_URL}/serie/detalhes?id=${id}`;
+                data = await fetchContent('série', url);
+
+                if (data.erro) {
+                    playerContainer.innerHTML = '<p class="error-message">Filme ou série não encontrado. Verifique o ID ou tente novamente mais tarde.</p>';
+                    document.getElementById("titulo-serie").textContent = "Erro ao carregar";
+                    return;
+                } else {
+                    updatePlayerContent(data, id, "serie");
+                }
+            } else {
+                updatePlayerContent(data, id, "filme");
+            }
+
             function updatePlayerContent(content, id, type) {
-                const { titulo, descricao, capa, generos } = content;
+                const {
+                    titulo = "Título indisponível",
+                    descricao = "Descrição não disponível",
+                    capa = "/IMG/placeholder.jpg",
+                    generos = ["Não especificado"],
+                    qualidade = "Qualidade desconhecida"
+                } = content;
+
                 document.getElementById("titulo-serie").textContent = `Assistindo: ${titulo}`;
-                document.getElementById("movie-name").textContent = `ID: ${id}`;
+                document.getElementById("movie-name").textContent = titulo;
                 document.getElementById("descricao").textContent = descricao;
-                document.getElementById("generos").textContent = `Gêneros: ${generos.join(", ")}`;
+                document.getElementById("generos").textContent = `Gêneros: ${Array.isArray(generos) ? generos.join(", ") : generos}`;
                 document.getElementById("capa").src = capa;
                 document.getElementById("capa").alt = `Capa de ${titulo}`;
 
                 // Configurar o player
                 const playerSrc = `https://superflixapi.in/${type}/${id}`;
-                document.getElementById("player").src = playerSrc;
-
-                // Atualizar o botão "Assistir"
-                assistirBtn.href = playerSrc;
+                const player = document.getElementById("player");
+                player.src = playerSrc;
+                player.title = `Assistindo ${titulo}`;
             }
         });
     </script>
 </body>
-
 </html>
