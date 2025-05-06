@@ -6,107 +6,34 @@
     <title>Lista de Filmes - StarMovies</title>
     <link rel="stylesheet" href="../GERAL/style.css">
     <link rel="icon" href="../IMG/Logo1.png" type="image/x-icon">
-    <style>
-        /* Estilos para o loader */
-        .loader {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: #000;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #fff;
-            border-top: 5px solid #ff6200;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        .loader p {
-            color: #fff;
-            font-size: 1.2rem;
-            margin-top: 1rem;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .loader.hidden {
-            display: none;
-        }
-
-        /* Estilos para anúncios */
-        .anuncios-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin: 30px auto;
-            max-width: 1000px;
-        }
-
-        .anuncio {
-            width: 160px;
-            height: 300px;
-        }
-
-        .ads-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            justify-items: center;
-            margin-top: 20px;
-        }
-
-        .ad-item {
-            width: 468px;
-            height: 60px;
-        }
-
-        @media (max-width: 1400px) {
-            .ads-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 900px) {
-            .ads-container {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
 </head>
 <body>
     <header>
-        <div class="logo">
-            <h1>StarMovies</h1>
+        <div class="header-container">
+            <div class="logo">
+                <h1>StarMovies</h1>
+            </div>
+            <nav>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul>
+                    <li><a href="../index.html">Início</a></li>
+                    <li><a href="/PAGES/filmes.html">Filmes</a></li>
+                    <li><a href="/PAGES/series.html">Séries</a></li>
+                    <li><a href="/PAGES/Generos.html">Gêneros</a></li>
+                    <li><a href="/PAGES/sobre.html">Sobre</a></li>
+                    <li class="search">
+                        <form onsubmit="return false;" style="position: relative;">
+                            <input type="text" placeholder="Buscar..." id="search" autocomplete="off" oninput="buscarSugestoes(this.value)">
+                            <div id="sugestoes"></div>
+                        </form>
+                    </li>
+                </ul>
+            </nav>
         </div>
-        <nav>
-            <ul>
-                <li><a href="../index.html">Início</a></li>
-                <li><a href="/PAGES/filmes.html">Filmes</a></li>
-                <li><a href="/PAGES/series.html">Séries</a></li>
-                <li><a href="/PAGES/Generos.html">Gêneros</a></li>
-                <li><a href="/PAGES/sobre.html">Sobre</a></li>
-                <li class="search">
-                    <form onsubmit="return false;" style="position: relative;">
-                        <input type="text" placeholder="Buscar..." id="search" autocomplete="off" oninput="buscarSugestoes(this.value)">
-                        <div id="sugestoes"></div>
-                    </form>
-                </li>
-            </ul>
-        </nav>
     </header>
 
     <div class="orange-bar"></div>
@@ -117,10 +44,12 @@
         <p>Carregando filmes, por favor aguarde...</p>
     </div>
 
-    <!-- Anúncios -->
+    <!-- Consolidated floating ads -->
     <script async="async" data-cfasync="false" src="//pl26406530.profitableratecpm.com/6212237595b591e4197a075fd5b8b929/invoke.js"></script>
     <div id="container-6212237595b591e4197a075fd5b8b929"></div>
-    
+    <script type='text/javascript' src='//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js' defer></script>
+    <script type='text/javascript' src='//pl26406772.profitableratecpm.com/0b/73/65/0b7365ebd4545106b28e83b5bf977aa1.js' defer></script>
+
     <h2>Filmes Populares</h2>
 
     <main>
@@ -134,7 +63,8 @@
         </div>
     </main>
 
-    <div class="anuncios-container">
+    <!-- Responsive 160x300 ads -->
+    <div class="ad-container ad-160x300">
         <div class="anuncio">
             <script type="text/javascript">
                 atOptions = {
@@ -147,33 +77,6 @@
             </script>
             <script type="text/javascript" src="//www.highperformanceformat.com/0c151eeb0cb3f5d3dec32d22259174bb/invoke.js"></script>
         </div>
-
-        <div class="anuncio">
-            <script type="text/javascript">
-                atOptions = {
-                    'key': '0c151eeb0cb3f5d3dec32d22259174bb',
-                    'format': 'iframe',
-                    'height': 300,
-                    'width': 160,
-                    'params': {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/0c151eeb0cb3f5d3dec32d22259174bb/invoke.js"></script>
-        </div>
-
-        <div class="anuncio">
-            <script type="text/javascript">
-                atOptions = {
-                    'key': '0c151eeb0cb3f5d3dec32d22259174bb',
-                    'format': 'iframe',
-                    'height': 300,
-                    'width': 160,
-                    'params': {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/0c151eeb0cb3f5d3dec32d22259174bb/invoke.js"></script>
-        </div>
-
         <div class="anuncio">
             <script type="text/javascript">
                 atOptions = {
@@ -188,7 +91,8 @@
         </div>
     </div>
 
-    <div class="ads-container">
+    <!-- Responsive 468x60 ads -->
+    <div class="ad-container ad-468x60">
         <div class="ad-item">
             <script type="text/javascript">
                 atOptions = {
@@ -201,59 +105,6 @@
             </script>
             <script type="text/javascript" src="//www.highperformanceformat.com/70331ce80d8c9b8559ef1db3d77a8eba/invoke.js"></script>
         </div>
-    
-        <div class="ad-item">
-            <script type="text/javascript">
-                atOptions = {
-                    'key': '70331ce80d8c9b8559ef1db3d77a8eba',
-                    'format': 'iframe',
-                    'height': 60,
-                    'width': 468,
-                    'params': {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/70331ce80d8c9b8559ef1db3d77a8eba/invoke.js"></script>
-        </div>
-    
-        <div class="ad-item">
-            <script type="text/javascript">
-                atOptions = {
-                    'key': '70331ce80d8c9b8559ef1db3d77a8eba',
-                    'format': 'iframe',
-                    'height': 60,
-                    'width': 468,
-                    'params': {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/70331ce80d8c9b8559ef1db3d77a8eba/invoke.js"></script>
-        </div>
-    
-        <div class="ad-item">
-            <script type="text/javascript">
-                atOptions = {
-                    'key': '70331ce80d8c9b8559ef1db3d77a8eba',
-                    'format': 'iframe',
-                    'height': 60,
-                    'width': 468,
-                    'params': {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/70331ce80d8c9b8559ef1db3d77a8eba/invoke.js"></script>
-        </div>
-
-        <div class="ad-item">
-            <script type="text/javascript">
-                atOptions = {
-                    'key': '70331ce80d8c9b8559ef1db3d77a8eba',
-                    'format': 'iframe',
-                    'height': 60,
-                    'width': 468,
-                    'params': {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/70331ce80d8c9b8559ef1db3d77a8eba/invoke.js"></script>
-        </div>
-
         <div class="ad-item">
             <script type="text/javascript">
                 atOptions = {
@@ -278,13 +129,14 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const loader = document.getElementById("loader");
-            // Esconder o loader quando a página estiver completamente carregada
             window.addEventListener("load", () => {
                 loader.classList.add("hidden");
             });
+            // Hamburger menu toggle
+            document.querySelector('.hamburger').addEventListener('click', () => {
+                document.querySelector('nav ul').classList.toggle('active');
+            });
         });
     </script>
-    <script type='text/javascript' src='//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js' defer></script>
-    <script type='text/javascript' src='//pl26406772.profitableratecpm.com/0b/73/65/0b7365ebd4545106b28e83b5bf977aa1.js' defer></script>
 </body>
 </html>
