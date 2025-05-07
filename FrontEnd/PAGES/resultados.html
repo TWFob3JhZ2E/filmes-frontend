@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultados por Gênero - StarMovies</title>
-    <link rel="stylesheet" href="../GERAL/Resul.css">
+    <link rel="stylesheet" href="../GERAL/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="../IMG/Logo1.png" type="image/x-icon">
 </head>
@@ -40,7 +40,7 @@
     <div class="orange-bar"></div>
     <section class="resultados">
         <h2>Resultados para "<span id="genero"></span>"</h2>
-        <div class="resultados-grid" id="resultados"></div>
+        <div class="resultados-grid" id="resultados" role="grid" aria-label="Resultados por gênero"></div>
         <div id="pagination-container">
             <button id="prev-btn" disabled aria-label="Página anterior">Anterior</button>
             <div id="page-numbers"></div>
@@ -102,7 +102,9 @@
 
             try {
                 const response = await fetch(`${BACKEND_URL}/buscar_generos?q=${encodeURIComponent(query)}`);
+                console.log('Sugestões Response Status:', response.status, 'OK:', response.ok);
                 const generos = await response.json();
+                console.log('Sugestões Data:', generos);
 
                 if (generos.length === 0) {
                     sugestoesDiv.innerHTML = '<div class="sugestao-item"><span>Nenhum gênero encontrado</span></div>';
@@ -130,47 +132,74 @@
             const params = new URLSearchParams(window.location.search);
             const genero = params.get('genero');
             if (!genero) {
-                document.getElementById('resultados').innerHTML = '<p>Gênero não especificado</p>';
+                document.getElementById('resultados').innerHTML = '<p aria-live="polite">Gênero não especificado. Por favor, selecione um gênero.</p>';
                 return;
             }
 
             document.getElementById('genero').textContent = genero;
+            const resultadosContainer = document.getElementById('resultados');
+            resultadosContainer.innerHTML = '<p aria-live="polite">Carregando resultados...</p>';
 
             fetch(`${BACKEND_URL}/buscar_por_genero?genero=${encodeURIComponent(genero)}&pagina=${paginaAtual}`)
-                .then(response => response.json())
+                .then(response => {
+                    console.log('Resultados Response Status:', response.status, 'OK:', response.ok);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
                 .then(data => {
-                    const resultadosContainer = document.getElementById('resultados');
+                    console.log('Resultados Data:', data);
                     resultadosContainer.innerHTML = '';
 
                     if (data.mensagem) {
-                        resultadosContainer.innerHTML = `<p>${data.mensagem}</p>`;
+                        resultadosContainer.innerHTML = `<p aria-live="polite">${data.mensagem}</p>`;
+                        atualizarPaginacao(0, 0);
+                        return;
+                    }
+
+                    if (!data.resultados || !Array.isArray(data.resultados) || data.resultados.length === 0) {
+                        resultadosContainer.innerHTML = `<p aria-live="polite">Nenhum resultado encontrado para "${genero}" na página ${paginaAtual}.</p>`;
+                        atualizarPaginacao(0, data.total_paginas || 0);
                         return;
                     }
 
                     data.resultados.forEach(item => {
+                        if (!item.capa || !item.titulo || !item.id) {
+                            console.warn('Item inválido:', item);
+                            return;
+                        }
                         const itemElement = document.createElement('div');
                         itemElement.classList.add('resultado-item');
                         itemElement.innerHTML = `
-                            <img src="${item.capa}" alt="${item.titulo}">
+                            <img src="${item.capa}" alt="${item.titulo}" onerror="this.src='../IMG/placeholder.jpg'">
                             <h3>${item.titulo}</h3>
-                            <p>${item.qualidade}</p>
-                            <a href="/PAGES/player.html?id=${item.id}">Assistir</a>
+                            <p>${item.qualidade || 'Qualidade não disponível'}</p>
+                            <a href="/PAGES/player.html?id=${item.id}" aria-label="Assistir ${item.titulo}">Assistir</a>
                         `;
                         resultadosContainer.appendChild(itemElement);
                     });
 
-                    atualizarPaginacao(data.resultados.length, data.total_paginas);
+                    atualizarPaginacao(data.resultados.length, data.total_paginas || 1);
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 })
                 .catch(error => {
-                    console.error('Erro ao carregar resultados:', error);
-                    document.getElementById('resultados').innerHTML = '<p>Erro ao carregar resultados</p>';
+                    console.error('Erro ao carregar resultados:', error.message);
+                    resultadosContainer.innerHTML = `<p aria-live="polite">Erro ao carregar resultados: ${error.message}. Tente novamente mais tarde.</p>`;
+                    atualizarPaginacao(0, 0);
                 });
         }
 
         function atualizarPaginacao(tamanhoPagina, totalPaginas) {
             const pageNumbersContainer = document.getElementById('page-numbers');
             pageNumbersContainer.innerHTML = '';
+
+            if (!totalPaginas || totalPaginas < 1) {
+                document.getElementById('prev-btn').disabled = true;
+                document.getElementById('next-btn').disabled = true;
+                document.getElementById('page-input').value = 1;
+                return;
+            }
 
             const maxPaginasVisiveis = 5;
             let inicio = Math.max(1, paginaAtual - Math.floor(maxPaginasVisiveis / 2));
@@ -196,7 +225,7 @@
             }
 
             document.getElementById('prev-btn').disabled = paginaAtual === 1;
-            document.getElementById('next-btn').disabled = tamanhoPagina < ITEMS_PER_PAGE || paginaAtual === totalPaginas;
+            document.getElementById('next-btn').disabled = tamanhoPagina < ITEMS_PER_PAGE || paginaAtual >= totalPaginas;
             document.getElementById('page-input').value = paginaAtual;
         }
 
@@ -215,9 +244,14 @@
         document.getElementById('page-input').addEventListener('change', (e) => {
             const novaPagina = parseInt(e.target.value);
             fetch(`${BACKEND_URL}/buscar_por_genero?genero=${encodeURIComponent(document.getElementById('genero').textContent)}&pagina=1`)
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
                 .then(data => {
-                    const totalPaginas = data.total_paginas;
+                    const totalPaginas = data.total_paginas || 1;
                     if (novaPagina >= 1 && novaPagina <= totalPaginas) {
                         paginaAtual = novaPagina;
                         carregarResultados();
@@ -226,7 +260,7 @@
                     }
                 })
                 .catch(error => {
-                    console.error('Erro ao validar página:', error);
+                    console.error('Erro ao validar página:', error.message);
                     e.target.value = paginaAtual;
                 });
         });
