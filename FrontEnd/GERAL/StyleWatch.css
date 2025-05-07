@@ -15,10 +15,6 @@ body {
 
 /* --------------------------- HEADER --------------------------- */
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem 4rem;
   background: linear-gradient(180deg, #141414, #0a0a0a);
   position: fixed;
   top: 0;
@@ -26,6 +22,15 @@ header {
   width: 100%;
   z-index: 1000;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  padding: 1.5rem 1rem;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 header .logo h1 {
@@ -63,11 +68,10 @@ nav ul li a:hover,
 nav ul li a:focus {
   color: #fff;
   background-color: #e50914;
-  transform: translateY(-2px); /* Elevação suave */
+  transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(229, 9, 20, 0.3);
   outline: none;
 }
-
 
 /* Campo de pesquisa */
 nav ul li.search form {
@@ -111,7 +115,6 @@ nav ul li.search button:hover {
   color: #fff;
 }
 
-
 /* --------------------------- Player de Vídeo --------------------------- */
 #player-container {
   text-align: center;
@@ -125,10 +128,10 @@ nav ul li.search button:hover {
 
 #player {
   width: 100%;
-  max-height: 720px; /* Aumentado de 600px para 720px */
+  max-height: 720px;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
-  aspect-ratio: 16 / 9; /* Mantém proporção padrão de vídeo */
+  aspect-ratio: 16 / 9;
 }
 
 #titulo-serie {
@@ -273,13 +276,17 @@ footer p {
 
 /* --------------------------- Responsividade --------------------------- */
 @media (max-width: 1024px) {
+  .header-container {
+    padding: 0 2rem;
+  }
+
   #player-container {
     padding: 2rem 1.5rem;
     max-width: 100%;
   }
 
   #player {
-    max-height: 540px; /* Ajustado proporcionalmente */
+    max-height: 540px;
   }
 
   #detalhes-filme {
@@ -299,10 +306,41 @@ footer p {
 }
 
 @media (max-width: 768px) {
-  header {
-    padding: 1rem;
+  .header-container {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 1rem;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  nav ul {
+    display: none;
     flex-direction: column;
-    align-items: flex-start;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #141414;
+    padding: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  nav ul.active {
+    display: flex;
+  }
+
+  nav ul li {
+    width: 100%;
+    text-align: center;
+  }
+
+  nav ul li a {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    display: block;
   }
 
   header .logo h1 {
@@ -314,7 +352,7 @@ footer p {
   }
 
   #player {
-    max-height: 450px; /* Ajustado para telas menores */
+    max-height: 450px;
   }
 
   #movie-name {
@@ -331,6 +369,10 @@ footer p {
 }
 
 @media (max-width: 480px) {
+  .header-container {
+    padding: 0 1rem;
+  }
+
   #player-container {
     padding: 1.5rem 1rem;
     margin: 2rem 1rem;
@@ -341,7 +383,7 @@ footer p {
   }
 
   #player {
-    max-height: 360px; /* Ajustado para telas pequenas */
+    max-height: 360px;
   }
 
   #capa {
