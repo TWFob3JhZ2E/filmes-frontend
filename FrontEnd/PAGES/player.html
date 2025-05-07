@@ -62,58 +62,32 @@
             min-height: 500px;
             background-color: #000;
         }
-
-        /* Hamburger menu */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background-color: #e0e0e0;
-            transition: all 0.3s ease;
-        }
-
-        nav ul.active {
-            display: flex;
-        }
     </style>
 </head>
 <body>
     <header>
-        <div class="header-container">
-            <div class="logo">
-                <h1>StarMovies</h1>
-            </div>
-            <nav>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <ul>
-                    <li><a href="/index.html">Início</a></li>
-                    <li><a href="/PAGES/filmes.html">Filmes</a></li>
-                    <li><a href="/PAGES/series.html">Séries</a></li>
-                    <li><a href="/PAGES/Generos.html">Gêneros</a></li>
-                    <li class="search">
-                        <form role="search" onsubmit="return false;">
-                            <input type="text" placeholder="Buscar filmes ou séries..." aria-label="Buscar filmes ou séries" id="search-input">
-                            <button type="submit" aria-label="Pesquisar">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="11" cy="11" r="8"></circle>
-                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                </svg>
-                            </button>
-                        </form>
-                    </li>
-                </ul>
-            </nav>
+        <div class="logo">
+            <h1>StarMovies</h1>
         </div>
+        <nav>
+            <ul>
+                <li><a href="/index.html">Início</a></li>
+                <li><a href="/PAGES/filmes.html">Filmes</a></li>
+                <li><a href="/PAGES/series.html">Séries</a></li>
+                <li><a href="/PAGES/Generos.html">Gêneros</a></li>
+                <li class="search">
+                    <form role="search" onsubmit="return false;">
+                        <input type="text" placeholder="Buscar filmes ou séries..." aria-label="Buscar filmes ou séries" id="search-input">
+                        <button type="submit" aria-label="Pesquisar">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
     </header>
     <div class="orange-bar"></div>
 
@@ -181,11 +155,6 @@
     <script src="/Conex/Config.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", async function () {
-            // Hamburger menu toggle
-            document.querySelector('.hamburger').addEventListener('click', () => {
-                document.querySelector('nav ul').classList.toggle('active');
-            });
-
             const urlParams = new URLSearchParams(window.location.search);
             const id = urlParams.get("id");
             const playerContainer = document.getElementById("player-container");
