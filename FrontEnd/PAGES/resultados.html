@@ -3,10 +3,493 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultados por Gênero - StarMovies</title>
-    <link rel="stylesheet" href="../GERAL/style.css">
+    <title>Resultados por Gênero</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="icon" href="../IMG/Logo1.png" type="image/x-icon">
+    <style>
+        /* --------------------------- Reset básico --------------------------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* --------------------------- Estilos gerais --------------------------- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.8;
+            scroll-behavior: smooth;
+        }
+
+        /* --------------------------- Contêiner dos Botões --------------------------- */
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        /* --------------------------- Estilo dos Botões de Navegação --------------------------- */
+        button {
+            padding: 0.8rem 2rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(45deg, #e50914, #b20710);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #b20710, #e50914);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(229, 9, 20, 0.5);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(229, 9, 20, 0.3);
+        }
+
+        /* Estilos específicos para os botões de Voltar e Próximo */
+        #prev-btn, #next-btn {
+            background: linear-gradient(45deg, #e50914, #b20710);
+        }
+
+        #prev-btn:hover, #next-btn:hover {
+            background: linear-gradient(45deg, #b20710, #e50914);
+        }
+
+        /* --------------------------- HEADER --------------------------- */
+        header {
+            background: linear-gradient(180deg, #141414, #0a0a0a);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            padding: 1.5rem 1rem;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            color: #e50914;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: transform 0.3s ease;
+            margin: 0;
+        }
+
+        header .logo h1:hover {
+            transform: scale(1.05);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            margin: 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #e0e0e0;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover,
+        nav ul li a:focus {
+            color: #fff;
+            background-color: #e50914;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(229, 9, 20, 0.3);
+            outline: none;
+        }
+
+        /* Hamburger menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        nav ul.active {
+            display: flex;
+        }
+
+        .orange-bar {
+            width: 100%;
+            height: 0.3rem;
+            background: linear-gradient(90deg, #e50914, #b20710);
+        }
+
+        /* Campo de pesquisa */
+        nav ul li.search form {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        nav ul li.search input[type="text"] {
+            padding: 0.6rem 2.5rem 0.6rem 1rem;
+            border: 1px solid #444;
+            border-radius: 25px;
+            background-color: #1c1c1c;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li.search input[type="text"]:focus {
+            border-color: #e50914;
+            background-color: #222;
+            box-shadow: 0 0 8px rgba(229, 9, 20, 0.3);
+            outline: none;
+        }
+
+        nav ul li.search button {
+            position: absolute;
+            right: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 0.4rem;
+            background-color: transparent;
+            border: none;
+            color: #e50914;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li.search button:hover {
+            color: #fff;
+        }
+
+        /* --------------------------- Grid de Filmes --------------------------- */
+        .resultados-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+            margin: 3rem 2rem;
+        }
+
+        .resultado-item {
+            position: relative;
+            background-color: #1c1c1c;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .resultado-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        .resultado-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .resultado-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .resultado-item h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            color: #ffffff;
+            font-weight: 600;
+            margin: 1rem;
+            text-align: left;
+        }
+
+        .resultado-item p {
+            font-size: 0.9rem;
+            color: #b3b3b3;
+            margin: 0 1rem 1rem;
+            text-align: left;
+            line-height: 1.4;
+        }
+
+        .resultado-item a {
+            display: block;
+            text-align: center;
+            padding: 0.8rem;
+            background: linear-gradient(45deg, #e50914, #b20710);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 0 0 12px 12px;
+            transition: background 0.3s ease;
+        }
+
+        .resultado-item a:hover {
+            background: linear-gradient(45deg, #b20710, #e50914);
+        }
+
+        /* --------------------------- Footer --------------------------- */
+        footer {
+            background: linear-gradient(180deg, #0a0a0a, #141414);
+            color: #b3b3b3;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 3rem;
+            border-top: none;
+        }
+
+        footer p {
+            font-size: 1rem;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        /* --------------------------- Pesquisar --------------------------- */
+        #sugestoes {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: #1c1c1c;
+            border: 1px solid #333;
+            border-radius: 0 0 8px 8px;
+            max-height: 320px;
+            overflow-y: auto;
+            z-index: 999;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .sugestao-item {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem;
+            gap: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .sugestao-item:hover {
+            background-color: #333;
+        }
+
+        .sugestao-item span {
+            color: #e0e0e0;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* --------------------------- Paginação --------------------------- */
+        #pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .page-btn {
+            padding: 0.6rem 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(45deg, #e50914, #b20710);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn:hover {
+            background: linear-gradient(45deg, #b20710, #e50914);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(229, 9, 20, 0.5);
+        }
+
+        .page-btn.active {
+            background: linear-gradient(45deg, #b20710, #e50914);
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        #prev-btn, #next-btn {
+            padding: 0.8rem 2rem;
+            font-size: 1.2rem;
+        }
+
+        #prev-btn:disabled, #next-btn:disabled {
+            background: #333;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        #page-input {
+            width: 60px;
+            padding: 0.6rem;
+            border: 1px solid #444;
+            border-radius: 25px;
+            background-color: #1c1c1c;
+            color: #fff;
+            font-size: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        #page-input:focus {
+            border-color: #e50914;
+            background-color: #222;
+            box-shadow: 0 0 8px rgba(229, 9, 20, 0.3);
+            outline: none;
+        }
+
+        /* --------------------------- Responsividade --------------------------- */
+        @media (max-width: 1024px) {
+            .header-container {
+                padding: 0 2rem;
+            }
+
+            .resultados-grid {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+
+            .resultado-item img {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 0 1rem;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #141414;
+                padding: 1rem;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav ul li {
+                width: 100%;
+                text-align: center;
+            }
+
+            nav ul li a {
+                padding: 0.5rem 1rem;
+                font-size: 1rem;
+                display: block;
+            }
+
+            .resultados-grid {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+
+            .resultado-item img {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header .logo h1 {
+                font-size: 2rem;
+            }
+
+            .resultados-grid {
+                padding: 0 1rem;
+                margin: 2rem 1rem;
+            }
+
+            .resultado-item img {
+                height: 180px;
+            }
+
+            footer p {
+                font-size: 0.9rem;
+            }
+
+            #pagination-container {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .page-btn {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            #prev-btn, #next-btn {
+                padding: 0.6rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            #page-input {
+                width: 50px;
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Estilo adicional para o título */
+        .resultados {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .resultados h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #e50914;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -21,14 +504,14 @@
                     <span></span>
                 </div>
                 <ul>
-                    <li><a href="../index.html">Início</a></li>
+                    <li><a href="/index.html">Início</a></li>
                     <li><a href="/PAGES/filmes.html">Filmes</a></li>
                     <li><a href="/PAGES/series.html">Séries</a></li>
                     <li><a href="/PAGES/Generos.html">Gêneros</a></li>
                     <li><a href="/PAGES/sobre.html">Sobre</a></li>
                     <li class="search">
                         <form onsubmit="return false;" style="position: relative;">
-                            <input type="text" placeholder="Buscar..." id="search" autocomplete="off" oninput="buscarSugestoes(this.value)">
+                            <input type="text" placeholder="Buscar gênero..." id="search" autocomplete="off" oninput="buscarSugestoes(this.value)">
                             <button type="submit"><i class="fas fa-search"></i></button>
                             <div id="sugestoes"></div>
                         </form>
@@ -40,49 +523,18 @@
     <div class="orange-bar"></div>
     <section class="resultados">
         <h2>Resultados para "<span id="genero"></span>"</h2>
-        <div class="resultados-grid" id="resultados" role="grid" aria-label="Resultados por gênero"></div>
+        <div class="resultados-grid" id="resultados"></div>
         <div id="pagination-container">
-            <button id="prev-btn" disabled aria-label="Página anterior">Anterior</button>
+            <button id="prev-btn" disabled>Anterior</button>
             <div id="page-numbers"></div>
-            <input type="number" id="page-input" min="1" value="1" placeholder="Página" aria-label="Ir para página específica">
-            <button id="next-btn" aria-label="Próxima página">Próximo</button>
+            <input type="number" id="page-input" min="1" value="1">
+            <button id="next-btn">Próximo</button>
         </div>
     </section>
-
-    <!-- Responsive 300x250 ads -->
-    <div class="ad-container ad-300x250">
-        <div class="anuncio">
-            <script type="text/javascript">
-                atOptions = {
-                    'key': 'ce04a28c61dd91222942a54edcdfefa3',
-                    'format': 'iframe',
-                    'height': 250,
-                    'width': 300,
-                    'params': {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js" defer></script>
-        </div>
-        <div class="anuncio">
-            <script type="text/javascript">
-                atOptions = {
-                    'key': 'ce04a28c61dd91222942a54edcdfefa3',
-                    'format': 'iframe',
-                    'height': 250,
-                    'width': 300,
-                    'params': {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js" defer></script>
-        </div>
-    </div>
-
     <footer>
-        <p>© 2024 StarMovies - Todos os direitos reservados.</p>
+        <p>© 2025 StarMovies - Todos os direitos reservados.</p>
     </footer>
-
-    <script src="../Conex/Config.js" defer></script>
-    <script src="../pesqui.js" defer></script>
+    <script src="/Conex/Config.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             // Hamburger menu toggle
@@ -102,9 +554,7 @@
 
             try {
                 const response = await fetch(`${BACKEND_URL}/buscar_generos?q=${encodeURIComponent(query)}`);
-                console.log('Sugestões Response Status:', response.status, 'OK:', response.ok);
                 const generos = await response.json();
-                console.log('Sugestões Data:', generos);
 
                 if (generos.length === 0) {
                     sugestoesDiv.innerHTML = '<div class="sugestao-item"><span>Nenhum gênero encontrado</span></div>';
@@ -132,74 +582,47 @@
             const params = new URLSearchParams(window.location.search);
             const genero = params.get('genero');
             if (!genero) {
-                document.getElementById('resultados').innerHTML = '<p aria-live="polite">Gênero não especificado. Por favor, selecione um gênero.</p>';
+                document.getElementById('resultados').innerHTML = '<p>Gênero não especificado</p>';
                 return;
             }
 
             document.getElementById('genero').textContent = genero;
-            const resultadosContainer = document.getElementById('resultados');
-            resultadosContainer.innerHTML = '<p aria-live="polite">Carregando resultados...</p>';
 
             fetch(`${BACKEND_URL}/buscar_por_genero?genero=${encodeURIComponent(genero)}&pagina=${paginaAtual}`)
-                .then(response => {
-                    console.log('Resultados Response Status:', response.status, 'OK:', response.ok);
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
-                    console.log('Resultados Data:', data);
+                    const resultadosContainer = document.getElementById('resultados');
                     resultadosContainer.innerHTML = '';
 
                     if (data.mensagem) {
-                        resultadosContainer.innerHTML = `<p aria-live="polite">${data.mensagem}</p>`;
-                        atualizarPaginacao(0, 0);
-                        return;
-                    }
-
-                    if (!data.resultados || !Array.isArray(data.resultados) || data.resultados.length === 0) {
-                        resultadosContainer.innerHTML = `<p aria-live="polite">Nenhum resultado encontrado para "${genero}" na página ${paginaAtual}.</p>`;
-                        atualizarPaginacao(0, data.total_paginas || 0);
+                        resultadosContainer.innerHTML = `<p>${data.mensagem}</p>`;
                         return;
                     }
 
                     data.resultados.forEach(item => {
-                        if (!item.capa || !item.titulo || !item.id) {
-                            console.warn('Item inválido:', item);
-                            return;
-                        }
                         const itemElement = document.createElement('div');
                         itemElement.classList.add('resultado-item');
                         itemElement.innerHTML = `
-                            <img src="${item.capa}" alt="${item.titulo}" onerror="this.src='../IMG/placeholder.jpg'">
+                            <img src="${item.capa}" alt="${item.titulo}">
                             <h3>${item.titulo}</h3>
-                            <p>${item.qualidade || 'Qualidade não disponível'}</p>
-                            <a href="/PAGES/player.html?id=${item.id}" aria-label="Assistir ${item.titulo}">Assistir</a>
+                            <p>${item.qualidade}</p>
+                            <a href="/PAGES/player.html?id=${item.id}">Assistir</a>
                         `;
                         resultadosContainer.appendChild(itemElement);
                     });
 
-                    atualizarPaginacao(data.resultados.length, data.total_paginas || 1);
+                    atualizarPaginacao(data.resultados.length, data.total_paginas);
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 })
                 .catch(error => {
-                    console.error('Erro ao carregar resultados:', error.message);
-                    resultadosContainer.innerHTML = `<p aria-live="polite">Erro ao carregar resultados: ${error.message}. Tente novamente mais tarde.</p>`;
-                    atualizarPaginacao(0, 0);
+                    console.error('Erro ao carregar resultados:', error);
+                    document.getElementById('resultados').innerHTML = '<p>Erro ao carregar resultados</p>';
                 });
         }
 
         function atualizarPaginacao(tamanhoPagina, totalPaginas) {
             const pageNumbersContainer = document.getElementById('page-numbers');
             pageNumbersContainer.innerHTML = '';
-
-            if (!totalPaginas || totalPaginas < 1) {
-                document.getElementById('prev-btn').disabled = true;
-                document.getElementById('next-btn').disabled = true;
-                document.getElementById('page-input').value = 1;
-                return;
-            }
 
             const maxPaginasVisiveis = 5;
             let inicio = Math.max(1, paginaAtual - Math.floor(maxPaginasVisiveis / 2));
@@ -225,7 +648,7 @@
             }
 
             document.getElementById('prev-btn').disabled = paginaAtual === 1;
-            document.getElementById('next-btn').disabled = tamanhoPagina < ITEMS_PER_PAGE || paginaAtual >= totalPaginas;
+            document.getElementById('next-btn').disabled = tamanhoPagina < ITEMS_PER_PAGE || paginaAtual === totalPaginas;
             document.getElementById('page-input').value = paginaAtual;
         }
 
@@ -244,14 +667,9 @@
         document.getElementById('page-input').addEventListener('change', (e) => {
             const novaPagina = parseInt(e.target.value);
             fetch(`${BACKEND_URL}/buscar_por_genero?genero=${encodeURIComponent(document.getElementById('genero').textContent)}&pagina=1`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
-                    const totalPaginas = data.total_paginas || 1;
+                    const totalPaginas = data.total_paginas;
                     if (novaPagina >= 1 && novaPagina <= totalPaginas) {
                         paginaAtual = novaPagina;
                         carregarResultados();
@@ -260,7 +678,7 @@
                     }
                 })
                 .catch(error => {
-                    console.error('Erro ao validar página:', error.message);
+                    console.error('Erro ao validar página:', error);
                     e.target.value = paginaAtual;
                 });
         });
