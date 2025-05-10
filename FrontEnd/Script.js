@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Função para carregar filmes novos
     function carregarFilmesNovos() {
-        fetchWithAuth(`${BACKEND_URL}/filmes/novos`)
+        fetch(`${BACKEND_URL}/filmes/novos`)
             .then(response => response.json())
             .then(filmes => {
                 filmes.forEach(filme => {
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Função para carregar séries (opcional)
     function carregarSeries() {
-        fetchWithAuth(`${BACKEND_URL}/series`)
+        fetch(`${BACKEND_URL}/series`)
             .then(response => response.json())
             .then(series => {
                 series.forEach(serie => {

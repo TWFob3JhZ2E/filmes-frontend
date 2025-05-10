@@ -9,7 +9,7 @@ async function buscarSugestoes(texto) {
 
     try {
         console.log("🔍 Buscando:", texto);
-        const res = await fetchWithAuth(`${BACKEND_URL}/buscar?q=${encodeURIComponent(texto)}`);
+        const res = await fetch(`${BACKEND_URL}/buscar?q=${encodeURIComponent(texto)}`);
         const dados = await res.json();
 
         if (!dados || dados.length === 0) {
