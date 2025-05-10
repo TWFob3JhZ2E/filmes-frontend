@@ -1,26 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const destaquesContainer = document.querySelector(".destaques-cards");
-    let csrfToken = null; // Variable to store the CSRF token
 
-    // Function to fetch the CSRF token
-    function fetchCsrfToken() {
-        fetch(`${BACKEND_URL}/get-csrf-token`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch CSRF token');
-                }
-                return response.json();
-            })
-            .then(data => {
-                csrfToken = data.csrf_token; // Store the token
-                console.log('CSRF token fetched:', csrfToken); // Log for debugging
-            })
-            .catch(error => {
-                console.error('Error fetching CSRF token:', error);
-            });
-    }
-
-    // Function to load new movies
+    // Função para carregar filmes novos
     function carregarFilmesNovos() {
         fetch(`${BACKEND_URL}/filmes/novos`)
             .then(response => response.json())
@@ -43,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => console.error('Erro ao carregar filmes novos:', error));
     }
 
-    // Function to load series (optional)
+    // Função para carregar séries (opcional)
     function carregarSeries() {
         fetch(`${BACKEND_URL}/series`)
             .then(response => response.json())
@@ -66,8 +47,8 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => console.error('Erro ao carregar séries:', error));
     }
 
-    // Call functions when the page loads
-    fetchCsrfToken(); // Fetch the CSRF token first
+    // Chamar funções ao carregar a página
     carregarFilmesNovos();
     carregarSeries();
+    
 });
