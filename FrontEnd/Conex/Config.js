@@ -1,6 +1,6 @@
 // config.js
 const BACKEND_URL = "https://filmes-flask.onrender.com";
-const API_KEY = "aW9!7sd9e8e98jzK$p3Rt6yU*IUHhusdhibH2nCvE8q"; // Substitua pela sua chave real
+const API_KEY = "aW97sd9e8e98jzK$p3Rt6yUIUHhusdhibH2nCvE8q"; // Substitua pela sua chave real
 
 // Função para fazer requisições autenticadas
 async function fetchWithAuth(endpoint, options = {}) {
