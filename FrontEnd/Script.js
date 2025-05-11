@@ -1,5 +1,51 @@
 document.addEventListener("DOMContentLoaded", function () {
     const destaquesContainer = document.querySelector(".destaques-cards");
+    let csrfToken = null;
+
+    // Função para carregar o token CSRF
+    function carregarCsrfToken() {
+        return fetch(CSRF_TOKEN_ENDPOINT)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar token CSRF');
+                }
+                return response.json();
+            })
+            .then(data => {
+                csrfToken = data.csrf_token;
+                console.log('Token CSRF carregado:', csrfToken);
+            })
+            .catch(error => {
+                console.error('Erro ao carregar token CSRF:', error);
+            });
+    }
+
+    // Função para fazer requisições POST com CSRF token
+    function makePostRequest(endpoint, data) {
+        if (!csrfToken) {
+            console.error('Token CSRF não disponível. Carregue o token primeiro.');
+            return Promise.reject('Token CSRF não disponível');
+        }
+
+        return fetch(`${BACKEND_URL}${endpoint}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': csrfToken
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro na requisição POST');
+                }
+                return response.json();
+            })
+            .catch(error => {
+                console.error('Erro na requisição POST:', error);
+                throw error;
+            });
+    }
 
     // Função para carregar filmes novos
     function carregarFilmesNovos() {
@@ -24,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => console.error('Erro ao carregar filmes novos:', error));
     }
 
-    // Função para carregar séries (opcional)
+    // Função para carregar séries
     function carregarSeries() {
         fetch(`${BACKEND_URL}/series`)
             .then(response => response.json())
@@ -47,8 +93,9 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => console.error('Erro ao carregar séries:', error));
     }
 
-    // Chamar funções ao carregar a página
-    carregarFilmesNovos();
-    carregarSeries();
-    
+    // Carregar token CSRF e depois os filmes/séries
+    carregarCsrfToken().then(() => {
+        carregarFilmesNovos();
+        carregarSeries();
+    });
 });
