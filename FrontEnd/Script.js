@@ -2,16 +2,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const destaquesContainer = document.querySelector(".destaques-cards");
     let csrfToken = null;
 
-    // Coloque a MESMA API_KEY que tá no Render
-    const API_KEY = "your-secret-api-key-12345";
-
     // Função para carregar o token CSRF
     function carregarCsrfToken() {
-        return fetch(CSRF_TOKEN_ENDPOINT, {
-            headers: {
-                'X-API-Key': API_KEY
-            }
-        })
+        return fetch(CSRF_TOKEN_ENDPOINT)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Erro ao carregar token CSRF');
@@ -27,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    // Função para fazer requisições POST com CSRF token e API key
+    // Função para fazer requisições POST com CSRF token
     function makePostRequest(endpoint, data) {
         if (!csrfToken) {
             console.error('Token CSRF não disponível. Carregue o token primeiro.');
@@ -38,8 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-Token': csrfToken,
-                'X-API-Key': API_KEY
+                'X-CSRF-Token': csrfToken
             },
             body: JSON.stringify(data)
         })
@@ -57,17 +49,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Função para carregar filmes novos
     function carregarFilmesNovos() {
-        fetch(`${BACKEND_URL}/filmes/novos`, {
-            headers: {
-                'X-API-Key': API_KEY
-            }
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro ao carregar filmes novos');
-                }
-                return response.json();
-            })
+        fetch(`${BACKEND_URL}/filmes/novos`)
+            .then(response => response.json())
             .then(filmes => {
                 filmes.forEach(filme => {
                     const card = document.createElement("div");
@@ -89,17 +72,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Função para carregar séries
     function carregarSeries() {
-        fetch(`${BACKEND_URL}/series`, {
-            headers: {
-                'X-API-Key': API_KEY
-            }
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro ao carregar séries');
-                }
-                return response.json();
-            })
+        fetch(`${BACKEND_URL}/series`)
+            .then(response => response.json())
             .then(series => {
                 series.forEach(serie => {
                     const card = document.createElement("div");
