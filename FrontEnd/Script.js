@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let csrfToken = null;
 
     // Coloque a MESMA API_KEY que tá no Render
-    const API_KEY = "nova-chave-segura-98765";
+    const API_KEY = "your-secret-api-key-12345";
 
     // Função para carregar o token CSRF
     function carregarCsrfToken() {
