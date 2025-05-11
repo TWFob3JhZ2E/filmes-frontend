@@ -2,9 +2,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const destaquesContainer = document.querySelector(".destaques-cards");
     let csrfToken = null;
 
+    // Carregar a API key (substitua pelo mesmo valor usado no Render)
+    const API_KEY = "sua-se-cha2ve-sexeo09mineecraft-de-api-12345";
+
     // Função para carregar o token CSRF
     function carregarCsrfToken() {
-        return fetch(CSRF_TOKEN_ENDPOINT)
+        return fetch(CSRF_TOKEN_ENDPOINT, {
+            headers: {
+                'X-API-Key': API_KEY
+            }
+        })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Erro ao carregar token CSRF');
@@ -20,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    // Função para fazer requisições POST com CSRF token
+    // Função para fazer requisições POST com CSRF token e API key
     function makePostRequest(endpoint, data) {
         if (!csrfToken) {
             console.error('Token CSRF não disponível. Carregue o token primeiro.');
@@ -31,7 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-Token': csrfToken
+                'X-CSRF-Token': csrfToken,
+                'X-API-Key': API_KEY
             },
             body: JSON.stringify(data)
         })
@@ -49,7 +57,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Função para carregar filmes novos
     function carregarFilmesNovos() {
-        fetch(`${BACKEND_URL}/filmes/novos`)
+        fetch(`${BACKEND_URL}/filmes/novos`, {
+            headers: {
+                'X-API-Key': API_KEY
+            }
+        })
             .then(response => response.json())
             .then(filmes => {
                 filmes.forEach(filme => {
@@ -72,7 +84,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Função para carregar séries
     function carregarSeries() {
-        fetch(`${BACKEND_URL}/series`)
+        fetch(`${BACKEND_URL}/series`, {
+            headers: {
+                'X-API-Key': API_KEY
+            }
+        })
             .then(response => response.json())
             .then(series => {
                 series.forEach(serie => {
