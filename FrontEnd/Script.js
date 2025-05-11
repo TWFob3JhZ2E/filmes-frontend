@@ -2,8 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const destaquesContainer = document.querySelector(".destaques-cards");
     let csrfToken = null;
 
-    // Carregar a API key (substitua pelo mesmo valor usado no Render)
-    const API_KEY = "sua-se-cha2ve-sexeo09mineecraft-de-api-12345";
+    // Coloque a MESMA API_KEY que tá no Render
+    const API_KEY = "sua-se-cha2ve-sexo09mineecraft-de-api-12345";
 
     // Função para carregar o token CSRF
     function carregarCsrfToken() {
@@ -62,7 +62,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 'X-API-Key': API_KEY
             }
         })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar filmes novos');
+                }
+                return response.json();
+            })
             .then(filmes => {
                 filmes.forEach(filme => {
                     const card = document.createElement("div");
@@ -89,7 +94,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 'X-API-Key': API_KEY
             }
         })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar séries');
+                }
+                return response.json();
+            })
             .then(series => {
                 series.forEach(serie => {
                     const card = document.createElement("div");
