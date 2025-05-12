@@ -1,6 +1,3 @@
-
-
-// Função de buscar sugestões
 async function buscarSugestoes(texto) {
     const sugestoesDiv = document.getElementById('sugestoes');
     sugestoesDiv.innerHTML = '';
@@ -9,7 +6,12 @@ async function buscarSugestoes(texto) {
 
     try {
         console.log("🔍 Buscando:", texto);
-        const res = await fetch(`${BACKEND_URL}/buscar?q=${encodeURIComponent(texto)}`);
+        const res = await fetch(`${BACKEND_URL}/buscar?q=${encodeURIComponent(texto)}`, {
+            headers: { 'X-API-Key': API_KEY }
+        });
+        if (!res.ok) {
+            throw new Error(`Erro ${res.status} ao buscar`);
+        }
         const dados = await res.json();
 
         if (!dados || dados.length === 0) {
