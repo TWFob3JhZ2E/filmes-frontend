@@ -28,7 +28,7 @@
                     <li><a href="/PAGES/sobre.html">Sobre</a></li>
                     <li class="search">
                         <form onsubmit="return false;" style="position: relative;">
-                            <input type="text" placeholder="Buscar gênero..." id="search" autocomplete="off" oninput="buscarSugestoes(this.value)">
+                            <input type="text" placeholder="Buscar gênero..." id="search" autocomplete="off" oninput="buscarGeneros(this.value)">
                             <button type="submit"><i class="fas fa-search"></i></button>
                             <div id="sugestoes"></div>
                         </form>
@@ -43,7 +43,6 @@
     <script type='text/javascript' src='//pl26406772.profitableratecpm.com/0b/73/65/0b7365ebd4545106b28e83b5bf977aa1.js' defer></script>
     <script type='text/javascript' src='//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js' defer></script>
     <script type='text/javascript' src='//pl26406772.profitableratecpm.com/0b/73/65/0b7365ebd4545106b28e83b5bf977aa1.js' defer></script>
-
 
     <div class="orange-bar"></div>
 
@@ -97,9 +96,6 @@
         };
     </script>
     <script type="text/javascript" src="//www.highperformanceformat.com/928e31bcb774bbc2d3535533fc03cce0/invoke.js"></script>
-
-    
-    
 
     <section class="destaques">
         <h2>Principais Gêneros</h2>
@@ -205,8 +201,6 @@
     </script>
     <script type="text/javascript" src="//www.highperformanceformat.com/928e31bcb774bbc2d3535533fc03cce0/invoke.js"></script>
 
-
-    <!-- Responsive 300x250 ads -->
     <div class="ad-container ad-300x250">
         <div class="anuncio">
             <script type="text/javascript">
@@ -220,7 +214,6 @@
             </script>
             <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js" defer></script>
         </div>
-    <div class="ad-container ad-300x250">
         <div class="anuncio">
             <script type="text/javascript">
                 atOptions = {
@@ -233,6 +226,7 @@
             </script>
             <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js" defer></script>
         </div>
+    </div>
 
     <footer>
         <p>© 2024 StarMovies - Todos os direitos reservados.</p>
@@ -242,20 +236,24 @@
     <script src="../pesqui.js" defer></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // Hamburger menu toggle
             document.querySelector('.hamburger').addEventListener('click', () => {
                 document.querySelector('nav ul').classList.toggle('active');
             });
         });
 
-        async function buscarSugestoes(query) {
+        async function buscarGeneros(query) {
             const sugestoesDiv = document.getElementById('sugestoes');
             sugestoesDiv.innerHTML = '';
 
             if (!query) return;
 
             try {
-                const response = await fetch(`${BACKEND_URL}/buscar_generos?q=${encodeURIComponent(query)}`);
+                const response = await fetch(`${BACKEND_URL}/buscar_generos?q=${encodeURIComponent(query)}`, {
+                    headers: { 'X-API-Key': API_KEY }
+                });
+                if (!response.ok) {
+                    throw new Error(`Erro ${response.status} ao buscar gêneros`);
+                }
                 const generos = await response.json();
 
                 if (generos.length === 0) {
