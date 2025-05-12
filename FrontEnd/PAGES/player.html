@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/GERAL/StyleWatch.css">
     <link rel="icon" href="/IMG/Logo1.png" type="image/x-icon">
     <style>
-        /* Estilos para mensagens de erro */
         .error-message {
             color: #e50914;
             font-size: 1.2rem;
@@ -17,8 +16,6 @@
             background-color: #1c1c1c;
             border-radius: 8px;
         }
-
-        /* Estilos para o loader */
         .loader {
             position: fixed;
             top: 0;
@@ -32,7 +29,6 @@
             align-items: center;
             z-index: 1000;
         }
-
         .spinner {
             width: 50px;
             height: 50px;
@@ -41,22 +37,18 @@
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-
         .loader p {
             color: #fff;
             font-size: 1.2rem;
             margin-top: 1rem;
         }
-
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
         .loader.hidden {
             display: none;
         }
-
         #player {
             width: 100%;
             min-height: 500px;
@@ -92,7 +84,6 @@
     <div class="orange-bar"></div>
 
     <main id="player-container" aria-live="polite">
-        <!-- Loader -->
         <div id="loader" class="loader">
             <div class="spinner"></div>
             <p>Carregando filme, por favor aguarde...</p>
@@ -109,6 +100,7 @@
             <img id="capa" src="/IMG/placeholder.jpg" alt="Capa do Filme" />
         </section>
 
+       
         <section class="ads-container" aria-label="Anúncios">
             <script async="async" data-cfasync="false" src="//pl26406530.profitableratecpm.com/6212237595b591e4197a075fd5b8b929/invoke.js"></script>
             <div id="container-6212237595b591e4197a075fd5b8b929"></div>
@@ -231,8 +223,18 @@
                 const serieUrl = `${BACKEND_URL}/serie/detalhes?id=${id}`;
 
                 const [filmeResponse, serieResponse] = await Promise.all([
-                    fetch(filmeUrl).then(res => res.json()).catch(() => ({ erro: 'Erro ao buscar filme' })),
-                    fetch(serieUrl).then(res => res.json()).catch(() => ({ erro: 'Erro ao buscar série' }))
+                    fetch(filmeUrl, {
+                        headers: { 'X-API-Key': API_KEY }
+                    }).then(res => {
+                        if (!res.ok) throw new Error(`Erro ${res.status} ao buscar filme`);
+                        return res.json();
+                    }).catch(() => ({ erro: 'Erro ao buscar filme' })),
+                    fetch(serieUrl, {
+                        headers: { 'X-API-Key': API_KEY }
+                    }).then(res => {
+                        if (!res.ok) throw new Error(`Erro ${res.status} ao buscar série`);
+                        return res.json();
+                    }).catch(() => ({ erro: 'Erro ao buscar série' }))
                 ]);
 
                 if (!filmeResponse.erro) {
@@ -244,12 +246,10 @@
                 }
             }
 
-            // Mostrar loader
             loader.classList.remove("hidden");
 
             const result = await fetchContent(id);
 
-            // Esconder loader
             loader.classList.add("hidden");
 
             if (result.erro) {
@@ -269,7 +269,6 @@
                     qualidade = "Qualidade desconhecida"
                 } = content;
 
-                // Atualizar detalhes primeiro
                 document.getElementById("titulo-serie").textContent = `Assistindo: ${titulo}`;
                 document.getElementById("movie-name").textContent = titulo;
                 document.getElementById("descricao").textContent = descricao;
@@ -277,7 +276,6 @@
                 document.getElementById("capa").src = capa;
                 document.getElementById("capa").alt = `Capa de ${titulo}`;
 
-                // Carregar iframe após detalhes
                 const playerSrc = `https://superflixapi.nexus/${type}/${id}`;
                 const player = document.getElementById("player");
                 player.src = playerSrc;
