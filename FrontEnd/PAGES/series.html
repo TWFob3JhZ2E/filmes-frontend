@@ -6,6 +6,12 @@
     <title>Lista de Séries - StarMovies</title>
     <link rel="stylesheet" href="../GERAL/style.css">
     <link rel="icon" href="../IMG/Logo1.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <script type="text/javascript" src="//pl26406530.profitableratecpm.com/6212237595b591e4197a075fd5b8b929/invoke.js"></script>
+    <script type='text/javascript' src='//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js' defer></script>
+    <script type='text/javascript' src='//pl26406772.profitableratecpm.com/0b/73/65/0b7365ebd4545106b28e83b5bf977aa1.js' defer></script>
+
 </head>
 <body>
     <header>
@@ -27,7 +33,7 @@
                     <li><a href="/PAGES/sobre.html">Sobre</a></li>
                     <li class="search">
                         <form onsubmit="return false;" style="position: relative;">
-                            <input type="text" placeholder="Buscar..." id="search" autocomplete="off" oninput="buscarSugestoes(this.value)">
+                            <input type="text" placeholder="Buscar séries..." id="search" autocomplete="off" oninput="buscarSugestoes(this.value)">
                             <div id="sugestoes"></div>
                         </form>
                     </li>
@@ -36,36 +42,15 @@
         </div>
     </header>
 
-    <div class="orange-bar"></div>
-
-    <!-- Loader -->
-    <div id="loader" class="loader">
-        <div class="spinner"></div>
-        <p>Carregando séries, por favor aguarde...</p>
-    </div>
-
-    <!-- Consolidated floating ads -->
-    <script async="async" data-cfasync="false" src="//pl26406530.profitableratecpm.com/6212237595b591e4197a075fd5b8b929/invoke.js" defer></script>
-    <div id="container-6212237595b591e4197a075fd5b8b929"></div>
-
-    <script type="text/javascript" src="//pl26406530.profitableratecpm.com/6212237595b591e4197a075fd5b8b929/invoke.js"></script>
-    <script type='text/javascript' src='//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js' defer></script>
-    <script type='text/javascript' src='//pl26406772.profitableratecpm.com/0b/73/65/0b7365ebd4545106b28e83b5bf977aa1.js' defer></script>
-    <script type='text/javascript' src='//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js' defer></script>
-    <script type='text/javascript' src='//pl26406772.profitableratecpm.com/0b/73/65/0b7365ebd4545106b28e83b5bf977aa1.js' defer></script>
-
-    <h2>Séries Populares</h2>
-    <main>
-        <div id="series-container" class="series-grid"></div>
-        <div id="pagination-container">
-            <button id="prev-btn" aria-label="Página anterior">Anterior</button>
-            <div id="page-numbers"></div>
-            <button id="next-btn" aria-label="Próxima página">Próximo</button>
-            <input type="number" id="page-input" min="1" placeholder="Página" aria-label="Ir para página específica">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Explore Nossa Coleção de Séries</h1>
+            <p>Descubra as melhores séries para todos os gostos!</p>
         </div>
-    </main>
+    </section>
 
-    <!-- Responsive 300x250 ads -->
+    <!-- Ad: One 300x250 (Top) -->
     <div class="ad-container ad-300x250">
         <div class="anuncio">
             <script type="text/javascript">
@@ -79,36 +64,107 @@
             </script>
             <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js" defer></script>
         </div>
-        <div class="anuncio">
-            <script type="text/javascript">
-                atOptions = {
-                    'key': 'ce04a28c61dd91222942a54edcdfefa3',
-                    'format': 'iframe',
-                    'height': 250,
-                    'width': 300,
-                    'params': {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js" defer></script>
-        </div>
-    </div>
-        <div class="anuncio">
-            <script type="text/javascript">
-                atOptions = {
-                    'key': 'ce04a28c61dd91222942a54edcdfefa3',
-                    'format': 'iframe',
-                    'height': 250,
-                    'width': 300,
-                    'params': {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js" defer></script>
-        </div>
     </div>
 
+    <!-- Loader -->
+    <div id="loader" class="loader">
+        <div class="spinner"></div>
+        <p>Carregando séries...</p>
+    </div>
+
+    <main>
+        <section class="series">
+            <h2>Séries Populares</h2>
+            <div id="series-container" class="series-grid"></div>
+        </section>
+
+        <!-- Pagination -->
+        <div id="pagination-container">
+            <button id="prev-btn" aria-label="Página anterior">Anterior</button>
+            <div id="page-numbers"></div>
+            <button id="next-btn" aria-label="Próxima página">Próximo</button>
+            <input type="number" id="page-input" min="1" placeholder="Página" aria-label="Ir para página específica">
+        </div>
+
+        <!-- Ad: One 300x250 (After Series) -->
+        <div class="ad-container ad-300x250">
+            <div class="anuncio">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key': 'ce04a28c61dd91222942a54edcdfefa3',
+                        'format': 'iframe',
+                        'height': 250,
+                        'width': 300,
+                        'params': {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js" defer></script>
+            </div>
+        </div>
+        <div class="ad-container ad-300x250">
+            <div class="anuncio">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key': 'ce04a28c61dd91222942a54edcdfefa3',
+                        'format': 'iframe',
+                        'height': 250,
+                        'width': 300,
+                        'params': {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js" defer></script>
+            </div>
+        </div>
+    </main>
+
     <footer>
-        <p>© 2024 StarMovies. Todos os direitos reservados.</p>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>StarMovies</h3>
+                <p>Explore um universo de filmes e séries com a melhor curadoria de conteúdo.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Navegação</h3>
+                <ul>
+                    <li><a href="../index.html">Início</a></li>
+                    <li><a href="/PAGES/filmes.html">Filmes</a></li>
+                    <li><a href="/PAGES/series.html">Séries</a></li>
+                    <li><a href="/PAGES/Generos.html">Gêneros</a></li>
+                    <li><a href="/PAGES/sobre.html">Sobre</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <p>Email: contato@starmovies.com</p>
+                <p>Siga-nos nas redes sociais:</p>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+        <!-- Ad: One 300x250 (Footer Ad) -->
+        <div class="ad-container ad-300x250 footer-ads">
+            <div class="anuncio">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key': 'ce04a28c61dd91222942a54edcdfefa3',
+                        'format': 'iframe',
+                        'height': 250,
+                        'width': 300,
+                        'params': {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js" defer></script>
+            </div>
+        </div>
+        <p>© 2025 StarMovies - Todos os direitos reservados.</p>
     </footer>
+
+    <!-- Floating Ad -->
+    <script async="async" data-cfasync="false" src="//pl26406530.profitableratecpm.com/6212237595b591e4197a075fd5b8b929/invoke.js" defer></script>
+    <div id="container-6212237595b591e4197a075fd5b8b929"></div>
 
     <script src="../pesqui.js" defer></script>
     <script src="../Conex/Config.js" defer></script>
@@ -119,9 +175,14 @@
             window.addEventListener("load", () => {
                 loader.classList.add("hidden");
             });
-            // Hamburger menu toggle
-            document.querySelector('.hamburger').addEventListener('click', () => {
-                document.querySelector('nav ul').classList.toggle('active');
+            // Hamburger menu toggle with animation
+            const hamburger = document.querySelector('.hamburger');
+            const
+
+ navMenu = document.querySelector('nav ul');
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('open');
             });
         });
     </script>
