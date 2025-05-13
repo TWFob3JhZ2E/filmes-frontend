@@ -230,12 +230,34 @@ nav ul li.search button:hover {
 }
 
 .filmes-grid,
-.series-grid,
-.destaques-cards {
+.series-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5rem;
   padding: 0 1rem;
+}
+
+.destaques-container {
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.destaques-cards {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+
+.destaques-cards::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
 }
 
 .filme-item,
@@ -270,9 +292,11 @@ nav ul li.search button:hover {
 }
 
 .genre-card {
-  aspect-ratio: 2 / 3;
+  flex: 0 0 200px;
+  height: 300px;
   background-size: cover;
   background-position: center;
+  scroll-snap-align: start;
 }
 
 .genre-card::after {
@@ -301,6 +325,11 @@ nav ul li.search button:hover {
 
 .genre-card:hover h3 {
   background-color: #e50914;
+}
+
+.genre-card:focus {
+  outline: 2px solid #e50914;
+  outline-offset: 2px;
 }
 
 .filme-item h3,
@@ -373,6 +402,44 @@ nav ul li.search button:hover {
   background: #b20710;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(229, 9, 20, 0.3);
+}
+
+/* Scroll Buttons */
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(229, 9, 20, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, transform 0.3s ease;
+  z-index: 10;
+}
+
+.scroll-btn.left {
+  left: 0;
+}
+
+.scroll-btn.right {
+  right: 0;
+}
+
+.scroll-btn:hover {
+  background: #b20710;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.scroll-btn:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 
 /* Loader */
@@ -581,9 +648,17 @@ footer > p {
   }
 
   .filmes-grid,
-  .series-grid,
-  .destaques-cards {
+  .series-grid {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  .destaques-container {
+    padding: 0 2rem;
+  }
+
+  .genre-card {
+    flex: 0 0 180px;
+    height: 270px;
   }
 
   .filme-item img,
@@ -637,9 +712,24 @@ footer > p {
     font-size: 2rem;
   }
 
+  .destaques-container {
+    padding: 0 1.5rem;
+  }
+
+  .genre-card {
+    flex: 0 0 160px;
+    height: 240px;
+  }
+
   .genre-card h3 {
     font-size: 1.1rem;
     padding: 0.4rem 0.8rem;
+  }
+
+  .scroll-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
   }
 
   .ad-160x300 iframe {
@@ -677,14 +767,23 @@ footer > p {
     font-size: 1.8rem;
   }
 
-  .filme-item img,
-  .serie-item img {
+  .destaques-container {
+    padding: 0 1rem;
+  }
+
+  .genre-card {
+    flex: 0 0 140px;
     height: 200px;
   }
 
   .genre-card h3 {
     font-size: 1rem;
     padding: 0.3rem 0.6rem;
+  }
+
+  .filme-item img,
+  .serie-item img {
+    height: 200px;
   }
 
   .filme-item h3,
@@ -706,6 +805,12 @@ footer > p {
   .ad-468x60 iframe {
     width: 250px;
     height: 40px;
+  }
+
+  .scroll-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
   }
 
   #pagination-container {

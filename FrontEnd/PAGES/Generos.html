@@ -71,64 +71,68 @@
 
     <section class="destaques">
         <h2>Principais Gêneros</h2>
-        <div class="destaques-cards">
-            <div class="genre-card" style="background-image: url('/capas/WICK.jpg');" onclick="filtrarPorGenero('Action')">
-                <h3>Ação</h3>
+        <div class="destaques-container">
+            <button class="scroll-btn left" aria-label="Rolar para a esquerda"><i class="fas fa-chevron-left"></i></button>
+            <div class="destaques-cards">
+                <div class="genre-card" style="background-image: url('/capas/WICK.jpg');" onclick="filtrarPorGenero('Action')" role="button" tabindex="0" aria-label="Filtrar por Ação">
+                    <h3>Ação</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/diverti.png');" onclick="filtrarPorGenero('Animation')" role="button" tabindex="0" aria-label="Filtrar por Animação">
+                    <h3>Animação</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/jurasiic.jpg');" onclick="filtrarPorGenero('Adventure')" role="button" tabindex="0" aria-label="Filtrar por Aventura">
+                    <h3>Aventura</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('https://www.rbsdirect.com.br/imagesrc/24591869.jpg?format=webp&w=1600&h=1600&a=c');" onclick="filtrarPorGenero('Comedy')" role="button" tabindex="0" aria-label="Filtrar por Comédia">
+                    <h3>Comédia</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/Poderoso.jpg');" onclick="filtrarPorGenero('Crime')" role="button" tabindex="0" aria-label="Filtrar por Crime">
+                    <h3>Crime</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/milagre.jpg');" onclick="filtrarPorGenero('Drama')" role="button" tabindex="0" aria-label="Filtrar por Drama">
+                    <h3>Drama</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/Paddington.jpg');" onclick="filtrarPorGenero('Family')" role="button" tabindex="0" aria-label="Filtrar por Família">
+                    <h3>Família</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/aneis.jpg');" onclick="filtrarPorGenero('Fantasy')" role="button" tabindex="0" aria-label="Filtrar por Fantasia">
+                    <h3>Fantasia</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/django.jpg');" onclick="filtrarPorGenero('Western')" role="button" tabindex="0" aria-label="Filtrar por Faroeste">
+                    <h3>Faroeste</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/interestelar.jpg');" onclick="filtrarPorGenero('Science')" role="button" tabindex="0" aria-label="Filtrar por Ficção Científica">
+                    <h3>Ficção Científica</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/homem.jpg');" onclick="filtrarPorGenero('War')" role="button" tabindex="0" aria-label="Filtrar por Guerra">
+                    <h3>Guerra</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/listas.png');" onclick="filtrarPorGenero('History')" role="button" tabindex="0" aria-label="Filtrar por História">
+                    <h3>História</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/premmonição.jpg');" onclick="filtrarPorGenero('Lançamentos')" role="button" tabindex="0" aria-label="Filtrar por Lançamentos">
+                    <h3>Lançamentos</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/lugars.jpeg');" onclick="filtrarPorGenero('Mystery')" role="button" tabindex="0" aria-label="Filtrar por Mistério">
+                    <h3>Mistério</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/bohemian.jpg');" onclick="filtrarPorGenero('Music')" role="button" tabindex="0" aria-label="Filtrar por Música">
+                    <h3>Música</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/cidadeDeus.jpg');" onclick="filtrarPorGenero('Nacional')" role="button" tabindex="0" aria-label="Filtrar por Nacional">
+                    <h3>Nacional</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/acontece.jpg');" onclick="filtrarPorGenero('Romance')" role="button" tabindex="0" aria-label="Filtrar por Romance">
+                    <h3>Romance</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/absolutocinema.jpeg');" onclick="filtrarPorGenero('Suspense')" role="button" tabindex="0" aria-label="Filtrar por Suspense">
+                    <h3>Suspense</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/muilher.jpeg');" onclick="filtrarPorGenero('Horror')" role="button" tabindex="0" aria-label="Filtrar por Terror">
+                    <h3>Terror</h3>
+                </div>
             </div>
-            <div class="genre-card" style="background-image: url('/capas/diverti.png');" onclick="filtrarPorGenero('Animation')">
-                <h3>Animação</h3>
-            </div>
-            <div class="genre-card" style="background-image: url('/capas/jurasiic.jpg');" onclick="filtrarPorGenero('Adventure')">
-                <h3>Aventura</h3>
-            </div>
-            <div class="genre-card" style="background-image: url('https://www.rbsdirect.com.br/imagesrc/24591869.jpg?format=webp&w=1600&h=1600&a=c');" onclick="filtrarPorGenero('Comedy')">
-                <h3>Comédia</h3>
-            </div>
-            <div class="genre-card" style="background-image: url('/capas/Poderoso.jpg');" onclick="filtrarPorGenero('Crime')">
-                <h3>Crime</h3>
-            </div>
-            <div class="genre-card" style="background-image: url('/capas/milagre.jpg');" onclick="filtrarPorGenero('Drama')">
-                <h3>Drama</h3>
-            </div>
-            <div class="genre-card" style="background-image: url('/capas/Paddington.jpg');" onclick="filtrarPorGenero('Family')">
-                <h3>Família</h3>
-            </div>
-            <div class="genre-card" style="background-image: url('/capas/aneis.jpg');" onclick="filtrarPorGenero('Fantasy')">
-                <h3>Fantasia</h3>
-            </div>
-            <div class="genre-card" style="background-image: url('/capas/django.jpg');" onclick="filtrarPorGenero('Western')">
-                <h3>Faroeste</h3>
-            </div>
-            <div class="genre-card" style="background-image: url('/capas/interestelar.jpg');" onclick="filtrarPorGenero('Science')">
-                <h3>Ficção Científica</h3>
-            </div>
-            <div class="genre-card" style="background-image: url('/capas/homem.jpg');" onclick="filtrarPorGenero('War')">
-                <h3>Guerra</h3>
-            </div>
-            <div class="genre-card" style="background-image: url('/capas/listas.png');" onclick="filtrarPorGenero('History')">
-                <h3>História</h3>
-            </div>
-            <div class="genre-card" style="background-image: url('/capas/premmonição.jpg');" onclick="filtrarPorGenero('Lançamentos')">
-                <h3>Lançamentos</h3>
-            </div>
-            <div class="genre-card" style="background-image: url('/capas/lugars.jpeg');" onclick="filtrarPorGenero('Mystery')">
-                <h3>Mistério</h3>
-            </div>
-            <div class="genre-card" style="background-image: url('/capas/bohemian.jpg');" onclick="filtrarPorGenero('Music')">
-                <h3>Música</h3>
-            </div>
-            <div class="genre-card" style="background-image: url('/capas/cidadeDeus.jpg');" onclick="filtrarPorGenero('Nacional')">
-                <h3>Nacional</h3>
-            </div>
-            <div class="genre-card" style="background-image: url('/capas/acontece.jpg');" onclick="filtrarPorGenero('Romance')">
-                <h3>Romance</h3>
-            </div>
-            <div class="genre-card" style="background-image: url('/capas/absolutocinema.jpeg');" onclick="filtrarPorGenero('Suspense')">
-                <h3>Suspense</h3>
-            </div>
-            <div class="genre-card" style="background-image: url('/capas/muilher.jpeg');" onclick="filtrarPorGenero('Horror')">
-                <h3>Terror</h3>
-            </div>
+            <button class="scroll-btn right" aria-label="Rolar para a direita"><i class="fas fa-chevron-right"></i></button>
         </div>
     </section>
 
@@ -190,12 +194,36 @@
             window.addEventListener("load", () => {
                 loader.classList.add("hidden");
             });
+
             // Hamburger menu toggle with animation
             const hamburger = document.querySelector('.hamburger');
             const navMenu = document.querySelector('nav ul');
             hamburger.addEventListener('click', () => {
                 navMenu.classList.toggle('active');
                 hamburger.classList.toggle('open');
+            });
+
+            // Scroll buttons for horizontal list
+            const container = document.querySelector('.destaques-cards');
+            const scrollLeftBtn = document.querySelector('.scroll-btn.left');
+            const scrollRightBtn = document.querySelector('.scroll-btn.right');
+
+            scrollLeftBtn.addEventListener('click', () => {
+                container.scrollBy({ left: -300, behavior: 'smooth' });
+            });
+
+            scrollRightBtn.addEventListener('click', () => {
+                container.scrollBy({ left: 300, behavior: 'smooth' });
+            });
+
+            // Keyboard navigation for genre cards
+            document.querySelectorAll('.genre-card').forEach(card => {
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        card.click();
+                    }
+                });
             });
         });
 
