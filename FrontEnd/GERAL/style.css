@@ -126,8 +126,12 @@ nav ul li.search input[type="text"]:focus {
 }
 
 .sugestao-item {
+  display: flex;
+  align-items: center;
   padding: 0.7rem;
   gap: 0.8rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 .sugestao-item:hover {
@@ -137,13 +141,15 @@ nav ul li.search input[type="text"]:focus {
 .sugestao-item img {
   width: 50px;
   height: 75px;
+  object-fit: cover;
+  border-radius: 4px;
 }
 
 /* Hero Section */
 .hero {
   position: relative;
   height: 40vh;
-  background: url('https://via.placeholder.com/1920x1080?text=Films+Background') center/cover no-repeat;
+  background: url('https://via.placeholder.com/1920x1080?text=Series+Background') center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -177,27 +183,31 @@ nav ul li.search input[type="text"]:focus {
   font-size: 1.1rem;
 }
 
-/* Filmes Section */
-.filmes {
+/* Filmes and Series Sections */
+.filmes,
+.series {
   margin: 3rem 2rem;
   text-align: center;
 }
 
-.filmes h2 {
+.filmes h2,
+.series h2 {
   font-family: 'Montserrat', sans-serif;
   font-size: 2.5rem;
   color: #e50914;
   margin-bottom: 2rem;
 }
 
-.filmes-grid {
+.filmes-grid,
+.series-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5rem;
   padding: 0 1rem;
 }
 
-.filme-item {
+.filme-item,
+.serie-item {
   background-color: #1c1c1c;
   border-radius: 10px;
   overflow: hidden;
@@ -205,67 +215,95 @@ nav ul li.search input[type="text"]:focus {
   cursor: pointer;
 }
 
-.filme-item:hover {
+.filme-item:hover,
+.serie-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 }
 
-.filme-item img {
+.filme-item img,
+.serie-item img {
   width: 100%;
   height: 280px;
   object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
-.filter-container {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
+.filme-item:hover img,
+.serie-item:hover img {
+  transform: scale(1.1);
 }
 
-.filter-btn {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #fff;
-    background: #333;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.filter-btn.active,
-.filter-btn:hover {
-    background: #e50914;
-    box-shadow: 0 2px 8px rgba(229, 9, 20, 0.3);
-}
-
-.filme-item h3 {
+.filme-item h3,
+.serie-item h3 {
+  font-family: 'Montserrat', sans-serif;
   font-size: 1.2rem;
   color: #fff;
   margin: 1rem;
+  text-align: left;
 }
 
-.filme-item p {
+.filme-item p,
+.serie-item p {
   font-size: 0.85rem;
   color: #b3b3b3;
   margin: 0 1rem 1rem;
+  text-align: left;
 }
 
-.filme-item .overlay {
+.filme-item .overlay,
+.serie-item .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9));
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1rem;
+  transition: opacity 0.3s ease;
 }
 
-.filme-item a {
+.filme-item:hover .overlay,
+.serie-item:hover .overlay {
+  opacity: 1;
+}
+
+.filme-item .overlay h3,
+.serie-item .overlay h3 {
+  color: #fff;
+  font-size: 1.3rem;
+}
+
+.filme-item .overlay p,
+.serie-item .overlay p {
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.filme-item a,
+.serie-item a {
+  display: block;
   background: #e50914;
   padding: 0.7rem 1.5rem;
   font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
   margin: 1rem;
+  border-radius: 25px;
+  transition: all 0.3s ease;
 }
 
-.filme-item a:hover {
+.filme-item a:hover,
+.serie-item a:hover {
   background: #b20710;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(229, 9, 20, 0.3);
 }
 
 /* Loader */
@@ -318,20 +356,27 @@ nav ul li.search input[type="text"]:focus {
   margin: 2rem 0;
 }
 
-#prev-btn, #next-btn {
+#prev-btn,
+#next-btn {
   padding: 0.7rem 1.5rem;
   font-size: 1rem;
   background: #e50914;
+  border: none;
   border-radius: 25px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-#prev-btn:hover, #next-btn:hover {
+#prev-btn:hover,
+#next-btn:hover {
   background: #b20710;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(229, 9, 20, 0.3);
 }
 
-#prev-btn:disabled, #next-btn:disabled {
+#prev-btn:disabled,
+#next-btn:disabled {
   background: #333;
   cursor: not-allowed;
 }
@@ -340,7 +385,11 @@ nav ul li.search input[type="text"]:focus {
   padding: 0.5rem 1rem;
   font-size: 0.9rem;
   background: #333;
+  border: none;
   border-radius: 20px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .page-btn:hover {
@@ -360,11 +409,14 @@ nav ul li.search input[type="text"]:focus {
   background: #222;
   color: #fff;
   text-align: center;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
 }
 
 #page-input:focus {
   background: #333;
   box-shadow: 0 0 8px rgba(229, 9, 20, 0.3);
+  outline: none;
 }
 
 /* Ads */
@@ -378,6 +430,7 @@ nav ul li.search input[type="text"]:focus {
 }
 
 .ad-160x300,
+.ad-300x250,
 .ad-468x60 {
   display: flex;
   justify-content: center;
@@ -387,6 +440,11 @@ nav ul li.search input[type="text"]:focus {
 .ad-160x300 iframe {
   width: 160px;
   height: 300px;
+}
+
+.ad-300x250 iframe {
+  width: 300px;
+  height: 250px;
 }
 
 .ad-468x60 iframe {
@@ -453,8 +511,19 @@ footer > p {
     font-size: 2rem;
   }
 
-  .filmes-grid {
+  .filmes-grid,
+  .series-grid {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  .filme-item img,
+  .serie-item img {
+    height: 250px;
+  }
+
+  .ad-300x250 iframe {
+    width: 250px;
+    height: 200px;
   }
 
   .ad-468x60 iframe {
@@ -477,6 +546,7 @@ footer > p {
     right: 0;
     background: #141414;
     padding: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   }
 
   nav ul.active {
@@ -491,9 +561,19 @@ footer > p {
     font-size: 1.8rem;
   }
 
+  .filmes h2,
+  .series h2 {
+    font-size: 2rem;
+  }
+
   .ad-160x300 iframe {
     width: 120px;
     height: 240px;
+  }
+
+  .ad-300x250 iframe {
+    width: 200px;
+    height: 150px;
   }
 
   .ad-468x60 iframe {
@@ -511,11 +591,33 @@ footer > p {
     font-size: 1.6rem;
   }
 
-  .filmes h2 {
-    font-size: 2rem;
+  .hero-content p {
+    font-size: 0.9rem;
   }
 
-  .ad-160x300 {
+  .filmes h2,
+  .series h2 {
+    font-size: 1.8rem;
+  }
+
+  .filme-item img,
+  .serie-item img {
+    height: 200px;
+  }
+
+  .filme-item h3,
+  .serie-item h3 {
+    font-size: 1rem;
+  }
+
+  .filme-item a,
+  .serie-item a {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .ad-160x300,
+  .ad-300x250 {
     display: none;
   }
 
@@ -529,7 +631,8 @@ footer > p {
     gap: 0.5rem;
   }
 
-  #prev-btn, #next-btn {
+  #prev-btn,
+  #next-btn {
     padding: 0.6rem 1rem;
     font-size: 0.9rem;
   }
