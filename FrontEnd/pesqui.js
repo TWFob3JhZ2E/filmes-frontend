@@ -1,3 +1,21 @@
+/**
+ * Cria uma função debounced que atrasa a execução até que o tempo de espera passe sem novas chamadas.
+ * @param {Function} func - Função a ser debounced.
+ * @param {number} wait - Tempo de espera em milissegundos.
+ * @returns {Function} - Função debounced.
+ */
+function debounce(func, wait) {
+    let timeout;
+    return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+}
+
+/**
+ * Busca sugestões de filmes ou séries com base no texto digitado.
+ * @param {string} texto - Texto de busca.
+ */
 async function buscarSugestoes(texto) {
     const sugestoesDiv = document.getElementById('sugestoes');
     sugestoesDiv.innerHTML = '';
@@ -43,3 +61,18 @@ async function buscarSugestoes(texto) {
         sugestoesDiv.innerHTML = "<p style='padding: 10px; color: red;'>Erro ao buscar dados</p>";
     }
 }
+
+// Criar versão debounced de buscarSugestoes com 2 segundos de espera
+const debouncedBuscarSugestoes = debounce(buscarSugestoes, 2000);
+
+// Configurar evento de input no campo de pesquisa
+document.addEventListener('DOMContentLoaded', () => {
+    const inputBusca = document.getElementById('input-busca');
+    if (inputBusca) {
+        inputBusca.addEventListener('input', (e) => {
+            debouncedBuscarSugestoes(e.target.value);
+        });
+    } else {
+        console.warn("⚠️ Elemento #input-busca não encontrado.");
+    }
+});
