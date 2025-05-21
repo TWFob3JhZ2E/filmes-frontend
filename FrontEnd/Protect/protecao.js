@@ -19,7 +19,6 @@
     document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
         console.log('🚫 Clique direito bloqueado.');
-        window.location.href = AVISO_URL;
     });
 
     // Impedir seleção de texto (opcional, para dificultar cópia)
