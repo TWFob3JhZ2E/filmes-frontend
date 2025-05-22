@@ -100,6 +100,22 @@
                 <div class="genre-card" style="background-image: url('/capas/premmonição.jpg');" onclick="filtrarPorGenero('Lançamentos')" role="button" tabindex="0" aria-label="Filtrar por Lançamentos">
                     <h3>Lançamentos</h3>
                 </div>
+
+
+                <div class="genre-card" style="background-image: url('https://cinepop.com.br/wp-content/uploads/2024/06/alien-romulus.webp');" onclick="filtrarPorGenero('Aliens')" role="button" tabindex="0" aria-label="Filtrar por Lançamentos">
+                    <h3>Aliens</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/marve.jpg');" onclick="filtrarPorGenero('SuperHeroi')" role="button" tabindex="0" aria-label="Filtrar por Lançamentos">
+                    <h3>SuperHeroi</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('https://cdn.pipocamoderna.com.br/wp-content/uploads/2023/07/Oppenheimer-1.jpg');" onclick="filtrarPorGenero('Biografia')" role="button" tabindex="0" aria-label="Filtrar por Lançamentos">
+                    <h3>Biografia</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('https://filmes.band.uol.com.br/wp-content/uploads/2018/05/Veia-de-lutador-channing-tatum-1280x720.jpg');" onclick="filtrarPorGenero('Luta')" role="button" tabindex="0" aria-label="Filtrar por Lançamentos">
+                    <h3>Luta</h3>
+                </div>
+
+
                 <div class="genre-card" style="background-image: url('/capas/lugars.jpeg');" onclick="filtrarPorGenero('Mistério')" role="button" tabindex="0" aria-label="Filtrar por Mistério">
                     <h3>Mistério</h3>
                 </div>
@@ -253,25 +269,29 @@
 
         // Mapeamento de gêneros para subgêneros
         const generosMap = {
-            'Ação': ['Action'],
+            'Ação': ['Action','Action Epic'],
             'Animação': ['Animation', 'Computer Animation'],
             'Aventura': ['Adventure', 'Animal Adventure'],
-            'Comédia': ['Comedy'],
+            'SuperHeroi': ['Superhero'],
+            'Comédia': ['Comedy','Teen Comedy','Dark Comedy'],
+            'Aliens': ['Alien Invasion','Alien'],
             'Crime': ['Crime', 'Drug Crime'],
             'Drama': ['Drama'],
             'Família': ['Family'],
-            'Fantasia': ['Fantasy'],
+            'Fantasia': ['Fantasy','Dark Fantasy'],
             'Faroeste': ['Western'],
-            'Ficção Científica': ['Science'],
+            'Ficção Científica': ['Science fiction'],
             'Guerra': ['War'],
             'História': ['History'],
+            'Biografia': ['Biography'],
             'Lançamentos': ['Lançamentos'],
             'Mistério': ['Mystery'],
             'Música': ['Music'],
+            'Luta': ['Boxing'],
             'Nacional': ['Nacional'],
-            'Romance': ['Romance'],
-            'Suspense': ['Suspense'],
-            'Terror': ['Horror']
+            'Romance': ['Romance','Tragic Romance','Romantic Comedy'],
+            'Suspense': ['Suspense','Psychological Thrille','Thriller'],
+            'Terror': ['Horror', 'Supernatural Horror']
         };
 
         async function buscarGeneros(query) {
