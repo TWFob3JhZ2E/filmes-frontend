@@ -34,7 +34,7 @@
         let timeDiff = endTime - startTime;
 
         // Se o tempo de execução for muito longo (>50ms), DevTools provavelmente está aberto
-        if (timeDiff > 150) {
+        if (timeDiff > 30) {
             console.log('🚫 Ferramentas de Desenvolvedor abertas detectadas (debugger trap).');
             window.location.href = AVISO_URL;
         }
