@@ -8,11 +8,8 @@
     <link rel="stylesheet" href="../GERAL/Resul.css">
     <link rel="icon" href="../IMG/Logo1.png" type="image/x-icon">
 
-    <script type="text/javascript" src="//pl26406530.profitableratecpm.com/6212237595b591e4197a075fd5b8b929/invoke.js"></script>
-    
-    <script type='text/javascript' src='//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js' defer></script>
-    <script type='text/javascript' src='//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js' defer></script>
-   
+    <script type="text/javascript" src="//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js" defer></script>
+    <script type="text/javascript" src="//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js" defer></script>
 </head>
 <body>
     <header>
@@ -43,8 +40,6 @@
             </nav>
         </div>
     </header>
-
-    
 
     <div class="orange-bar"></div>
 
@@ -159,7 +154,8 @@
             </script>
             <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js"></script>
         </div>
-    </div> <script src="../Protect/protecao.js"></script>
+    </div>
+    <script src="../Protect/protecao.js"></script>
 
     <footer>
         <p>© 2025 MyStarMovies - Todos os direitos reservados.</p>
@@ -176,6 +172,29 @@
 
         let paginaAtual = 1;
         const ITEMS_PER_PAGE = 50;
+
+        // Mapeamento de gêneros para subgêneros
+        const generosMap = {
+            'Ação': ['Action'],
+            'Animação': ['Animation', 'Computer Animation'],
+            'Aventura': ['Adventure', 'Animal Adventure'],
+            'Comédia': ['Comedy'],
+            'Crime': ['Crime', 'Drug Crime'],
+            'Drama': ['Drama'],
+            'Família': ['Family'],
+            'Fantasia': ['Fantasy'],
+            'Faroeste': ['Western'],
+            'Ficção Científica': ['Science'],
+            'Guerra': ['War'],
+            'História': ['History'],
+            'Lançamentos': ['Lançamentos'],
+            'Mistério': ['Mystery'],
+            'Música': ['Music'],
+            'Nacional': ['Nacional'],
+            'Romance': ['Romance'],
+            'Suspense': ['Suspense'],
+            'Terror': ['Horror']
+        };
 
         async function buscarGeneros(query) {
             const sugestoesDiv = document.getElementById('sugestoes');
@@ -204,7 +223,7 @@
                     sugestao.onclick = () => {
                         document.getElementById('search').value = genero;
                         sugestoesDiv.innerHTML = '';
-                        window.location.href = `/PAGES/resultados.html?genero=${encodeURIComponent(genero)}`;
+                        window.location.href = `/PAGES/resultados.html?generos=${encodeURIComponent(genero)}`;
                     };
                     sugestoesDiv.appendChild(sugestao);
                 });
@@ -216,32 +235,54 @@
 
         async function carregarResultados() {
             const params = new URLSearchParams(window.location.search);
-            const genero = params.get('genero');
-            if (!genero) {
+            const generosQuery = params.get('generos');
+            if (!generosQuery) {
                 document.getElementById('resultados').innerHTML = '<p>Gênero não especificado</p>';
                 return;
             }
 
-            document.getElementById('genero').textContent = genero;
+            const generos = generosQuery.split(',').map(g => decodeURIComponent(g));
+            const generoDisplay = Object.keys(generosMap).find(key => 
+                generosMap[key].some(g => generos.includes(g))
+            ) || generos[0];
+
+            document.getElementById('genero').textContent = generoDisplay;
 
             try {
-                const response = await fetch(`${BACKEND_URL}/buscar_por_genero?genero=${encodeURIComponent(genero)}&pagina=${paginaAtual}`, {
-                    headers: { 'X-API-Key': API_KEY }
-                });
-                if (!response.ok) {
-                    throw new Error(`Erro ${response.status} ao carregar resultados`);
-                }
-                const data = await response.json();
-
                 const resultadosContainer = document.getElementById('resultados');
                 resultadosContainer.innerHTML = '';
+                let todosResultados = [];
+                let totalPaginas = 1;
 
-                if (data.mensagem) {
-                    resultadosContainer.innerHTML = `<p>${data.mensagem}</p>`;
+                // Fazer uma requisição para cada gênero
+                for (const genero of generos) {
+                    const response = await fetch(`${BACKEND_URL}/buscar_por_genero?genero=${encodeURIComponent(genero)}&pagina=${paginaAtual}`, {
+                        headers: { 'X-API-Key': API_KEY }
+                    });
+                    if (!response.ok) {
+                        throw new Error(`Erro ${response.status} ao carregar resultados para ${genero}`);
+                    }
+                    const data = await response.json();
+
+                    if (data.mensagem) {
+                        continue; // Ignora se não houver resultados
+                    }
+
+                    todosResultados.push(...data.resultados);
+                    totalPaginas = Math.max(totalPaginas, data.total_paginas);
+                }
+
+                if (todosResultados.length === 0) {
+                    resultadosContainer.innerHTML = '<p>Nenhum resultado encontrado</p>';
                     return;
                 }
 
-                data.resultados.forEach(item => {
+                // Remover duplicatas com base no item.id
+                const resultadosUnicos = Array.from(new Set(todosResultados.map(item => item.id)))
+                    .map(id => todosResultados.find(item => item.id === id));
+
+                // Exibir resultados
+                resultadosUnicos.slice(0, ITEMS_PER_PAGE).forEach(item => {
                     const itemElement = document.createElement('div');
                     itemElement.classList.add('resultado-item');
                     itemElement.innerHTML = `
@@ -253,7 +294,7 @@
                     resultadosContainer.appendChild(itemElement);
                 });
 
-                atualizarPaginacao(data.resultados.length, data.total_paginas);
+                atualizarPaginacao(resultadosUnicos.length, totalPaginas);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } catch (error) {
                 console.error('Erro ao carregar resultados:', error);
@@ -308,7 +349,8 @@
         document.getElementById('page-input').addEventListener('change', async (e) => {
             const novaPagina = parseInt(e.target.value);
             try {
-                const response = await fetch(`${BACKEND_URL}/buscar_por_genero?genero=${encodeURIComponent(document.getElementById('genero').textContent)}&pagina=1`, {
+                const generosQuery = new URLSearchParams(window.location.search).get('generos');
+                const response = await fetch(`${BACKEND_URL}/buscar_por_genero?genero=${encodeURIComponent(generosQuery.split(',')[0])}&pagina=1`, {
                     headers: { 'X-API-Key': API_KEY }
                 });
                 if (!response.ok) {
