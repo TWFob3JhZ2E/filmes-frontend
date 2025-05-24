@@ -19,30 +19,49 @@ function debounce(func, wait) {
 async function buscarSugestoes(texto) {
     const sugestoesDiv = document.getElementById('sugestoes');
     sugestoesDiv.innerHTML = '';
+    sugestoesDiv.style.display = 'none';
 
-    if (texto.length < 2) return;
+    if (!texto || texto.length < 2) {
+        return;
+    }
 
     try {
-        console.log("🔍 Buscando:", texto);
-        const res = await fetch(`${BACKEND_URL}/buscar?q=${encodeURIComponent(texto)}`, {
+        console.log("🔍 Buscando sugestões para:", texto);
+        const res = await fetch(`${BACKEND_URL}/buscar?q=${encodeURIComponent(texto)}&pagina=1`, {
             headers: { 'X-API-Key': API_KEY }
         });
-        if (!res.ok) {
-            throw new Error(`Erro ${res.status} ao buscar`);
-        }
-        const dados = await res.json();
 
-        if (!dados || dados.length === 0) {
-            sugestoesDiv.innerHTML = "<p style='padding: 10px;'>Nenhum resultado encontrado.</p>";
+        if (!res.ok) {
+            throw new Error(`Erro ${res.status}: ${res.statusText}`);
+        }
+
+        const dados = await res.json();
+        console.log("📥 Resposta do backend:", dados);
+
+        // Verificar se há erro ou resultados vazios
+        if (dados.erro) {
+            sugestoesDiv.innerHTML = `<p style='padding: 10px;'>${dados.erro}</p>`;
+            sugestoesDiv.style.display = 'block';
             return;
         }
 
-        dados.forEach(item => {
+        if (!dados.resultados || !Array.isArray(dados.resultados) || dados.resultados.length === 0) {
+            sugestoesDiv.innerHTML = "<p style='padding: 10px;'>Nenhum resultado encontrado.</p>";
+            sugestoesDiv.style.display = 'block';
+            return;
+        }
+
+        // Exibir até 5 sugestões
+        dados.resultados.slice(0, 5).forEach(item => {
             const div = document.createElement('div');
             div.className = 'sugestao-item';
 
             const img = document.createElement('img');
             img.src = item.capa || 'https://via.placeholder.com/40x60?text=?';
+            img.alt = item.titulo;
+            img.style.width = '40px';
+            img.style.height = 'auto';
+            img.style.marginRight = '10px';
 
             const span = document.createElement('span');
             span.textContent = item.titulo;
@@ -51,28 +70,34 @@ async function buscarSugestoes(texto) {
             div.appendChild(span);
 
             div.onclick = () => {
-                window.location.href = `/PAGES/player.html?id=${item.id}`;
+                document.getElementById('search').value = item.titulo;
+                sugestoesDiv.innerHTML = '';
+                sugestoesDiv.style.display = 'none';
+                window.location.href = `/PAGES/resultados.html?q=${encodeURIComponent(item.titulo)}`;
             };
 
             sugestoesDiv.appendChild(div);
         });
+
+        sugestoesDiv.style.display = 'block';
     } catch (err) {
-        console.error('❌ Erro na busca:', err);
+        console.error('❌ Erro ao buscar sugestões:', err);
         sugestoesDiv.innerHTML = "<p style='padding: 10px; color: red;'>Erro ao buscar dados</p>";
+        sugestoesDiv.style.display = 'block';
     }
 }
 
-// Criar versão debounced de buscarSugestoes com 2 segundos de espera
-const debouncedBuscarSugestoes = debounce(buscarSugestoes, 2000);
+// Criar versão debounced de buscarSugestoes com 300ms de espera
+const debouncedBuscarSugestoes = debounce(buscarSugestoes, 300);
 
 // Configurar evento de input no campo de pesquisa
 document.addEventListener('DOMContentLoaded', () => {
-    const inputBusca = document.getElementById('input-busca');
+    const inputBusca = document.getElementById('search');
     if (inputBusca) {
         inputBusca.addEventListener('input', (e) => {
             debouncedBuscarSugestoes(e.target.value);
         });
     } else {
-        console.warn("⚠️ Elemento #input-busca não encontrado.");
+        console.warn("⚠️ Elemento #search não encontrado.");
     }
 });
