@@ -186,28 +186,32 @@
         let paginaAtual = 1;
         const ITEMS_PER_PAGE = 50;
 
-        // Mapeamento de gêneros para subgêneros
-        const generosMap = {
-            'Ação': ['Action'],
+         const generosMap = {
+            'Ação': ['Action','Action Epic'],
             'Animação': ['Animation', 'Computer Animation'],
             'Aventura': ['Adventure', 'Animal Adventure'],
-            'Comédia': ['Comedy'],
+            'SuperHeroi': ['Superhero'],
+            'Comédia': ['Comedy','Teen Comedy','Dark Comedy'],
+            'Aliens': ['Alien Invasion','Alien'],
             'Crime': ['Crime', 'Drug Crime'],
             'Drama': ['Drama'],
             'Família': ['Family'],
-            'Fantasia': ['Fantasy'],
+            'Fantasia': ['Fantasy','Dark Fantasy'],
             'Faroeste': ['Western'],
-            'Ficção Científica': ['Science'],
+            'Ficção Científica': ['Science fiction'],
             'Guerra': ['War'],
             'História': ['History'],
+            'Biografia': ['Biography'],
             'Lançamentos': ['Lançamentos'],
             'Mistério': ['Mystery'],
             'Música': ['Music'],
+            'Luta': ['Boxing'],
             'Nacional': ['Nacional'],
-            'Romance': ['Romance'],
-            'Suspense': ['Suspense'],
-            'Terror': ['Horror']
+            'Romance': ['Romance','Tragic Romance','Romantic Comedy'],
+            'Suspense': ['Suspense','Psychological Thrille','Thriller'],
+            'Terror': ['Horror', 'Supernatural Horror']
         };
+
 
         async function carregarResultados() {
             const params = new URLSearchParams(window.location.search);

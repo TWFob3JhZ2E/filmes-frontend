@@ -179,6 +179,16 @@
                 navMenu.classList.toggle('active');
                 hamburger.classList.toggle('open');
             });
+
+              // Handle form submission for search
+        const searchForm = document.getElementById('search-form');
+        searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const query = document.getElementById('search').value.trim();
+            if (query) {
+                window.location.href = `/PAGES/resultados.html?q=${encodeURIComponent(query)}`;
+            }
+        });
         });
     </script>
 </body>
