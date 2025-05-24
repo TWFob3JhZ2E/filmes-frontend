@@ -175,6 +175,7 @@
                 e.preventDefault();
                 const query = document.getElementById('search').value.trim();
                 if (query) {
+                    console.log('Enviando busca para:', query);
                     window.location.href = `/PAGES/resultados.html?q=${encodeURIComponent(query)}`;
                 }
             });
@@ -261,6 +262,7 @@
                         totalPaginas = Math.max(totalPaginas, data.total_paginas || 1);
                     }
                 } else if (query) {
+                    console.log('Requisição enviada:', url);
                     const response = await fetch(url, {
                         headers: { 'X-API-Key': API_KEY }
                     });
@@ -271,7 +273,7 @@
                     console.log('Resposta para busca por título:', data);
 
                     if (data.mensagem || !data.resultados || !Array.isArray(data.resultados)) {
-                        resultadosContainer.innerHTML = `<p>${data.mensagem || 'Nenhum resultado encontrado'}</p>`;
+                        resultadosContainer.innerHTML = `<p>${data.mensagem || 'Nenhum resultado encontrado para "' + query + '"'}</p>`;
                         return;
                     }
 
@@ -280,7 +282,7 @@
                 }
 
                 if (!todosResultados || todosResultados.length === 0) {
-                    resultadosContainer.innerHTML = '<p>Nenhum resultado encontrado</p>';
+                    resultadosContainer.innerHTML = `<p>Nenhum resultado encontrado para "${displayText}"</p>`;
                     return;
                 }
 
