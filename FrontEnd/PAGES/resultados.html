@@ -251,6 +251,7 @@
                             throw new Error(`Erro ${response.status} ao carregar resultados para ${genero}`);
                         }
                         const data = await response.json();
+                        console.log(`Resposta para gênero ${genero}:`, data);
 
                         if (data.mensagem || !data.resultados) {
                             continue;
@@ -264,17 +265,18 @@
                         headers: { 'X-API-Key': API_KEY }
                     });
                     if (!response.ok) {
-                        throw new Error(`Erro ${response.status} ao carregar resultados`);
+                        throw new Error(`Erro ${response.status} ao carregar resultados para query ${query}`);
                     }
                     const data = await response.json();
+                    console.log('Resposta para busca por título:', data);
 
-                    if (data.mensagem || !data.resultados) {
+                    if (data.mensagem || !data.resultados || !Array.isArray(data.resultados)) {
                         resultadosContainer.innerHTML = `<p>${data.mensagem || 'Nenhum resultado encontrado'}</p>`;
                         return;
                     }
 
                     todosResultados = data.resultados;
-                    totalPaginas = data.total_paginas || 1;
+                    totalPaginas = data.total_paginas || Math.ceil(data.resultados.length / ITEMS_PER_PAGE) || 1;
                 }
 
                 if (!todosResultados || todosResultados.length === 0) {
@@ -373,7 +375,7 @@
                     throw new Error(`Erro ${response.status}`);
                 }
                 const data = await response.json();
-                const totalPaginas = data.total_paginas || 1;
+                const totalPaginas = data.total_paginas || Math.ceil((data.resultados?.length || 0) / ITEMS_PER_PAGE) || 1;
                 if (novaPagina >= 1 && novaPagina <= totalPaginas) {
                     paginaAtual = novaPagina;
                     carregarResultados();
