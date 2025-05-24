@@ -252,12 +252,12 @@
                         }
                         const data = await response.json();
 
-                        if (data.mensagem) {
+                        if (data.mensagem || !data.resultados) {
                             continue;
                         }
 
                         todosResultados.push(...data.resultados);
-                        totalPaginas = Math.max(totalPaginas, data.total_paginas);
+                        totalPaginas = Math.max(totalPaginas, data.total_paginas || 1);
                     }
                 } else if (query) {
                     const response = await fetch(url, {
@@ -268,8 +268,8 @@
                     }
                     const data = await response.json();
 
-                    if (data.mensagem) {
-                        resultadosContainer.innerHTML = `<p>${data.mensagem}</p>`;
+                    if (data.mensagem || !data.resultados) {
+                        resultadosContainer.innerHTML = `<p>${data.mensagem || 'Nenhum resultado encontrado'}</p>`;
                         return;
                     }
 
@@ -277,7 +277,7 @@
                     totalPaginas = data.total_paginas || 1;
                 }
 
-                if (todosResultados.length === 0) {
+                if (!todosResultados || todosResultados.length === 0) {
                     resultadosContainer.innerHTML = '<p>Nenhum resultado encontrado</p>';
                     return;
                 }
@@ -303,7 +303,7 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } catch (error) {
                 console.error('Erro ao carregar resultados:', error);
-                resultadosContainer.innerHTML = '<p>Erro ao carregar resultados</p>';
+                resultadosContainer.innerHTML = '<p>Erro ao carregar resultados. Tente novamente.</p>';
             }
         }
 
@@ -326,6 +326,7 @@
                 pageButton.setAttribute('aria-label', `Ir para página ${i}`);
                 if (i === paginaAtual) {
                     pageButton.classList.add('active');
+                    pageButton.setAttribute('aria-current', 'page');
                 }
                 pageButton.addEventListener('click', () => {
                     paginaAtual = i;
