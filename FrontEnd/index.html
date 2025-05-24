@@ -30,8 +30,9 @@
                     <li><a href="/PAGES/Generos.html">Gêneros</a></li>
                     <li><a href="/PAGES/sobre.html">Sobre</a></li>
                     <li class="search">
-                        <form onsubmit="return false;" style="position: relative;">
-                            <input type="text" id="search" placeholder="Buscar filmes ou séries..." autocomplete="off" oninput="buscarSugestoes(this.value)">
+                        <form id="search-form" style="position: relative;">
+                            <input type="text" id="search" placeholder="Buscar filmes ou séries..." autocomplete="off" oninput="buscarSugestoes(this.value)" aria-label="Buscar filmes ou séries">
+                            <button type="submit" aria-label="Pesquisar"><i class="fas fa-search"></i></button>
                             <div id="sugestoes"></div>
                         </form>
                     </li>
@@ -166,7 +167,6 @@
                     <li><a href="/PAGES/sobre.html">Sobre</a></li>
                 </ul>
             </div>
-            </div>
         </div>
         <!-- Ad: Six 300x250 (Footer Ads) -->
         <div class="ad-container ad-300x250 footer-ads">
@@ -270,7 +270,10 @@
         <p>© 2025 MyStarMovies - Todos os direitos reservados.</p>
     </footer>
 
-    <script src="/Conex/Config.js"></script><script src="/pesqui.js"></script><script src="/Script.js"></script><script src="Protect/protecao.js"></script>
+    <script src="/Conex/Config.js"></script>
+    <script src="/pesqui.js"></script>
+    <script src="/Script.js"></script>
+    <script src="Protect/protecao.js"></script>
     <script>
         // Hamburger menu toggle with animation
         const hamburger = document.querySelector('.hamburger');
@@ -278,6 +281,16 @@
         hamburger.addEventListener('click', () => {
             navMenu.classList.toggle('active');
             hamburger.classList.toggle('open');
+        });
+
+        // Handle form submission for search
+        const searchForm = document.getElementById('search-form');
+        searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const query = document.getElementById('search').value.trim();
+            if (query) {
+                window.location.href = `/PAGES/resultados.html?q=${encodeURIComponent(query)}`;
+            }
         });
     </script>
 </body>

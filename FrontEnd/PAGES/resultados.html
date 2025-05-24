@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultados por Gênero - MyStarMovies</title>
+    <title>Resultados - MyStarMovies</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="../GERAL/Resul.css">
     <link rel="icon" href="../IMG/Logo1.png" type="image/x-icon">
@@ -30,9 +30,9 @@
                     <li><a href="/PAGES/Generos.html">Gêneros</a></li>
                     <li><a href="/PAGES/sobre.html">Sobre</a></li>
                     <li class="search">
-                        <form onsubmit="return false;" style="position: relative;">
-                            <input type="text" placeholder="Buscar gênero..." id="search" autocomplete="off" oninput="buscarGeneros(this.value)">
-                            <button type="submit"><i class="fas fa-search"></i></button>
+                        <form id="search-form" style="position: relative;">
+                            <input type="text" placeholder="Buscar filmes ou séries..." id="search" autocomplete="off" oninput="buscarSugestoes(this.value)">
+                            <button type="submit" aria-label="Pesquisar"><i class="fas fa-search"></i></button>
                             <div id="sugestoes"></div>
                         </form>
                     </li>
@@ -162,11 +162,23 @@
     </footer>
 
     <script src="/Conex/Config.js"></script>
+    <script src="/pesqui.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             document.querySelector('.hamburger').addEventListener('click', () => {
                 document.querySelector('nav ul').classList.toggle('active');
             });
+
+            // Handle form submission for search
+            const searchForm = document.getElementById('search-form');
+            searchForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const query = document.getElementById('search').value.trim();
+                if (query) {
+                    window.location.href = `/PAGES/resultados.html?q=${encodeURIComponent(query)}`;
+                }
+            });
+
             carregarResultados();
         });
 
@@ -196,80 +208,73 @@
             'Terror': ['Horror']
         };
 
-        async function buscarGeneros(query) {
-            const sugestoesDiv = document.getElementById('sugestoes');
-            sugestoesDiv.innerHTML = '';
-
-            if (!query) return;
-
-            try {
-                const response = await fetch(`${BACKEND_URL}/buscar_generos?q=${encodeURIComponent(query)}`, {
-                    headers: { 'X-API-Key': API_KEY }
-                });
-                if (!response.ok) {
-                    throw new Error(`Erro ${response.status} ao buscar gêneros`);
-                }
-                const generos = await response.json();
-
-                if (generos.length === 0) {
-                    sugestoesDiv.innerHTML = '<div class="sugestao-item"><span>Nenhum gênero encontrado</span></div>';
-                    return;
-                }
-
-                generos.forEach(genero => {
-                    const sugestao = document.createElement('div');
-                    sugestao.classList.add('sugestao-item');
-                    sugestao.innerHTML = `<span>${genero}</span>`;
-                    sugestao.onclick = () => {
-                        document.getElementById('search').value = genero;
-                        sugestoesDiv.innerHTML = '';
-                        window.location.href = `/PAGES/resultados.html?generos=${encodeURIComponent(genero)}`;
-                    };
-                    sugestoesDiv.appendChild(sugestao);
-                });
-            } catch (error) {
-                console.error('Erro ao buscar gêneros:', error);
-                sugestoesDiv.innerHTML = '<div class="sugestao-item"><span>Erro ao carregar sugestões</span></div>';
-            }
-        }
-
         async function carregarResultados() {
             const params = new URLSearchParams(window.location.search);
+            const query = params.get('q');
             const generosQuery = params.get('generos');
-            if (!generosQuery) {
-                document.getElementById('resultados').innerHTML = '<p>Gênero não especificado</p>';
+
+            const resultadosContainer = document.getElementById('resultados');
+            const generoSpan = document.getElementById('genero');
+
+            if (!query && !generosQuery) {
+                resultadosContainer.innerHTML = '<p>Nenhum termo ou gênero especificado</p>';
                 return;
             }
 
-            const generos = generosQuery.split(',').map(g => decodeURIComponent(g));
-            const generoDisplay = Object.keys(generosMap).find(key => 
-                generosMap[key].some(g => generos.includes(g))
-            ) || generos[0];
+            let url;
+            let displayText;
 
-            document.getElementById('genero').textContent = generoDisplay;
+            if (query) {
+                url = `${BACKEND_URL}/buscar?q=${encodeURIComponent(query)}&pagina=${paginaAtual}`;
+                displayText = query;
+            } else if (generosQuery) {
+                const generos = generosQuery.split(',').map(g => decodeURIComponent(g));
+                displayText = Object.keys(generosMap).find(key => 
+                    generosMap[key].some(g => generos.includes(g))
+                ) || generos[0];
+            }
+
+            generoSpan.textContent = displayText;
 
             try {
-                const resultadosContainer = document.getElementById('resultados');
                 resultadosContainer.innerHTML = '';
                 let todosResultados = [];
                 let totalPaginas = 1;
 
-                // Fazer uma requisição para cada gênero
-                for (const genero of generos) {
-                    const response = await fetch(`${BACKEND_URL}/buscar_por_genero?genero=${encodeURIComponent(genero)}&pagina=${paginaAtual}`, {
+                if (generosQuery) {
+                    const generos = generosQuery.split(',').map(g => decodeURIComponent(g));
+                    for (const genero of generos) {
+                        const response = await fetch(`${BACKEND_URL}/buscar_por_genero?genero=${encodeURIComponent(genero)}&pagina=${paginaAtual}`, {
+                            headers: { 'X-API-Key': API_KEY }
+                        });
+                        if (!response.ok) {
+                            throw new Error(`Erro ${response.status} ao carregar resultados para ${genero}`);
+                        }
+                        const data = await response.json();
+
+                        if (data.mensagem) {
+                            continue;
+                        }
+
+                        todosResultados.push(...data.resultados);
+                        totalPaginas = Math.max(totalPaginas, data.total_paginas);
+                    }
+                } else if (query) {
+                    const response = await fetch(url, {
                         headers: { 'X-API-Key': API_KEY }
                     });
                     if (!response.ok) {
-                        throw new Error(`Erro ${response.status} ao carregar resultados para ${genero}`);
+                        throw new Error(`Erro ${response.status} ao carregar resultados`);
                     }
                     const data = await response.json();
 
                     if (data.mensagem) {
-                        continue; // Ignora se não houver resultados
+                        resultadosContainer.innerHTML = `<p>${data.mensagem}</p>`;
+                        return;
                     }
 
-                    todosResultados.push(...data.resultados);
-                    totalPaginas = Math.max(totalPaginas, data.total_paginas);
+                    todosResultados = data.resultados;
+                    totalPaginas = data.total_paginas || 1;
                 }
 
                 if (todosResultados.length === 0) {
@@ -277,7 +282,7 @@
                     return;
                 }
 
-                // Remover duplicatas com base no item.id
+                // Remover duplicatas com base no item.id (para gêneros)
                 const resultadosUnicos = Array.from(new Set(todosResultados.map(item => item.id)))
                     .map(id => todosResultados.find(item => item.id === id));
 
@@ -298,7 +303,7 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } catch (error) {
                 console.error('Erro ao carregar resultados:', error);
-                document.getElementById('resultados').innerHTML = '<p>Erro ao carregar resultados</p>';
+                resultadosContainer.innerHTML = '<p>Erro ao carregar resultados</p>';
             }
         }
 
@@ -349,15 +354,25 @@
         document.getElementById('page-input').addEventListener('change', async (e) => {
             const novaPagina = parseInt(e.target.value);
             try {
-                const generosQuery = new URLSearchParams(window.location.search).get('generos');
-                const response = await fetch(`${BACKEND_URL}/buscar_por_genero?genero=${encodeURIComponent(generosQuery.split(',')[0])}&pagina=1`, {
+                const params = new URLSearchParams(window.location.search);
+                const query = params.get('q');
+                const generosQuery = params.get('generos');
+                let url;
+
+                if (query) {
+                    url = `${BACKEND_URL}/buscar?q=${encodeURIComponent(query)}&pagina=1`;
+                } else {
+                    url = `${BACKEND_URL}/buscar_por_genero?genero=${encodeURIComponent(generosQuery.split(',')[0])}&pagina=1`;
+                }
+
+                const response = await fetch(url, {
                     headers: { 'X-API-Key': API_KEY }
                 });
                 if (!response.ok) {
                     throw new Error(`Erro ${response.status}`);
                 }
                 const data = await response.json();
-                const totalPaginas = data.total_paginas;
+                const totalPaginas = data.total_paginas || 1;
                 if (novaPagina >= 1 && novaPagina <= totalPaginas) {
                     paginaAtual = novaPagina;
                     carregarResultados();
