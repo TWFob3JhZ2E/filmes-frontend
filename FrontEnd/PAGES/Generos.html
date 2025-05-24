@@ -33,8 +33,8 @@
                     <li><a href="/PAGES/Generos.html">Gêneros</a></li>
                     <li><a href="/PAGES/sobre.html">Sobre</a></li>
                     <li class="search">
-                        <form onsubmit="return false;" style="position: relative;">
-                            <input type="text" placeholder="Buscar gênero..." id="search" autocomplete="off" oninput="buscarGeneros(this.value)" aria-label="Buscar gênero">
+                        <form id="search-form" style="position: relative;">
+                            <input type="text" id="search" placeholder="Buscar filmes ou séries..." autocomplete="off" oninput="buscarSugestoes(this.value)" aria-label="Buscar filmes ou séries">
                             <button type="submit" aria-label="Pesquisar"><i class="fas fa-search"></i></button>
                             <div id="sugestoes"></div>
                         </form>

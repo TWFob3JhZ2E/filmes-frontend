@@ -31,7 +31,7 @@
                     <li><a href="/PAGES/sobre.html">Sobre</a></li>
                     <li class="search">
                         <form id="search-form" style="position: relative;">
-                            <input type="text" placeholder="Buscar filmes ou séries..." id="search" autocomplete="off" oninput="buscarSugestoes(this.value)">
+                            <input type="text" id="search" placeholder="Buscar filmes ou séries..." autocomplete="off" oninput="buscarSugestoes(this.value)" aria-label="Buscar filmes ou séries">
                             <button type="submit" aria-label="Pesquisar"><i class="fas fa-search"></i></button>
                             <div id="sugestoes"></div>
                         </form>
