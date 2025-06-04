@@ -1,8 +1,7 @@
-
 (function() {
-    const AVISO_URL = 'https://www.google.ru/?hl=ru';
+    const WARNING_URL = '/aviso.html'; // Custom warning page
 
-    // Bloquear atalhos de teclado (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U)
+    // Keyboard shortcut blocking
     document.addEventListener('keydown', function(e) {
         if (
             e.key === 'F12' ||
@@ -10,52 +9,57 @@
             (e.ctrlKey && e.key === 'U')
         ) {
             e.preventDefault();
-            console.log('🚫 Tentativa de abrir Ferramentas de Desenvolvedor detectada (teclado).');
-            window.location.href = AVISO_URL;
+            showWarning('Tentativa de abrir Ferramentas de Desenvolvedor detectada.');
         }
     });
 
-    // Bloquear menu de contexto (clique direito)
+    // Selective context menu blocking
     document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-        console.log('🚫 Clique direito bloqueado.');
+        if (!e.target.closest('a, button, .ad-container')) {
+            e.preventDefault();
+            showWarning('Clique direito restrito fora de links ou anúncios.');
+        }
     });
 
-    // Impedir seleção de texto (opcional, para dificultar cópia)
+    // Selective text selection blocking
     document.addEventListener('selectstart', function(e) {
-        e.preventDefault();
+        if (!e.target.closest('nav, footer') && !navigator.userAgent.includes('ScreenReader')) {
+            e.preventDefault();
+        }
     });
 
-    // Detectar DevTools com debugger trap
+    // Warning modal
+    function showWarning(message) {
+        const modal = document.createElement('div');
+        modal.innerHTML = `
+            <div style="position: fixed; top: 20%; left: 50%; transform: translateX(-50%); background: #1c1c1c; color: #fff; padding: 1rem; border-radius: 8px; z-index: 1000; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);">
+                <p>${message}</p>
+                <button style="background: #e50914; color: #fff; padding: 0.5rem 1rem; border: none; border-radius: 4px; margin-top: 1rem;" onclick="this.parentElement.remove()">Fechar</button>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+
+    // DevTools detection (debugger trap)
     function detectDevTools() {
         let startTime = performance.now();
-        debugger; // Pausa se DevTools estiver aberto com breakpoints
+        debugger;
         let endTime = performance.now();
-        let timeDiff = endTime - startTime;
-
-        // Se o tempo de execução for muito longo (>50ms), DevTools provavelmente está aberto
-        if (timeDiff > 50) {
-            console.log('🚫 Ferramentas de Desenvolvedor abertas detectadas (debugger trap).');
-            window.location.href = AVISO_URL;
+        if (endTime - startTime > 100) {
+            showWarning('Ferramentas de Desenvolvedor abertas detectadas.');
         }
     }
 
-    // Verificar periodicamente
-    setInterval(detectDevTools, 1000);
-
-    // Detecção adicional por tamanho da janela (mantida como backup)
-    function detectDevToolsBySize() {
-        const threshold = 160; // Diferença mínima para detectar DevTools
-        const widthDiff = window.outerWidth - window.innerWidth;
-        const heightDiff = window.outerHeight - window.innerHeight;
-
-        if (widthDiff > threshold || heightDiff > threshold) {
-            console.log('🚫 Ferramentas de Desenvolvedor abertas detectadas (tamanho).');
-            window.location.href = AVISO_URL;
-        }
+    // Debounced DevTools detection
+    function debounce(func, wait) {
+        let timeout;
+        return function() {
+            clearTimeout(timeout);
+            timeout = setTimeout(func, wait);
+        };
     }
 
-    setInterval(detectDevToolsBySize, 1000);
+    setInterval(debounce(detectDevTools, 2000), 2000);
 
     console.log('🔒 Proteção contra Ferramentas de Desenvolvedor ativa.');
 })();
