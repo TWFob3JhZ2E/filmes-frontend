@@ -1,4 +1,3 @@
-
 <div id='roulette'></div>
 <script>var rnd = Math.floor(Math.random() * 1000000); var pid = '26405977'; document.write('<scr' + 'ipt type="text/javascript" src="https://pl' + pid + '.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js?rnd=' + rnd + '"></scr' + 'ipt>');</script>
 <!DOCTYPE html>
@@ -6,20 +5,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Filmes - MyStarMovies</title>
-    <link rel="stylesheet" href="../GERAL/style.css">
-    <link rel="icon" href="/IMG/Logo1.png" type="image/x-icon">
+    <title>Lista de Animes - MyStarMovies</title>
+    <link rel="stylesheet" href="../GERAL/StyleAnimes.css">
+    <link rel="icon" href="/IMG/Logo1.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <meta name="description" content="Assista a filmes e séries online grátis no MyStarMovies. Encontre os melhores títulos em HD, com legendas e dublagem, incluindo ação, comédia, drama e mais!">
-    <meta name="keywords" content="filmes online, séries online, streaming grátis, assistir filmes, MyStarMovies, MyMovies, MoviesStar, filmes HD, séries legendadas, ação, comédia, drama, filmes free, séries grátis, assistir grátis, filmes dublados, séries dubladas, filmes e séries">
+    <meta name="description" content="Assista a animes online grátis no MyStarMovies. Encontre os melhores títulos em HD, com legendas e dublagem, incluindo ação, aventura, shonen, slice of life e mais!">
+    <meta name="keywords" content="animes online, streaming grátis, assistir animes, MyStarMovies, animes HD, animes legendados, ação, shonen, aventura, slice of life, animes dublados, animes grátis, assistir animes gratuito">
 
     <script type="text/javascript" src="//pl26406530.profitableratecpm.com/6212237595b591e4197a075fd5b8b929/invoke.js"></script>
-    
     <script type='text/javascript' src='//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js'></script>
     <script type='text/javascript' src='//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js'></script>
     <script type='text/javascript' src='//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js'></script>
-
 </head>
 <body>
     <header>
@@ -37,12 +34,12 @@
                     <li><a href="../index.html">Início</a></li>
                     <li><a href="/PAGES/filmes.html">Filmes</a></li>
                     <li><a href="/PAGES/series.html">Séries</a></li>
+                    <li><a href="/PAGES/animes.html" class="active">Animes</a></li>
                     <li><a href="/PAGES/Generos.html">Gêneros</a></li>
-                    <li><a href="/PAGES/Animes.html">Animes</a></li>
                     <li><a href="/PAGES/sobre.html">Sobre</a></li>
-                     <li class="search">
+                    <li class="search">
                         <form id="search-form" style="position: relative;">
-                            <input type="text" id="search" placeholder="Buscar filmes ou séries..." autocomplete="off" oninput="buscarSugestoes(this.value)" aria-label="Buscar filmes ou séries">
+                            <input type="text" id="search" placeholder="Buscar filmes, séries ou animes..." autocomplete="off" oninput="buscarSugestoes(this.value)" aria-label="Buscar filmes, séries ou animes">
                             <button type="submit" aria-label="Pesquisar"><i class="fas fa-search"></i></button>
                             <div id="sugestoes"></div>
                         </form>
@@ -55,8 +52,8 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Explore Nossa Coleção de Filmes</h1>
-            <p>Descubra os melhores filmes para todos os gostos!</p>
+            <h1>Explore Nossa Coleção de Animes</h1>
+            <p>Descubra os melhores animes para todos os fãs!</p>
         </div>
     </section>
 
@@ -91,13 +88,13 @@
     <!-- Loader -->
     <div id="loader" class="loader">
         <div class="spinner"></div>
-        <p>Carregando filmes...</p>
+        <p>Carregando animes...</p>
     </div>
 
     <main>
-        <section class="filmes">
-            <h2>Filmes Populares</h2>
-            <div id="filmes-container" class="filmes-grid"></div>
+        <section class="animes">
+            <h2>Animes Populares</h2>
+            <div id="animes-container" class="animes-grid"></div>
         </section>
 
         <!-- Pagination -->
@@ -153,7 +150,7 @@
         <div class="footer-container">
             <div class="footer-section">
                 <h3>MyStarMovies</h3>
-                <p>Explore um universo de filmes e séries com a melhor curadoria de conteúdo.</p>
+                <p>Explore um universo de filmes, séries e animes com a melhor curadoria de conteúdo.</p>
             </div>
             <div class="footer-section">
                 <h3>Navegação</h3>
@@ -161,6 +158,7 @@
                     <li><a href="../index.html">Início</a></li>
                     <li><a href="/PAGES/filmes.html">Filmes</a></li>
                     <li><a href="/PAGES/series.html">Séries</a></li>
+                    <li><a href="/PAGES/animes.html">Animes</a></li>
                     <li><a href="/PAGES/Generos.html">Gêneros</a></li>
                     <li><a href="/PAGES/sobre.html">Sobre</a></li>
                 </ul>
@@ -256,7 +254,10 @@
         <p>© 2025 MyStarMovies - Todos os direitos reservados.</p>
     </footer>
 
-    <script src="../pesqui.js" defer></script><script src="../Protect/protecao.js"></script><script src="../Conex/Config.js" defer></script><script src="JS/Filmes.js" defer></script>
+    <script src="../pesqui.js" defer></script>
+    <script src="../Protect/protecao.js"></script>
+    <script src="../Conex/Config.js" defer></script>
+    <script src="JS/Animes.js" defer></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const loader = document.getElementById("loader");
@@ -271,15 +272,15 @@
                 hamburger.classList.toggle('open');
             });
 
-              // Handle form submission for search
-        const searchForm = document.getElementById('search-form');
-        searchForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const query = document.getElementById('search').value.trim();
-            if (query) {
-                window.location.href = `/PAGES/resultados.html?q=${encodeURIComponent(query)}`;
-            }
-        });
+            // Handle form submission for search
+            const searchForm = document.getElementById('search-form');
+            searchForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const query = document.getElementById('search').value.trim();
+                if (query) {
+                    window.location.href = `/PAGES/resultados.html?q=${encodeURIComponent(query)}`;
+                }
+            });
         });
     </script>
 </body>
