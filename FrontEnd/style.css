@@ -7,15 +7,15 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #0a0a0a;
-  color: #e0e0e0;
+  background-color: #1a1a00;
+  color: #fffde7;
   line-height: 1.6;
   scroll-behavior: smooth;
 }
 
 /* HEADER */
 header {
-  background: rgba(20, 20, 20, 0.95);
+  background: rgba(34, 34, 0, 0.95);
   backdrop-filter: blur(10px);
   position: sticky;
   top: 0;
@@ -34,7 +34,7 @@ header {
 .logo h1 {
   font-family: 'Montserrat', sans-serif;
   font-size: 2.2rem;
-  color: #e50914;
+  color: #ffd600;
   font-weight: 800;
   letter-spacing: 1px;
   transition: transform 0.3s ease;
@@ -53,7 +53,7 @@ nav ul {
 
 nav ul li a {
   text-decoration: none;
-  color: #e0e0e0;
+  color: #fffde7;
   font-size: 1rem;
   font-weight: 500;
   padding: 0.5rem 1rem;
@@ -63,9 +63,9 @@ nav ul li a {
 
 nav ul li a:hover,
 nav ul li a:focus {
-  color: #fff;
-  background-color: #e50914;
-  box-shadow: 0 2px 8px rgba(229, 9, 20, 0.3);
+  color: #000;
+  background-color: #ffeb3b;
+  box-shadow: 0 2px 8px rgba(255, 235, 59, 0.3);
 }
 
 /* Hamburger Menu */
@@ -79,7 +79,7 @@ nav ul li a:focus {
 .hamburger span {
   width: 28px;
   height: 3px;
-  background-color: #e0e0e0;
+  background-color: #fffde7;
   transition: all 0.3s ease;
 }
 
@@ -104,20 +104,20 @@ nav ul li.search input[type="text"] {
   padding: 0.5rem 2.5rem 0.5rem 1rem;
   border: none;
   border-radius: 20px;
-  background-color: #222;
+  background-color: #333300;
   color: #fff;
   font-size: 0.9rem;
   transition: all 0.3s ease;
 }
 
 nav ul li.search input[type="text"]:focus {
-  background-color: #333;
-  box-shadow: 0 0 8px rgba(229, 9, 20, 0.3);
+  background-color: #4d4d00;
+  box-shadow: 0 0 8px rgba(255, 235, 59, 0.3);
   outline: none;
 }
 
 #sugestoes {
-  background-color: #222;
+  background-color: #333300;
   border-radius: 8px;
   max-height: 300px;
   overflow-y: auto;
@@ -131,7 +131,7 @@ nav ul li.search input[type="text"]:focus {
 }
 
 .sugestao-item:hover {
-  background-color: #333;
+  background-color: #4d4d00;
 }
 
 .sugestao-item img {
@@ -148,7 +148,7 @@ nav ul li.search input[type="text"]:focus {
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: #fff;
+  color: #fffde7;
 }
 
 .hero::before {
@@ -183,17 +183,17 @@ nav ul li.search input[type="text"]:focus {
   padding: 1rem 2.5rem;
   font-size: 1.2rem;
   font-weight: 600;
-  color: #fff;
-  background: #e50914;
+  color: #000;
+  background: #ffeb3b;
   border-radius: 50px;
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
 .cta-button:hover {
-  background: #b20710;
+  background: #fdd835;
   transform: translateY(-3px);
-  box-shadow: 0 4px 15px rgba(229, 9, 20, 0.5);
+  box-shadow: 0 4px 15px rgba(255, 235, 59, 0.5);
 }
 
 /* Destaques */
@@ -205,7 +205,7 @@ nav ul li.search input[type="text"]:focus {
 .destaques h2 {
   font-family: 'Montserrat', sans-serif;
   font-size: 2.5rem;
-  color: #e50914;
+  color: #ffeb3b;
   margin-bottom: 2rem;
 }
 
@@ -217,7 +217,7 @@ nav ul li.search input[type="text"]:focus {
 }
 
 .movie-card {
-  background-color: #1c1c1c;
+  background-color: #2b2b00;
   border-radius: 10px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -240,12 +240,12 @@ nav ul li.search input[type="text"]:focus {
 
 .movie-card h3 {
   font-size: 1.2rem;
-  color: #fff;
+  color: #fffde7;
 }
 
 .movie-card p {
   font-size: 0.85rem;
-  color: #b3b3b3;
+  color: #f0f0a0;
 }
 
 .movie-card .overlay {
@@ -253,13 +253,14 @@ nav ul li.search input[type="text"]:focus {
 }
 
 .assistir-btn {
-  background: #e50914;
+  background: #ffeb3b;
   padding: 0.7rem 1.5rem;
   font-size: 1rem;
+  color: #000;
 }
 
 .assistir-btn:hover {
-  background: #b20710;
+  background: #fdd835;
 }
 
 /* Ads */
@@ -289,9 +290,9 @@ nav ul li.search input[type="text"]:focus {
 
 /* Footer */
 footer {
-  background: #141414;
+  background: #1d1d00;
   padding: 3rem 1rem;
-  color: #b3b3b3;
+  color: #f5f5b5;
 }
 
 .footer-container {
@@ -306,14 +307,14 @@ footer {
 .footer-section h3 {
   font-family: 'Montserrat', sans-serif;
   font-size: 1.5rem;
-  color: #e50914;
+  color: #ffeb3b;
   margin-bottom: 1rem;
 }
 
 .footer-section p,
 .footer-section ul li a {
   font-size: 0.9rem;
-  color: #b3b3b3;
+  color: #f5f5b5;
   text-decoration: none;
 }
 
@@ -322,12 +323,12 @@ footer {
 }
 
 .footer-section ul li a:hover {
-  color: #e50914;
+  color: #fff176;
 }
 
 .social-links a {
   margin: 0 0.5rem;
-  color: #e50914;
+  color: #ffeb3b;
   text-decoration: none;
 }
 
@@ -364,7 +365,7 @@ footer > p {
     top: 100%;
     left: 0;
     right: 0;
-    background: #141414;
+    background: #1d1d00;
     padding: 1rem;
   }
 
