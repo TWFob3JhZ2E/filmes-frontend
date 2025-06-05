@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assistir Filme ou Série - MyStarMovies</title>
+    <title>Assistir Filme, Série ou Anime - MyStarMovies</title>
     <link rel="stylesheet" href="/GERAL/StyleWatch.css">
     <link rel="icon" href="/IMG/Logo1.png" type="image/x-icon">
     <style>
@@ -87,21 +87,20 @@
     <main id="player-container" aria-live="polite">
         <div id="loader" class="loader">
             <div class="spinner"></div>
-            <p>Carregando filme, por favor aguarde...</p>
+            <p>Carregando conteúdo, por favor aguarde...</p>
         </div>
         <h2 id="titulo-serie">Carregando título...</h2>
         <iframe id="player" loading="lazy" frameborder="0" allowfullscreen aria-label="Player de vídeo"></iframe>
         <section id="detalhes-filme">
             <div id="info-filme">
                 <h3>Em caso de erro, reinicie a página e bom filme :3</h3>
-                <h3 id="movie-name">Nome do Filme</h3>
+                <h3 id="movie-name">Nome do Conteúdo</h3>
                 <p id="generos">Gêneros: Carregando...</p>
                 <p id="descricao">Carregando descrição...</p>
             </div>
-            <img id="capa" src="/IMG/placeholder.jpg" alt="Capa do Filme" />
+            <img id="capa" src="/IMG/placeholder.jpg" alt="Capa do Conteúdo" />
         </section>
 
-       
         <section class="ads-container" aria-label="Anúncios">
             <script async="async" data-cfasync="false" src="//pl26406530.profitableratecpm.com/6212237595b591e4197a075fd5b8b929/invoke.js"></script>
             <div id="container-6212237595b591e4197a075fd5b8b929"></div>
@@ -165,7 +164,16 @@
                 };
             </script>
             <script type="text/javascript" src="//www.highperformanceformat.com/928e31bcb774bbc2d3535533fc03cce0/invoke.js"></script>
-
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '928e31bcb774bbc2d3535533fc03cce0',
+                    'format' : 'iframe',
+                    'height' : 50,
+                    'width' : 320,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/928e31bcb774bbc2d3535533fc03cce0/invoke.js"></script>
         </section>
     </main>
 
@@ -204,7 +212,8 @@
         <p>© 2025 MyStarMovies. Todos os direitos reservados.</p>
     </footer>
 
-    <script src="/Conex/Config.js"></script><script src="../Protect/protecao.js"></script>
+    <script src="/Conex/Config.js"></script>
+    <script src="../Protect/protecao.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", async function () {
             const urlParams = new URLSearchParams(window.location.search);
@@ -219,31 +228,26 @@
             }
 
             async function fetchContent(id) {
-                const filmeUrl = `${BACKEND_URL}/filme/detalhes?id=${id}`;
-                const serieUrl = `${BACKEND_URL}/serie/detalhes?id=${id}`;
+                const urls = [
+                    { url: `${BACKEND_URL}/filme/detalhes?id=${id}`, type: 'filme' },
+                    { url: `${BACKEND_URL}/serie/detalhes?id=${id}`, type: 'serie' },
+                    { url: `${BACKEND_URL}/anime/detalhes?id=${id}`, type: 'anime' }
+                ];
 
-                const [filmeResponse, serieResponse] = await Promise.all([
-                    fetch(filmeUrl, {
-                        headers: { 'X-API-Key': API_KEY }
-                    }).then(res => {
-                        if (!res.ok) throw new Error(`Erro ${res.status} ao buscar filme`);
-                        return res.json();
-                    }).catch(() => ({ erro: 'Erro ao buscar filme' })),
-                    fetch(serieUrl, {
-                        headers: { 'X-API-Key': API_KEY }
-                    }).then(res => {
-                        if (!res.ok) throw new Error(`Erro ${res.status} ao buscar série`);
-                        return res.json();
-                    }).catch(() => ({ erro: 'Erro ao buscar série' }))
-                ]);
-
-                if (!filmeResponse.erro) {
-                    return { data: filmeResponse, type: 'filme' };
-                } else if (!serieResponse.erro) {
-                    return { data: serieResponse, type: 'serie' };
-                } else {
-                    return { erro: 'Filme ou série não encontrado' };
+                for (const { url, type } of urls) {
+                    try {
+                        const response = await fetch(url, {
+                            headers: { 'X-API-Key': API_KEY }
+                        });
+                        if (response.ok) {
+                            const data = await response.json();
+                            return { data, type };
+                        }
+                    } catch (error) {
+                        console.error(`Erro ao buscar ${type}:`, error);
+                    }
                 }
+                return { erro: 'Conteúdo não encontrado' };
             }
 
             loader.classList.remove("hidden");
@@ -253,7 +257,7 @@
             loader.classList.add("hidden");
 
             if (result.erro) {
-                playerContainer.innerHTML = '<p class="error-message">Filme ou série não encontrado. Verifique o ID ou tente novamente mais tarde.</p>';
+                playerContainer.innerHTML = '<p class="error-message">Conteúdo não encontrado. Verifique o ID ou tente novamente mais tarde.</p>';
                 document.getElementById("titulo-serie").textContent = "Erro ao carregar";
                 return;
             }

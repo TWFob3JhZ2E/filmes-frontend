@@ -32,7 +32,7 @@ function carregarAnimes() {
                 <p>${anime.descricao ? anime.descricao.substring(0, 100) + '...' : 'Sem descrição'}</p>
               </div>
             </div>
-            <a href="/PAGES/player.html?id=${anime.id}&tipo=anime">Assista Agora</a>
+            <a href="/PAGES/player.html?id=${anime.id}">Assista Agora</a>
           `;
           animesContainer.appendChild(animeItem);
         });
