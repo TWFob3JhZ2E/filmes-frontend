@@ -90,7 +90,7 @@
             <p>Carregando conteúdo, por favor aguarde...</p>
         </div>
         <h2 id="titulo-serie">Carregando título...</h2>
-        <iframe id="player" loading="lazy" frameborder="0" allowfullscreen aria-label="Player de vídeo"></iframe>
+        <iframe id="player" loading="lazy" frameborder="0" allowfullscreen aria-label="Player de vídeo" sandbox="allow-scripts allow-same-origin"></iframe>
         <section id="detalhes-filme">
             <div id="info-filme">
                 <h3>Em caso de erro, reinicie a página e bom filme :3</h3>
@@ -280,7 +280,12 @@
                 document.getElementById("capa").src = capa;
                 document.getElementById("capa").alt = `Capa de ${titulo}`;
 
-                const playerSrc = `https://superflixapi.wales/${type}/${id}`;
+                // Ajuste para animes: usar /serie/{id} em vez de /anime/{id}
+                const playerSrc = type === 'anime' 
+                    ? `https://superflixapi.wales/serie/${id}`
+                    : `https://superflixapi.wales/${type}/${id}`;
+                console.log(`Carregando ${type} com URL: ${playerSrc}`);
+
                 const player = document.getElementById("player");
                 player.src = playerSrc;
                 player.title = `Assistindo ${titulo}`;
