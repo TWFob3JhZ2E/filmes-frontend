@@ -25,10 +25,12 @@ function carregarAnimes() {
           const animeItem = document.createElement('div');
           animeItem.classList.add('anime-item');
           animeItem.innerHTML = `
-            <img src="${anime.capa || 'https://via.placeholder.com/200x300?text=Sem+Imagem'}" alt="${anime.titulo}">
-            <div class="overlay">
-              <h3>${anime.titulo}</h3>
-              <p>${anime.descricao ? anime.descricao.substring(0, 100) + '...' : 'Sem descrição'}</p>
+            <div class="image-container">
+              <img src="${anime.capa || 'https://via.placeholder.com/200x300?text=Sem+Imagem'}" alt="${anime.titulo}">
+              <div class="overlay">
+                <h3>${anime.titulo}</h3>
+                <p>${anime.descricao ? anime.descricao.substring(0, 100) + '...' : 'Sem descrição'}</p>
+              </div>
             </div>
             <a href="/PAGES/player.html?id=${anime.id}&tipo=anime">Assista Agora</a>
           `;

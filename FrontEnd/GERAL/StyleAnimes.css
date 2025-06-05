@@ -209,38 +209,24 @@ nav ul li.search input[type="text"]:focus {
   border-radius: 10px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
 }
 
-.anime-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
 }
 
 .anime-item img {
   width: 100%;
-  height: 280px;
+  height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
 }
 
 .anime-item:hover img {
   transform: scale(1.1);
-}
-
-.anime-item h3 {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.2rem;
-  color: #fff;
-  margin: 1rem;
-  text-align: left;
-}
-
-.anime-item p {
-  font-size: 0.85rem;
-  color: #b3b3b3;
-  margin: 0 1rem 1rem;
-  text-align: left;
 }
 
 .anime-item .overlay {
@@ -265,11 +251,14 @@ nav ul li.search input[type="text"]:focus {
 .anime-item .overlay h3 {
   color: #fff;
   font-size: 1.3rem;
+  font-family: 'Montserrat', sans-serif;
+  text-align: left;
 }
 
 .anime-item .overlay p {
   color: #ccc;
   font-size: 0.9rem;
+  text-align: left;
 }
 
 .anime-item a {
@@ -284,6 +273,8 @@ nav ul li.search input[type="text"]:focus {
   margin: 1rem;
   border-radius: 25px;
   transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
 }
 
 .anime-item a:hover {
@@ -501,7 +492,7 @@ footer > p {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   }
 
-  .anime-item img {
+  .image-container {
     height: 250px;
   }
 
@@ -582,12 +573,16 @@ footer > p {
     font-size: 1.8rem;
   }
 
-  .anime-item img {
+  .image-container {
     height: 200px;
   }
 
-  .anime-item h3 {
-    font-size: 1rem;
+  .anime-item .overlay h3 {
+    font-size: 1.1rem;
+  }
+
+  .anime-item .overlay p {
+    font-size: 0.8rem;
   }
 
   .anime-item a {
