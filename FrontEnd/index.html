@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -10,11 +11,60 @@
     <link rel="icon" type="image/x-icon" href="/IMG/favicon.ico">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+    <style>
+        .content-section {
+            margin: 2rem 0;
+            padding: 0 20px;
+        }
+        .content-section h2 {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 10px;
+        }
+        .movie-card {
+            background: #1c1c1c;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .movie-card:hover {
+            transform: scale(1.05);
+        }
+        .movie-card img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        .movie-card h3 {
+            font-size: 1.1rem;
+            margin: 10px;
+            color: #fff;
+            text-align: center;
+        }
+        .assistir-btn {
+            display: block;
+            background: #ff6200;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            text-decoration: none;
+            margin: 10px;
+            border-radius: 5px;
+        }
+        .assistir-btn:hover {
+            background: #e55a00;
+        }
+    </style>
     <script type='text/javascript' src='//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js'></script>
     <script type='text/javascript' src='//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js'></script>
     <script type='text/javascript' src='//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js'></script>
-
 </head>
 <body>
     <header>
@@ -37,7 +87,7 @@
                     <li><a href="/PAGES/sobre.html">Sobre</a></li>
                     <li class="search">
                         <form id="search-form" style="position: relative;">
-                            <input type="text" id="search" placeholder="Buscar filmes ou séries..." autocomplete="off" oninput="buscarSugestoes(this.value)" aria-label="Buscar filmes ou séries">
+                            <input type="text" id="search" placeholder="Buscar filmes, séries ou animes..." autocomplete="off" oninput="buscarSugestoes(this.value)" aria-label="Buscar filmes ou séries">
                             <button type="submit" aria-label="Pesquisar"><i class="fas fa-search"></i></button>
                             <div id="sugestoes"></div>
                         </form>
@@ -50,7 +100,7 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Descubra Filmes e Séries Incríveis</h1>
+            <h1>Descubra Filmes, Séries e Animes Incríveis</h1>
             <p>Explore o melhor do entretenimento com MyStarMovies!</p>
             <a href="/PAGES/Generos.html" class="cta-button">Explorar Agora</a>
         </div>
@@ -71,14 +121,31 @@
     </div>
 
     <main>
-        <section class="destaques">
-            <h2>Filmes e Séries Populares</h2>
-            <div class="destaques-cards" id="destaques-container">
-                <!-- Movie cards loaded dynamically -->
+        <!-- Seção de Filmes -->
+        <section class="content-section">
+            <h2>Filmes Populares</h2>
+            <div class="content-grid" id="filmes-container">
+                <!-- Cartões de filmes carregados dinamicamente -->
             </div>
         </section>
 
-        <!-- Ad: Two 300x250 (After Highlights) -->
+        <!-- Seção de Séries -->
+        <section class="content-section">
+            <h2>Séries Populares</h2>
+            <div class="content-grid" id="series-container">
+                <!-- Cartões de séries carregados dinamicamente -->
+            </div>
+        </section>
+
+        <!-- Seção de Animes -->
+        <section class="content-section">
+            <h2>Animes Populares</h2>
+            <div class="content-grid" id="animes-container">
+                <!-- Cartões de animes carregados dinamicamente -->
+            </div>
+        </section>
+
+        <!-- Ad: Two 300x250 (After Content) -->
         <div class="ad-container ad-300x250">
             <div>
                 <script type="text/javascript">
