@@ -1,20 +1,102 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyStarMovies - Filmes e Séries Online Grátis</title>
-    <meta name="description" content="Assista a filmes e séries online grátis no MyStarMovies. Encontre os melhores títulos em HD, com legendas e dublagem, incluindo ação, comédia, drama e mais!">
-    <meta name="keywords" content="filmes online, séries online, streaming grátis, assistir filmes, MyStarMovies, MyMovies, MoviesStar, filmes HD, séries legendadas, ação, comédia, drama, filmes free, séries grátis, assistir grátis, filmes dublados, séries dubladas, filmes e séries, assisitir filmes online">
+    <title>MyStarMovies - Filmes, Séries e Animes Online Grátis</title>
+    <meta name="description" content="Assista a filmes, séries e animes online grátis no MyStarMovies. Encontre os melhores títulos em HD, com legendas e dublagem, incluindo ação, comédia, drama e mais!">
+    <meta name="keywords" content="filmes online, séries online, animes online, streaming grátis, assistir filmes, MyStarMovies, filmes HD, séries legendadas, animes dublados, ação, comédia, drama, assistir grátis">
     <link rel="canonical" href="https://www.mystarmovies.online">
     <link rel="icon" type="image/x-icon" href="/IMG/favicon.ico">
-    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        body {
+            background: #121212;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+        }
+        header {
+            background: #1c1c1c;
+            padding: 1rem;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo h1 {
+            font-size: 1.8rem;
+            margin: 0;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1rem;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        nav ul li.search form {
+            display: flex;
+            align-items: center;
+        }
+        nav ul li.search input {
+            padding: 0.5rem;
+            border: none;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+        }
+        nav ul li.search button {
+            background: #ff6200;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .hamburger span {
+            background: #fff;
+            height: 3px;
+            width: 25px;
+            margin: 2px 0;
+        }
+        .hero {
+            background: url('/IMG/hero-bg.jpg') center/cover no-repeat;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+        .hero-content h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+        .cta-button {
+            background: #ff6200;
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+        }
         .content-section {
             margin: 2rem 0;
             padding: 0 20px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
         }
         .content-section h2 {
             font-size: 2rem;
@@ -61,10 +143,58 @@
         .assistir-btn:hover {
             background: #e55a00;
         }
+        .ad-container {
+            text-align: center;
+            margin: 1rem 0;
+        }
+        footer {
+            background: #1c1c1c;
+            padding: 2rem;
+            text-align: center;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .footer-section {
+            margin: 1rem;
+        }
+        .footer-section h3 {
+            font-size: 1.5rem;
+        }
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-section ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            nav ul.active {
+                display: flex;
+                flex-direction: column;
+                background: #1c1c1c;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                padding: 1rem;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+        }
     </style>
-    <script type='text/javascript' src='//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js'></script>
-    <script type='text/javascript' src='//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js'></script>
-    <script type='text/javascript' src='//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js'></script>
 </head>
 <body>
     <header>
@@ -86,8 +216,8 @@
                     <li><a href="/PAGES/Generos.html">Gêneros</a></li>
                     <li><a href="/PAGES/sobre.html">Sobre</a></li>
                     <li class="search">
-                        <form id="search-form" style="position: relative;">
-                            <input type="text" id="search" placeholder="Buscar filmes, séries ou animes..." autocomplete="off" oninput="buscarSugestoes(this.value)" aria-label="Buscar filmes ou séries">
+                        <form id="search-form">
+                            <input type="text" id="search" placeholder="Buscar filmes, séries ou animes..." autocomplete="off" oninput="buscarSugestoes(this.value)" aria-label="Buscar filmes, séries ou animes">
                             <button type="submit" aria-label="Pesquisar"><i class="fas fa-search"></i></button>
                             <div id="sugestoes"></div>
                         </form>
@@ -97,7 +227,6 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
             <h1>Descubra Filmes, Séries e Animes Incríveis</h1>
@@ -106,7 +235,6 @@
         </div>
     </section>
 
-    <!-- Ad: One 728x90 (Top) -->
     <div class="ad-container ad-728x90">
         <script type="text/javascript">
             atOptions = {
@@ -121,7 +249,6 @@
     </div>
 
     <main>
-        <!-- Seção de Filmes -->
         <section class="content-section">
             <h2>Filmes Populares</h2>
             <div class="content-grid" id="filmes-container">
@@ -129,7 +256,6 @@
             </div>
         </section>
 
-        <!-- Seção de Séries -->
         <section class="content-section">
             <h2>Séries Populares</h2>
             <div class="content-grid" id="series-container">
@@ -137,7 +263,6 @@
             </div>
         </section>
 
-        <!-- Seção de Animes -->
         <section class="content-section">
             <h2>Animes Populares</h2>
             <div class="content-grid" id="animes-container">
@@ -145,32 +270,7 @@
             </div>
         </section>
 
-        <!-- Ad: Two 300x250 (After Content) -->
         <div class="ad-container ad-300x250">
-            <div>
-                <script type="text/javascript">
-                    atOptions = {
-                        'key': 'ce04a28c61dd91222942a54edcdfefa3',
-                        'format': 'iframe',
-                        'height': 250,
-                        'width': 300,
-                        'params': {}
-                    };
-                </script>
-                <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js"></script>
-            </div>
-            <div>
-                <script type="text/javascript">
-                    atOptions = {
-                        'key': 'ce04a28c61dd91222942a54edcdfefa3',
-                        'format': 'iframe',
-                        'height': 250,
-                        'width': 300,
-                        'params': {}
-                    };
-                </script>
-                <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js"></script>
-            </div>
             <div>
                 <script type="text/javascript">
                     atOptions = {
@@ -198,19 +298,6 @@
         </div>
     </main>
 
-    <!-- Ad: One 728x90 (Before Footer) -->
-    <div class="ad-container ad-728x90">
-        <script type="text/javascript">
-            atOptions = {
-                'key': 'b38227437180d69db263a0b06fc48d56',
-                'format': 'iframe',
-                'height': 90,
-                'width': 728,
-                'params': {}
-            };
-        </script>
-        <script type="text/javascript" src="//www.highperformanceformat.com/b38227437180d69db263a0b06fc48d56/invoke.js"></script>
-    </div>
     <div class="ad-container ad-728x90">
         <script type="text/javascript">
             atOptions = {
@@ -228,7 +315,7 @@
         <div class="footer-container">
             <div class="footer-section">
                 <h3>MyStarMovies</h3>
-                <p>Explore um universo de filmes e séries com a melhor curadoria de conteúdo.</p>
+                <p>Explore um universo de filmes, séries e animes com a melhor curadoria de conteúdo.</p>
             </div>
             <div class="footer-section">
                 <h3>Navegação</h3>
@@ -236,85 +323,13 @@
                     <li><a href="index.html">Início</a></li>
                     <li><a href="/PAGES/filmes.html">Filmes</a></li>
                     <li><a href="/PAGES/series.html">Séries</a></li>
+                    <li><a href="/PAGES/Animes.html">Animes</a></li>
                     <li><a href="/PAGES/Generos.html">Gêneros</a></li>
                     <li><a href="/PAGES/sobre.html">Sobre</a></li>
                 </ul>
             </div>
         </div>
-        <!-- Ad: Six 300x250 (Footer Ads) -->
         <div class="ad-container ad-300x250 footer-ads">
-            <div>
-                <script type="text/javascript">
-                    atOptions = {
-                        'key': 'ce04a28c61dd91222942a54edcdfefa3',
-                        'format': 'iframe',
-                        'height': 250,
-                        'width': 300,
-                        'params': {}
-                    };
-                </script>
-                <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js"></script>
-            </div>
-            <div>
-                <script type="text/javascript">
-                    atOptions = {
-                        'key': 'ce04a28c61dd91222942a54edcdfefa3',
-                        'format': 'iframe',
-                        'height': 250,
-                        'width': 300,
-                        'params': {}
-                    };
-                </script>
-                <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js"></script>
-            </div>
-            <div>
-                <script type="text/javascript">
-                    atOptions = {
-                        'key': 'ce04a28c61dd91222942a54edcdfefa3',
-                        'format': 'iframe',
-                        'height': 250,
-                        'width': 300,
-                        'params': {}
-                    };
-                </script>
-                <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js"></script>
-            </div>
-            <div>
-                <script type="text/javascript">
-                    atOptions = {
-                        'key': 'ce04a28c61dd91222942a54edcdfefa3',
-                        'format': 'iframe',
-                        'height': 250,
-                        'width': 300,
-                        'params': {}
-                    };
-                </script>
-                <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js"></script>
-            </div>
-            <div>
-                <script type="text/javascript">
-                    atOptions = {
-                        'key': 'ce04a28c61dd91222942a54edcdfefa3',
-                        'format': 'iframe',
-                        'height': 250,
-                        'width': 300,
-                        'params': {}
-                    };
-                </script>
-                <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js"></script>
-            </div>
-            <div>
-                <script type="text/javascript">
-                    atOptions = {
-                        'key': 'ce04a28c61dd91222942a54edcdfefa3',
-                        'format': 'iframe',
-                        'height': 250,
-                        'width': 300,
-                        'params': {}
-                    };
-                </script>
-                <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js"></script>
-            </div>
             <div>
                 <script type="text/javascript">
                     atOptions = {
@@ -346,9 +361,8 @@
     <script src="/Conex/Config.js"></script>
     <script src="/pesqui.js"></script>
     <script src="/Script.js"></script>
-    <script src="Protect/protecao.js"></script>
+    <script src="/Protect/protecao.js"></script>
     <script>
-        // Hamburger menu toggle with animation
         const hamburger = document.querySelector('.hamburger');
         const navMenu = document.querySelector('nav ul');
         hamburger.addEventListener('click', () => {
@@ -356,7 +370,6 @@
             hamburger.classList.toggle('open');
         });
 
-        // Handle form submission for search
         const searchForm = document.getElementById('search-form');
         searchForm.addEventListener('submit', (e) => {
             e.preventDefault();
