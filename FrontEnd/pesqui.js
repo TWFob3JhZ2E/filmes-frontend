@@ -27,12 +27,17 @@ async function buscarSugestoes(texto) {
 
     try {
         console.log("🔍 Buscando sugestões para:", texto);
+        console.log("🌐 BACKEND_URL:", BACKEND_URL);
+        console.log("🔑 API_KEY:", API_KEY);
+
         const res = await fetch(`${BACKEND_URL}/buscar?q=${encodeURIComponent(texto)}&pagina=1`, {
             headers: { 'X-API-Key': API_KEY }
         });
 
+        console.log("📡 Status da resposta:", res.status, res.statusText);
+
         if (!res.ok) {
-            throw new Error(`Erro ${res.status}: ${res.statusText}`);
+            throw new Error(`Erro HTTP ${res.status}: ${res.statusText}`);
         }
 
         const dados = await res.json();
@@ -63,7 +68,7 @@ async function buscarSugestoes(texto) {
             img.style.height = 'auto';
             img.style.marginRight = '10px';
 
-            const span = document.createElemento('span');
+            const span = document.createElement('span');
             // Adicionar o tipo (Filme, Série ou Anime) ao título
             const tipo = item.tipo === 'filme' ? 'Filme' : item.tipo === 'serie' ? 'Série' : 'Anime';
             span.textContent = `${item.titulo} (${tipo})`;
@@ -76,6 +81,7 @@ async function buscarSugestoes(texto) {
                 sugestoesDiv.innerHTML = '';
                 sugestoesDiv.style.display = 'none';
                 // Redirecionar para player.html com o ID
+                console.log(`Redirecionando para: /PAGES/player.html?id=${item.id}`);
                 window.location.href = `/PAGES/player.html?id=${item.id}`;
             };
 
@@ -84,8 +90,9 @@ async function buscarSugestoes(texto) {
 
         sugestoesDiv.style.display = 'block';
     } catch (error) {
-        console.error('❌ Erro ao buscar sugestões:', error);
-        sugestoesDiv.innerHTML = "<p style='padding: 10px; color: red;'>Erro ao buscar dados</p>";
+        console.error('❌ Erro detalhado ao buscar sugestões:', error);
+        console.error('🔗 URL da requisição:', `${BACKEND_URL}/buscar?q=${encodeURIComponent(texto)}&pagina=1`);
+        sugestoesDiv.innerHTML = "<p style='padding: 10px; color: red;'>Erro ao buscar dados: Verifique o console para detalhes.</p>";
         sugestoesDiv.style.display = 'block';
     }
 }
