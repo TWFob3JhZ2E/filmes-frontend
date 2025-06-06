@@ -1,0 +1,70 @@
+<div class="genre-card" style="background-image: url('/capas/WICK.jpg');" onclick="filtrarPorGenero('Ação')" role="button" tabindex="0" aria-label="Filtrar por Ação">
+                    <h3>Ação</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/diverti.png');" onclick="filtrarPorGenero('Animação')" role="button" tabindex="0" aria-label="Filtrar por Animação">
+                    <h3>Animação</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/jurasiic.jpg');" onclick="filtrarPorGenero('Aventura')" role="button" tabindex="0" aria-label="Filtrar por Aventura">
+                    <h3>Aventura</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('https://www.rbsdirect.com.br/imagesrc/24591869.jpg?format=webp&w=1600&h=1600&a=c');" onclick="filtrarPorGenero('Comédia')" role="button" tabindex="0" aria-label="Filtrar por Comédia">
+                    <h3>Comédia</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/Poderoso.jpg');" onclick="filtrarPorGenero('Crime')" role="button" tabindex="0" aria-label="Filtrar por Crime">
+                    <h3>Crime</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/milagre.jpg');" onclick="filtrarPorGenero('Drama')" role="button" tabindex="0" aria-label="Filtrar por Drama">
+                    <h3>Drama</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/Paddington.jpg');" onclick="filtrarPorGenero('Família')" role="button" tabindex="0" aria-label="Filtrar por Família">
+                    <h3>Família</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/aneis.jpg');" onclick="filtrarPorGenero('Fantasia')" role="button" tabindex="0" aria-label="Filtrar por Fantasia">
+                    <h3>Fantasia</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/django.jpg');" onclick="filtrarPorGenero('Faroeste')" role="button" tabindex="0" aria-label="Filtrar por Faroeste">
+                    <h3>Faroeste</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/interestelar.jpg');" onclick="filtrarPorGenero('Ficção Científica')" role="button" tabindex="0" aria-label="Filtrar por Ficção Científica">
+                    <h3>Ficção Científica</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/homem.jpg');" onclick="filtrarPorGenero('Guerra')" role="button" tabindex="0" aria-label="Filtrar por Guerra">
+                    <h3>Guerra</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/listas.png');" onclick="filtrarPorGenero('História')" role="button" tabindex="0" aria-label="Filtrar por História">
+                    <h3>História</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/premmonição.jpg');" onclick="filtrarPorGenero('Lançamentos')" role="button" tabindex="0" aria-label="Filtrar por Lançamentos">
+                    <h3>Lançamentos</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('https://cinepop.com.br/wp-content/uploads/2024/06/alien-romulus.webp');" onclick="filtrarPorGenero('Aliens')" role="button" tabindex="0" aria-label="Filtrar por Lançamentos">
+                    <h3>Aliens</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/marve.jpg');" onclick="filtrarPorGenero('SuperHeroi')" role="button" tabindex="0" aria-label="Filtrar por Lançamentos">
+                    <h3>SuperHeroi</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('https://cdn.pipocamoderna.com.br/wp-content/uploads/2023/07/Oppenheimer-1.jpg');" onclick="filtrarPorGenero('Biografia')" role="button" tabindex="0" aria-label="Filtrar por Lançamentos">
+                    <h3>Biografia</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('https://filmes.band.uol.com.br/wp-content/uploads/2018/05/Veia-de-lutador-channing-tatum-1280x720.jpg');" onclick="filtrarPorGenero('Luta')" role="button" tabindex="0" aria-label="Filtrar por Lançamentos">
+                    <h3>Luta</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/lugars.jpeg');" onclick="filtrarPorGenero('Mistério')" role="button" tabindex="0" aria-label="Filtrar por Mistério">
+                    <h3>Mistério</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/bohemian.jpg');" onclick="filtrarPorGenero('Música')" role="button" tabindex="0" aria-label="Filtrar por Música">
+                    <h3>Música</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/cidadeDeus.jpg');" onclick="filtrarPorGenero('Nacional')" role="button" tabindex="0" aria-label="Filtrar por Nacional">
+                    <h3>Nacional</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/acontece.jpg');" onclick="filtrarPorGenero('Romance')" role="button" tabindex="0" aria-label="Filtrar por Romance">
+                    <h3>Romance</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/absolutocinema.jpeg');" onclick="filtrarPorGenero('Suspense')" role="button" tabindex="0" aria-label="Filtrar por Suspense">
+                    <h3>Suspense</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/muilher.jpeg');" onclick="filtrarPorGenero('Terror')" role="button" tabindex="0" aria-label="Filtrar por Terror">
+                    <h3>Terror</h3>
+                </div>
+            </div>
