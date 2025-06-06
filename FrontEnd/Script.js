@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     card.innerHTML = `
                         <img src="${filme.capa}" alt="${filme.titulo}">
-                        <h3>${filme.titulo} (Filme)</h3>
+                        <h3>${filme.titulo}</h3>
                         <a href="${playerURL}" class="assistir-btn">Assistir</a>
                     `;
 
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     card.innerHTML = `
                         <img src="${serie.capa}" alt="${serie.titulo}">
-                        <h3>${serie.titulo} (Série)</h3>
+                        <h3>${serie.titulo}</h3>
                         <a href="${playerURL}" class="assistir-btn">Assistir</a>
                     `;
 
@@ -106,42 +106,9 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => console.error('Erro ao carregar séries:', error));
     }
 
-    // Função para carregar animes novos
-    function carregarAnimesNovos() {
-        fetch(`${BACKEND_URL}/animes/novos`, {
-            headers: {
-                'X-API-Key': API_KEY
-            }
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Erro HTTP ${response.status}: ${response.statusText}`);
-                }
-                return response.json();
-            })
-            .then(animes => {
-                animes.forEach(anime => {
-                    const card = document.createElement("div");
-                    card.classList.add("movie-card");
-
-                    const playerURL = `${window.location.origin}/PAGES/player.html?id=${anime.id}`;
-
-                    card.innerHTML = `
-                        <img src="${anime.capa}" alt="${anime.titulo}">
-                        <h3>${anime.titulo} (Anime)</h3>
-                        <a href="${playerURL}" class="assistir-btn">Assistir</a>
-                    `;
-
-                    destaquesContainer.appendChild(card);
-                });
-            })
-            .catch(error => console.error('Erro ao carregar animes novos:', error));
-    }
-
-    // Carregar token CSRF e depois os filmes, séries e animes
+    // Carregar token CSRF e depois os filmes/séries
     carregarCsrfToken().then(() => {
         carregarFilmesNovos();
         carregarSeries();
-        carregarAnimesNovos();
     });
 });
