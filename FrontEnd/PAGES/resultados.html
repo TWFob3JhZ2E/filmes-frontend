@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="../GERAL/Resul.css">
     <link rel="icon" href="../IMG/Logo1.png" type="image/x-icon">
-    <script type="text/javascript" src="//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js" defer></script>
+    <script type="text/javascript" src="//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js"
+        defer></script>
 </head>
+
 <body>
     <header>
         <div class="header-container">
@@ -30,7 +33,9 @@
                     <li><a href="/PAGES/sobre.html">Sobre</a></li>
                     <li class="search">
                         <form id="search-form" style="position: relative;">
-                            <input type="text" id="search" placeholder="Buscar filmes, séries ou animes..." autocomplete="off" oninput="buscarSugestoes(this.value)" aria-label="Buscar filmes, séries ou animes">
+                            <input type="text" id="search" placeholder="Buscar filmes, séries ou animes..."
+                                autocomplete="off" oninput="buscarSugestoes(this.value)"
+                                aria-label="Buscar filmes, séries ou animes">
                             <button type="submit" aria-label="Pesquisar"><i class="fas fa-search"></i></button>
                             <div id="sugestoes"></div>
                         </form>
@@ -42,7 +47,8 @@
 
     <div class="orange-bar"></div>
 
-    <script async="async" data-cfasync="false" src="//pl26406530.profitableratecpm.com/6212237595b591e4197a075fd5b8b929/invoke.js"></script>
+    <script async="async" data-cfasync="false"
+        src="//pl26406530.profitableratecpm.com/6212237595b591e4197a075fd5b8b929/invoke.js"></script>
     <div id="container-6212237595b591e4197a075fd5b8b929"></div>
 
     <section class="resultados">
@@ -68,7 +74,8 @@
                     'params': {}
                 };
             </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js"></script>
+            <script type="text/javascript"
+                src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js"></script>
         </div>
         <!-- Repita para outros anúncios conforme necessário -->
     </div>
@@ -127,6 +134,9 @@
             'Terror': ['Horror', 'Supernatural Horror']
         };
 
+
+        // ... outros scripts mantidos ...
+
         async function carregarResultados() {
             const params = new URLSearchParams(window.location.search);
             const query = params.get('q');
@@ -136,6 +146,8 @@
             const resultadosContainer = document.getElementById('resultados');
             const generoSpan = document.getElementById('genero');
             const tipoSpan = document.getElementById('tipo');
+
+            console.log('Parâmetros da URL:', { query, generosQuery, tipo }); // Log para depuração
 
             if (!query && !generosQuery) {
                 resultadosContainer.innerHTML = '<p>Nenhum termo ou gênero especificado</p>';
@@ -151,7 +163,7 @@
                 tipoSpan.textContent = 'Busca Geral';
             } else if (generosQuery) {
                 const generos = generosQuery.split(',').map(g => decodeURIComponent(g));
-                displayText = Object.keys(generosMap).find(key => 
+                displayText = Object.keys(generosMap).find(key =>
                     generosMap[key].some(g => generos.includes(g))
                 ) || generos[0];
                 url = `${BACKEND_URL}/buscar_por_genero?genero=${generosQuery}&tipo=${tipo}&pagina=${paginaAtual}`;
@@ -161,10 +173,7 @@
             generoSpan.textContent = displayText;
 
             try {
-                resultadosContainer.innerHTML = '';
-                let todosResultados = [];
-                let totalPaginas = 1;
-
+                resultadosContainer.innerHTML = '<p>Carregando...</p>';
                 const response = await fetch(url, {
                     headers: { 'X-API-Key': API_KEY }
                 });
@@ -173,39 +182,34 @@
                 }
                 const data = await response.json();
 
+                console.log('Resposta do backend:', data); // Log para depuração
+
                 if (data.mensagem || !data.resultados || !Array.isArray(data.resultados)) {
                     resultadosContainer.innerHTML = `<p>${data.mensagem || 'Nenhum resultado encontrado para "' + displayText + '"'}</p>`;
                     return;
                 }
 
-                todosResultados = data.resultados;
-                totalPaginas = data.total_paginas || Math.ceil(data.resultados.length / ITEMS_PER_PAGE) || 1;
-
-                if (!todosResultados || todosResultados.length === 0) {
-                    resultadosContainer.innerHTML = `<p>Nenhum resultado encontrado para "${displayText}"</p>`;
-                    return;
-                }
-
-                // Exibir resultados
-                todosResultados.slice(0, ITEMS_PER_PAGE).forEach(item => {
+                resultadosContainer.innerHTML = '';
+                data.resultados.slice(0, ITEMS_PER_PAGE).forEach(item => {
                     const itemElement = document.createElement('div');
                     itemElement.classList.add('resultado-item');
                     itemElement.innerHTML = `
-                        <img src="${item.capa || 'https://via.placeholder.com/150'}" alt="${item.titulo}">
-                        <h3>${item.titulo}</h3>
-                        <p>${item.qualidade || 'Qualidade desconhecida'}</p>
-                        <a href="/PAGES/player.html?id=${item.id}&tipo=${item.tipo}">${item.tipo === 'filme' ? 'Assistir Filme' : item.tipo === 'serie' ? 'Assistir Série' : 'Assistir Anime'}</a>
-                    `;
+          <img src="${item.capa || 'https://via.placeholder.com/150'}" alt="${item.titulo}">
+          <h3>${item.titulo}</h3>
+          <p>${item.qualidade || 'Qualidade desconhecida'}</p>
+          <a href="/PAGES/player.html?id=${item.id}&tipo=${item.tipo}">${item.tipo === 'filme' ? 'Assistir Filme' : item.tipo === 'serie' ? 'Assistir Série' : 'Assistir Anime'}</a>
+        `;
                     resultadosContainer.appendChild(itemElement);
                 });
 
-                atualizarPaginacao(todosResultados.length, totalPaginas);
+                atualizarPaginacao(data.resultados.length, data.total_paginas || Math.ceil(data.resultados.length / ITEMS_PER_PAGE));
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } catch (error) {
                 console.error('Erro ao carregar resultados:', error);
                 resultadosContainer.innerHTML = '<p>Erro ao carregar resultados. Tente novamente.</p>';
             }
         }
+
 
         function atualizarPaginacao(tamanhoPagina, totalPaginas) {
             const pageNumbersContainer = document.getElementById('page-numbers');
@@ -288,4 +292,5 @@
         });
     </script>
 </body>
+
 </html>
