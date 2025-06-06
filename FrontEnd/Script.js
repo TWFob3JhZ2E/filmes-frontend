@@ -1,18 +1,37 @@
-javascript
 document.addEventListener("DOMContentLoaded", function () {
+    // Verificar contêineres
     const filmesContainer = document.querySelector("#filmes-container");
     const seriesContainer = document.querySelector("#series-container");
     const animesContainer = document.querySelector("#animes-container");
     let csrfToken = null;
 
+    console.log('🌐 Inicializando Script.js');
+    console.log('📍 Filmes Container:', filmesContainer ? 'Encontrado' : 'Não encontrado');
+    console.log('📍 Séries Container:', seriesContainer ? 'Encontrado' : 'Não encontrado');
+    console.log('📍 Animes Container:', animesContainer ? 'Encontrado' : 'Não encontrado');
+    console.log('🔗 BACKEND_URL:', typeof BACKEND_URL !== 'undefined' ? BACKEND_URL : 'Indefinido');
+    console.log('🔑 API_KEY:', typeof API_KEY !== 'undefined' ? API_KEY : 'Indefinido');
+
+    // Verificar se contêineres existem
+    if (!filmesContainer || !seriesContainer || !animesContainer) {
+        console.error('❌ Um ou mais contêineres não foram encontrados. Verifique o index.html.');
+        return;
+    }
+
     // Função para carregar o token CSRF
     function carregarCsrfToken() {
+        if (typeof CSRF_TOKEN_ENDPOINT === 'undefined') {
+            console.error('❌ CSRF_TOKEN_ENDPOINT indefinido. Verifique Config.js.');
+            return Promise.reject('CSRF_TOKEN_ENDPOINT indefinido');
+        }
+        console.log('🔍 Carregando token CSRF de:', CSRF_TOKEN_ENDPOINT);
         return fetch(CSRF_TOKEN_ENDPOINT, {
             headers: {
-                'X-API-Key': API_KEY
+                'X-API-Key': API_KEY || ''
             }
         })
             .then(response => {
+                console.log('📡 Resposta do CSRF:', response.status, response.statusText);
                 if (!response.ok) {
                     throw new Error(`Erro ao carregar token CSRF: ${response.status} ${response.statusText}`);
                 }
@@ -39,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRF-Token': csrfToken,
-                'X-API-Key': API_KEY
+                'X-API-Key': API_KEY || ''
             },
             body: JSON.stringify(data)
         })
@@ -60,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log('🔍 Carregando filmes novos de:', `${BACKEND_URL}/filmes/novos`);
         fetch(`${BACKEND_URL}/filmes/novos`, {
             headers: {
-                'X-API-Key': API_KEY
+                'X-API-Key': API_KEY || ''
             }
         })
             .then(response => {
@@ -84,8 +103,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     const playerURL = `${window.location.origin}/PAGES/player.html?id=${filme.id}`;
 
                     card.innerHTML = `
-                        <img src="${filme.capa || 'https://via.placeholder.com/200x300?text=Filme'}" alt="${filme.titulo}">
-                        <h3>${filme.titulo}</h3>
+                        <img src="${filme.capa || 'https://via.placeholder.com/200x300?text=Filme'}" alt="${filme.titulo || 'Sem título'}">
+                        <h3>${filme.titulo || 'Filme sem título'}</h3>
                         <a href="${playerURL}" class="assistir-btn">Assistir</a>
                     `;
 
@@ -103,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log('🔍 Carregando séries de:', `${BACKEND_URL}/series`);
         fetch(`${BACKEND_URL}/series`, {
             headers: {
-                'X-API-Key': API_KEY
+                'X-API-Key': API_KEY || ''
             }
         })
             .then(response => {
@@ -127,8 +146,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     const playerURL = `${window.location.origin}/PAGES/player.html?id=${serie.id}`;
 
                     card.innerHTML = `
-                        <img src="${serie.capa || 'https://via.placeholder.com/200x300?text=Série'}" alt="${serie.titulo}">
-                        <h3>${serie.titulo}</h3>
+                        <img src="${serie.capa || 'https://via.placeholder.com/200x300?text=Série'}" alt="${serie.titulo || 'Sem título'}">
+                        <h3>${serie.titulo || 'Série sem título'}</h3>
                         <a href="${playerURL}" class="assistir-btn">Assistir</a>
                     `;
 
@@ -146,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log('🔍 Carregando animes novos de:', `${BACKEND_URL}/animes/novos`);
         fetch(`${BACKEND_URL}/animes/novos`, {
             headers: {
-                'X-API-Key': API_KEY
+                'X-API-Key': API_KEY || ''
             }
         })
             .then(response => {
@@ -170,8 +189,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     const playerURL = `${window.location.origin}/PAGES/player.html?id=${anime.id}`;
 
                     card.innerHTML = `
-                        <img src="${anime.capa || 'https://via.placeholder.com/200x300?text=Anime'}" alt="${anime.titulo}">
-                        <h3>${anime.titulo}</h3>
+                        <img src="${anime.capa || 'https://via.placeholder.com/200x300?text=Anime'}" alt="${anime.titulo || 'Sem título'}">
+                        <h3>${anime.titulo || 'Anime sem título'}</h3>
                         <a href="${playerURL}" class="assistir-btn">Assistir</a>
                     `;
 
@@ -184,11 +203,22 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
+    // Verificar inicialização
+    if (typeof BACKEND_URL === 'undefined' || typeof API_KEY === 'undefined') {
+        console.error('❌ BACKEND_URL ou API_KEY indefinidos. Verifique Config.js.');
+        filmesContainer.innerHTML = '<p style="color: #fff; text-align: center;">Erro de configuração. Contate o suporte.</p>';
+        seriesContainer.innerHTML = '<p style="color: #fff; text-align: center;">Erro de configuração. Contate o suporte.</p>';
+        animesContainer.innerHTML = '<p style="color: #fff; text-align: center;">Erro de configuração. Contate o suporte.</p>';
+        return;
+    }
+
     // Carregar token CSRF e depois os filmes, séries e animes
     console.log('🌐 Iniciando carregamento com BACKEND_URL:', BACKEND_URL, 'e API_KEY:', API_KEY);
     carregarCsrfToken().then(() => {
         carregarFilmesNovos();
         carregarSeries();
         carregarAnimesNovos();
+    }).catch(error => {
+        console.error('❌ Erro durante inicialização:', error);
     });
 });
