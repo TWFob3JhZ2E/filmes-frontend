@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gêneros de Filmes, Séries e Animes - MyStarMovies</title>
     <link rel="stylesheet" href="../GERAL/Generos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <meta name="description" content="Assista a filmes, séries e animes online grátis no MyStarMovies. Encontre os melhores títulos em HD, com legendas e dublagem, incluindo ação, comédia, drama e mais!">
-    <meta name="keywords" content="filmes online, séries online, animes online, streaming grátis, assistir filmes, MyStarMovies, filmes HD, séries legendadas, animes dublados, ação, comédia, drama">
+    <meta name="description"
+        content="Assista a filmes, séries e animes online grátis no MyStarMovies. Encontre os melhores títulos em HD, com legendas e dublagem, incluindo ação, comédia, drama e mais!">
+    <meta name="keywords"
+        content="filmes online, séries online, animes online, streaming grátis, assistir filmes, MyStarMovies, filmes HD, séries legendadas, animes dublados, ação, comédia, drama">
     <link rel="icon" href="../IMG/Logo1.png" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <script type='text/javascript' src='//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js'></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <script type='text/javascript'
+        src='//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js'></script>
 </head>
+
 <body>
     <header>
         <div class="header-container">
@@ -33,7 +40,9 @@
                     <li><a href="/PAGES/sobre.html">Sobre</a></li>
                     <li class="search">
                         <form id="search-form" style="position: relative;">
-                            <input type="text" id="search" placeholder="Buscar filmes, séries ou animes..." autocomplete="off" oninput="buscarSugestoes(this.value)" aria-label="Buscar filmes, séries ou animes">
+                            <input type="text" id="search" placeholder="Buscar filmes, séries ou animes..."
+                                autocomplete="off" oninput="buscarSugestoes(this.value)"
+                                aria-label="Buscar filmes, séries ou animes">
                             <button type="submit" aria-label="Pesquisar"><i class="fas fa-search"></i></button>
                             <div id="sugestoes"></div>
                         </form>
@@ -57,69 +66,418 @@
         <p>Carregando gêneros...</p>
     </div>
 
+
     <!-- Seção de Gêneros de Filmes -->
     <section class="destaques">
         <h2>Principais Gêneros de Filmes</h2>
         <div class="destaques-container">
-            <button class="scroll-btn left" aria-label="Rolar para a esquerda"><i class="fas fa-chevron-left"></i></button>
+            <button class="scroll-btn left" aria-label="Rolar para a esquerda"><i
+                    class="fas fa-chevron-left"></i></button>
             <div class="destaques-cards">
-                <div class="genre-card" style="background-image: url('/capas/WICK.jpg');" onclick="filtrarPorGenero('Ação', 'filme')" role="button" tabindex="0" aria-label="Filtrar por Ação (Filmes)">
+                <div class="genre-card" style="background-image: url('/capas/WICK.jpg');"
+                    onclick="filtrarPorGenero('Ação', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por Ação (Filmes)">
                     <h3>Ação</h3>
                 </div>
-                <div class="genre-card" style="background-image: url('/capas/diverti.png');" onclick="filtrarPorGenero('Animação', 'filme')" role="button" tabindex="0" aria-label="Filtrar por Animação (Filmes)">
+                <div class="genre-card" style="background-image: url('/capas/diverti.png');"
+                    onclick="filtrarPorGenero('Animação', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por Animação (Filmes)">
                     <h3>Animação</h3>
                 </div>
-                <div class="genre-card" style="background-image: url('/capas/jurasiic.jpg');" onclick="filtrarPorGenero('Aventura', 'filme')" role="button" tabindex="0" aria-label="Filtrar por Aventura (Filmes)">
+                <div class="genre-card" style="background-image: url('/capas/jurasiic.jpg');"
+                    onclick="filtrarPorGenero('Aventura', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por Aventura (Filmes)">
                     <h3>Aventura</h3>
                 </div>
-                <div class="genre-card" style="background-image: url('https://www.rbsdirect.com.br/imagesrc/24591869.jpg?format=webp&w=1600&h=1600&a=c');" onclick="filtrarPorGenero('Comédia', 'filme')" role="button" tabindex="0" aria-label="Filtrar por Comédia (Filmes)">
+                <div class="genre-card"
+                    style="background-image: url('https://www.rbsdirect.com.br/imagesrc/24591869.jpg?format=webp&w=1600&h=640&a=cross');"
+                    onclick="filtrarPorGenero('Comédia', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por Comédia (Filmes)">
                     <h3>Comédia</h3>
                 </div>
-                <!-- Adicione outros gêneros de filmes conforme necessário -->
+                <div class="genre-card" style="background-image: url('/capas/Poderoso.jpg');"
+                    onclick="filtrarPorGenero('Crime', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por Crime (Filmes)">
+                    <h3>Crime</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/milagre.jpg');"
+                    onclick="filtrarPorGenero('Drama', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por Drama (Filmes)">
+                    <h3>Drama</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/Paddington.jpg');"
+                    onclick="filtrarPorGenero('Família', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por Família (Filmes)">
+                    <h3>Família</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/aneis.jpg');"
+                    onclick="filtrarPorGenero('Fantasia', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por Fantasia (Filmes)">
+                    <h3>Fantasia</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/django.jpg');"
+                    onclick="filtrarPorGenero('Faroeste', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por Faroeste (Filmes)">
+                    <h3>Faroeste</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/interestelar.jpg');"
+                    onclick="filtrarPorGenero('Ficção Científica', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por Ficção Científica (Filmes)">
+                    <h3>Ficção Científica</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/homem.jpg');"
+                    onclick="filtrarPorGenero('Guerra', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por Guerra (Filmes)">
+                    <h3>Guerra</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/listas.png');"
+                    onclick="filtrarPorGenero('História', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por História (Filmes)">
+                    <h3>História</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/premmonição.jpg');"
+                    onclick="filtrarPorGenero('Lançamentos', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por Lançamentos (Filmes)">
+                    <h3>Lançamentos</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://cinepop.com.br/wp-content/uploads/2024/06/alien-romulus.webp');"
+                    onclick="filtrarPorGenero('Aliens', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por Aliens (Filmes)">
+                    <h3>Aliens</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/marve.jpg');"
+                    onclick="filtrarPorGenero('SuperHeroi', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por SuperHerói (Filmes)">
+                    <h3>Super-Herói</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://cdn.pipocamoderna.com.br/wp-content/uploads/2023/07/Oppenheimer-1.jpg');"
+                    onclick="filtrarPorGenero('Biografia', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por Biografia (Filmes)">
+                    <h3>Biografia</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://filmes.band.uol.com.br/wp-content/uploads/2018/05/Veia-de-lutador-channing-tatum-1280x720.jpg');"
+                    onclick="filtrarPorGenero('Luta', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por Luta (Filmes)">
+                    <h3>Luta</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/lugars.jpeg');"
+                    onclick="filtrarPorGenero('Mistério', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por Mistério (Filmes)">
+                    <h3>Mistério</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/bohemian.jpg');"
+                    onclick="filtrarPorGenero('Música', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por Música (Filmes)">
+                    <h3>Música</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/cidadeDeus.jpg');"
+                    onclick="filtrarPorGenero('Nacional', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por Nacional (Filmes)">
+                    <h3>Nacional</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/acontece.jpg');"
+                    onclick="filtrarPorGenero('Romance', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por Romance (Filmes)">
+                    <h3>Romance</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/absolutocinema.jpeg');"
+                    onclick="filtrarPorGenero('Suspense', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por Suspense (Filmes)">
+                    <h3>Suspense</h3>
+                </div>
+                <div class="genre-card" style="background-image: url('/capas/muilher.jpeg');"
+                    onclick="filtrarPorGenero('Terror', 'filme')" role="button" tabindex="0"
+                    aria-label="Filtrar por Terror (Filmes)">
+                    <h3>Terror</h3>
+                </div>
             </div>
-            <button class="scroll-btn right" aria-label="Rolar para a direita"><i class="fas fa-chevron-right"></i></button>
+            <button class="scroll-btn right" aria-label="Rolar para a direita"><i
+                    class="fas fa-chevron-right"></i></button>
         </div>
     </section>
+
+
+    <!-- Seção de Gêneros de Séries -->
 
     <!-- Seção de Gêneros de Séries -->
     <section class="destaques">
         <h2>Principais Gêneros de Séries</h2>
         <div class="destaques-container">
-            <button class="scroll-btn left" aria-label="Rolar para a esquerda"><i class="fas fa-chevron-left"></i></button>
+            <button class="scroll-btn left" aria-label="Rolar para a esquerda"><i
+                    class="fas fa-chevron-left"></i></button>
             <div class="destaques-cards">
-                <div class="genre-card" style="background-image: url('/capas/breakingbad.jpg');" onclick="filtrarPorGenero('Ação', 'serie')" role="button" tabindex="0" aria-label="Filtrar por Ação (Séries)">
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/6t6r1VGYpIMQ3Ud0QEebdqM2Piy.jpg');"
+                    onclick="filtrarPorGenero('Ação', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por Ação (Séries)">
                     <h3>Ação</h3>
                 </div>
-                <div class="genre-card" style="background-image: url('/capas/theoffice.jpg');" onclick="filtrarPorGenero('Comédia', 'serie')" role="button" tabindex="0" aria-label="Filtrar por Comédia (Séries)">
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/ggFBRNR2JM6xMexckcY8T4IuQ1N.jpg');"
+                    onclick="filtrarPorGenero('Animação', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por Animação (Séries)">
+                    <h3>Animação</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/rqeYMLryjcawh31TNpeO6jZ5dG2.jpg');"
+                    onclick="filtrarPorGenero('Aventura', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por Aventura (Séries)">
+                    <h3>Aventura</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/4N6zEMfZ57zNEQcM2IL2IPol1p4.jpg');"
+                    onclick="filtrarPorGenero('Comédia', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por Comédia (Séries)">
                     <h3>Comédia</h3>
                 </div>
-                <div class="genre-card" style="background-image: url('/capas/strangerthings.jpg');" onclick="filtrarPorGenero('Ficção Científica', 'serie')" role="button" tabindex="0" aria-label="Filtrar por Ficção Científica (Séries)">
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/AjR63k2NYs6F4AzgdKGiVkg3X0m.jpg');"
+                    onclick="filtrarPorGenero('Crime', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por Crime (Séries)">
+                    <h3>Crime</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/4l6KD9Hnv3kNTYgWb3d7a0BAW8b.jpg');"
+                    onclick="filtrarPorGenero('Drama', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por Drama (Séries)">
+                    <h3>Drama</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/1zO2UzF3n3mB7G2sEMdyU0I9lhm.jpg');"
+                    onclick="filtrarPorGenero('Família', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por Família (Séries)">
+                    <h3>Família</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/4U7H1C7R7W1Rrbz28cWp5jwWv.jpg');"
+                    onclick="filtrarPorGenero('Fantasia', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por Fantasia (Séries)">
+                    <h3>Fantasia</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/3rWtKqck9M6pVntj2jDDW3Z3o.jpg');"
+                    onclick="filtrarPorGenero('Faroeste', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por Faroeste (Séries)">
+                    <h3>Faroeste</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg');"
+                    onclick="filtrarPorGenero('Ficção Científica', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por Ficção Científica (Séries)">
                     <h3>Ficção Científica</h3>
                 </div>
-                <!-- Adicione outros gêneros de séries conforme necessário -->
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/5rT6eVWBZsdwO3rIrQ1Z0Ftmr.jpg');"
+                    onclick="filtrarPorGenero('Guerra', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por Guerra (Séries)">
+                    <h3>Guerra</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/9Qusm4YriQLmK6kZ3lB7bC2.jpg');"
+                    onclick="filtrarPorGenero('História', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por História (Séries)">
+                    <h3>História</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/3kG2lHE7M9U4i3J3N1P6W0N.jpg');"
+                    onclick="filtrarPorGenero('Lançamentos', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por Lançamentos (Séries)">
+                    <h3>Lançamentos</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/6kb0Q0Wq8Q5k1z0L3W7k1H.jpg');"
+                    onclick="filtrarPorGenero('Aliens', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por Aliens (Séries)">
+                    <h3>Aliens</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/9yBVqNruk6Ykrwc1klkW6W.jpg');"
+                    onclick="filtrarPorGenero('SuperHeroi', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por Super-Herói (Séries)">
+                    <h3>Super-Herói</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/4Yv3k0f7H3W0k8Q3X0k8Q.jpg');"
+                    onclick="filtrarPorGenero('Biografia', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por Biografia (Séries)">
+                    <h3>Biografia</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/3X0k8Q3X0k8Q3X0k8Q3X.jpg');"
+                    onclick="filtrarPorGenero('Luta', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por Luta (Séries)">
+                    <h3>Luta</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/6Yv3k0f7H3W0k8Q3X0k8Q.jpg');"
+                    onclick="filtrarPorGenero('Mistério', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por Mistério (Séries)">
+                    <h3>Mistério</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/9z0f7H3W0k8Q3X0k8Q3X0.jpg');"
+                    onclick="filtrarPorGenero('Música', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por Música (Séries)">
+                    <h3>Música</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/4k8Q3X0k8Q3X0k8Q3X0k.jpg');"
+                    onclick="filtrarPorGenero('Nacional', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por Nacional (Séries)">
+                    <h3>Nacional</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/3W0k8Q3X0k8Q3X0k8Q3X.jpg');"
+                    onclick="filtrarPorGenero('Romance', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por Romance (Séries)">
+                    <h3>Romance</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/6k8Q3X0k8Q3X0k8Q3X0k.jpg');"
+                    onclick="filtrarPorGenero('Suspense', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por Suspense (Séries)">
+                    <h3>Suspense</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/9f7H3W0k8Q3X0k8Q3X0k.jpg');"
+                    onclick="filtrarPorGenero('Terror', 'serie')" role="button" tabindex="0"
+                    aria-label="Filtrar por Terror (Séries)">
+                    <h3>Terror</h3>
+                </div>
             </div>
-            <button class="scroll-btn right" aria-label="Rolar para a direita"><i class="fas fa-chevron-right"></i></button>
+            <button class="scroll-btn right" aria-label="Rolar para a direita"><i
+                    class="fas fa-chevron-right"></i></button>
         </div>
     </section>
+
 
     <!-- Seção de Gêneros de Animes -->
     <section class="destaques">
         <h2>Principais Gêneros de Animes</h2>
         <div class="destaques-container">
-            <button class="scroll-btn left" aria-label="Rolar para a esquerda"><i class="fas fa-chevron-left"></i></button>
+            <button class="scroll-btn left" aria-label="Rolar para a esquerda"><i
+                    class="fas fa-chevron-left"></i></button>
             <div class="destaques-cards">
-                <div class="genre-card" style="background-image: url('/capas/naruto.jpg');" onclick="filtrarPorGenero('Ação', 'anime')" role="button" tabindex="0" aria-label="Filtrar por Ação (Animes)">
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/6qVF0xCD8hqD0mW4KpmBprpSIPb.jpg');"
+                    onclick="filtrarPorGenero('Ação', 'anime')" role="button" tabindex="0"
+                    aria-label="Filtrar por Ação (Animes)">
                     <h3>Ação</h3>
                 </div>
-                <div class="genre-card" style="background-image: url('/capas/spiritedaway.jpg');" onclick="filtrarPorGenero('Animação', 'anime')" role="button" tabindex="0" aria-label="Filtrar por Animação (Animes)">
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/9zgp0YgyQIGZ3ka0qOJg4Z9A.jpg');"
+                    onclick="filtrarPorGenero('Animação', 'anime')" role="button" tabindex="0"
+                    aria-label="Filtrar por Animação (Animes)">
                     <h3>Animação</h3>
                 </div>
-                <div class="genre-card" style="background-image: url('/capas/attackontitan.jpg');" onclick="filtrarPorGenero('Fantasia', 'anime')" role="button" tabindex="0" aria-label="Filtrar por Fantasia (Animes)">
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/6aU2PxgXU2yww3nV0.jpg');"
+                    onclick="filtrarPorGenero('Aventura', 'anime')" role="button" tabindex="0"
+                    aria-label="Filtrar por Aventura (Animes)">
+                    <h3>Aventura</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/3W0k8Q3X0k8Q3X0k8Q3X.jpg');"
+                    onclick="filtrarPorGenero('Comédia', 'anime')" role="button" tabindex="0"
+                    aria-label="Filtrar por Comédia (Animes)">
+                    <h3>Comédia</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/6Yv3k0f7H3W0k8Q3X0k8Q.jpg');"
+                    onclick="filtrarPorGenero('Crime', 'anime')" role="button" tabindex="0"
+                    aria-label="Filtrar por Crime (Animes)">
+                    <h3>Crime</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/9z0f7H3W0k8Q3X0k8Q3X0.jpg');"
+                    onclick="filtrarPorGenero('Drama', 'anime')" role="button" tabindex="0"
+                    aria-label="Filtrar por Drama (Animes)">
+                    <h3>Drama</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/4k8Q3X0k8Q3X0k8Q3X0k.jpg');"
+                    onclick="filtrarPorGenero('Família', 'anime')" role="button" tabindex="0"
+                    aria-label="Filtrar por Família (Animes)">
+                    <h3>Família</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/3W0k8Q3X0k8Q3X0k8Q3X.jpg');"
+                    onclick="filtrarPorGenero('Fantasia', 'anime')" role="button" tabindex="0"
+                    aria-label="Filtrar por Fantasia (Animes)">
                     <h3>Fantasia</h3>
                 </div>
-                <!-- Adicione outros gêneros de animes conforme necessário -->
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/6k8Q3X0k8Q3X0k8Q3X0k.jpg');"
+                    onclick="filtrarPorGenero('Ficção Científica', 'anime')" role="button" tabindex="0"
+                    aria-label="Filtrar por Ficção Científica (Animes)">
+                    <h3>Ficção Científica</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/9f7H3W0k8Q3X0k8Q3X0k.jpg');"
+                    onclick="filtrarPorGenero('Guerra', 'anime')" role="button" tabindex="0"
+                    aria-label="Filtrar por Guerra (Animes)">
+                    <h3>Guerra</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/4Yv3k0f7H3W0k8Q3X0k8Q.jpg');"
+                    onclick="filtrarPorGenero('História', 'anime')" role="button" tabindex="0"
+                    aria-label="Filtrar por História (Animes)">
+                    <h3>História</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/3kG2lHE7M9U4i3J3N1P6W0N.jpg');"
+                    onclick="filtrarPorGenero('Lançamentos', 'anime')" role="button" tabindex="0"
+                    aria-label="Filtrar por Lançamentos (Animes)">
+                    <h3>Lançamentos</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/6kb0Q0Wq8Q5k1z0L3W7k1H.jpg');"
+                    onclick="filtrarPorGenero('Aliens', 'anime')" role="button" tabindex="0"
+                    aria-label="Filtrar por Aliens (Animes)">
+                    <h3>Aliens</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/9yBVqNruk6Ykrwc1klkW6W.jpg');"
+                    onclick="filtrarPorGenero('SuperHeroi', 'anime')" role="button" tabindex="0"
+                    aria-label="Filtrar por Super-Herói (Animes)">
+                    <h3>Super-Herói</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/6Yv3k0f7H3W0k8Q3X0k8Q.jpg');"
+                    onclick="filtrarPorGenero('Mistério', 'anime')" role="button" tabindex="0"
+                    aria-label="Filtrar por Mistério (Animes)">
+                    <h3>Mistério</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/3W0k8Q3X0k8Q3X0k8Q3X.jpg');"
+                    onclick="filtrarPorGenero('Música', 'anime')" role="button" tabindex="0"
+                    aria-label="Filtrar por Música (Animes)">
+                    <h3>Música</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/9z0f7H3W0k8Q3X0k8Q3X0.jpg');"
+                    onclick="filtrarPorGenero('Romance', 'anime')" role="button" tabindex="0"
+                    aria-label="Filtrar por Romance (Animes)">
+                    <h3>Romance</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/4k8Q3X0k8Q3X0k8Q3X0k.jpg');"
+                    onclick="filtrarPorGenero('Suspense', 'anime')" role="button" tabindex="0"
+                    aria-label="Filtrar por Suspense (Animes)">
+                    <h3>Suspense</h3>
+                </div>
+                <div class="genre-card"
+                    style="background-image: url('https://image.tmdb.org/t/p/w500/6k8Q3X0k8Q3X0k8Q3X0k.jpg');"
+                    onclick="filtrarPorGenero('Terror', 'anime')" role="button" tabindex="0"
+                    aria-label="Filtrar por Terror (Animes)">
+                    <h3>Terror</h3>
+                </div>
             </div>
-            <button class="scroll-btn right" aria-label="Rolar para a direita"><i class="fas fa-chevron-right"></i></button>
+            <button class="scroll-btn right" aria-label="Rolar para a direita"><i
+                    class="fas fa-chevron-right"></i></button>
         </div>
     </section>
 
@@ -135,7 +493,8 @@
                     'params': {}
                 };
             </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js" defer></script>
+            <script type="text/javascript"
+                src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js" defer></script>
         </div>
     </div>
 
@@ -161,7 +520,8 @@
     </footer>
 
     <script src="../Protect/protecao.js" defer></script>
-    <script async="async" data-cfasync="false" src="//pl26406530.profitableratecpm.com/6212237595b591e4197a075fd5b8b929/invoke.js" defer></script>
+    <script async="async" data-cfasync="false"
+        src="//pl26406530.profitableratecpm.com/6212237595b591e4197a075fd5b8b929/invoke.js" defer></script>
     <div id="container-6212237595b591e4197a075fd5b8b929"></div>
 
     <script src="../Conex/Config.js" defer></script>
@@ -278,4 +638,5 @@
         }
     </script>
 </body>
+
 </html>
