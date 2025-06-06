@@ -13,7 +13,7 @@ function debounce(func, wait) {
 }
 
 /**
- * Busca sugestões de filmes ou séries com base no texto digitado.
+ * Busca sugestões de filmes, séries ou animes com base no texto digitado.
  * @param {string} texto - Texto de busca.
  */
 async function buscarSugestoes(texto) {
@@ -63,8 +63,10 @@ async function buscarSugestoes(texto) {
             img.style.height = 'auto';
             img.style.marginRight = '10px';
 
-            const span = document.createElement('span');
-            span.textContent = item.titulo;
+            const span = document.createElemento('span');
+            // Adicionar o tipo (Filme, Série ou Anime) ao título
+            const tipo = item.tipo === 'filme' ? 'Filme' : item.tipo === 'serie' ? 'Série' : 'Anime';
+            span.textContent = `${item.titulo} (${tipo})`;
 
             div.appendChild(img);
             div.appendChild(span);
@@ -73,15 +75,16 @@ async function buscarSugestoes(texto) {
                 document.getElementById('search').value = item.titulo;
                 sugestoesDiv.innerHTML = '';
                 sugestoesDiv.style.display = 'none';
-                window.location.href = `/PAGES/resultados.html?q=${encodeURIComponent(item.titulo)}`;
+                // Redirecionar para player.html com o ID
+                window.location.href = `/PAGES/player.html?id=${item.id}`;
             };
 
             sugestoesDiv.appendChild(div);
         });
 
         sugestoesDiv.style.display = 'block';
-    } catch (err) {
-        console.error('❌ Erro ao buscar sugestões:', err);
+    } catch (error) {
+        console.error('❌ Erro ao buscar sugestões:', error);
         sugestoesDiv.innerHTML = "<p style='padding: 10px; color: red;'>Erro ao buscar dados</p>";
         sugestoesDiv.style.display = 'block';
     }
