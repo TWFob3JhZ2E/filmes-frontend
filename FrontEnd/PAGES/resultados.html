@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultados de Busca - MyStarMovies</title>
-    <meta name="description" content="Encontre filmes, séries e animes no MyStarMovies. Resultados para sua busca com os melhores títulos em HD, legendados e dublados.">
-    <meta name="keywords" content="filmes online, séries online, animes online, streaming grátis, MyStarMovies, filmes HD, séries legendadas, animes legendados, buscar filmes, buscar séries, buscar animes">
+    <meta name="description"
+        content="Encontre filmes, séries e animes no MyStarMovies. Resultados para sua busca com os melhores títulos em HD, legendados e dublados.">
+    <meta name="keywords"
+        content="filmes online, séries online, animes online, streaming grátis, MyStarMovies, filmes HD, séries legendadas, animes legendados, buscar filmes, buscar séries, buscar animes">
     <link rel="stylesheet" href="../GERAL/Resul.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="../IMG/Logo1.png" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <script type="text/javascript" src="//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js" defer></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <script type="text/javascript" src="//pl26405977.profitableratecpm.com/7e/bc/a7/7ebca770d2d09177cb9201776042c1d5.js"
+        defer></script>
 </head>
+
 <body>
     <header>
         <div class="header-container">
@@ -33,7 +40,9 @@
                     <li><a href="/PAGES/sobre.html">Sobre</a></li>
                     <li class="search">
                         <form id="search-form" style="position: relative;">
-                            <input type="text" id="search" placeholder="Buscar filmes, séries ou animes..." autocomplete="off" oninput="buscarSugestoes(this.value)" aria-label="Buscar filmes, séries ou animes">
+                            <input type="text" id="search" placeholder="Buscar filmes, séries ou animes..."
+                                autocomplete="off" oninput="buscarSugestoes(this.value)"
+                                aria-label="Buscar filmes, séries ou animes">
                             <button type="submit" aria-label="Pesquisar"><i class="fas fa-search"></i></button>
                             <div id="sugestoes"></div>
                         </form>
@@ -72,12 +81,14 @@
                     'params': {}
                 };
             </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js" defer></script>
+            <script type="text/javascript"
+                src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js" defer></script>
         </div>
     </div>
 
     <!-- Floating Ad -->
-    <script async="async" data-cfasync="false" src="//pl26406530.profitableratecpm.com/6212237595b591e4197a075fd5b8b929/invoke.js" defer></script>
+    <script async="async" data-cfasync="false"
+        src="//pl26406530.profitableratecpm.com/6212237595b591e4197a075fd5b8b929/invoke.js" defer></script>
     <div id="container-6212237595b591e4197a075fd5b8b929"></div>
 
     <footer>
@@ -156,11 +167,11 @@
             'Família': ['Family'],
             'Fantasia': ['Fantasy', 'Dark Fantasy'],
             'Faroeste': ['Western'],
-            'Ficção Científica': ['Science fiction'],
+            'Ficção Científica': ['Science Fiction'],
             'Guerra': ['War'],
             'História': ['History'],
             'Biografia': ['Biography'],
-            'Lançamentos': ['Lançamentos'],
+            'Lançamento': ['Lançamentos'],
             'Mistério': ['Mystery'],
             'Música': ['Music'],
             'Luta': ['Boxing'],
@@ -194,10 +205,10 @@
                 titleElement.textContent = `Busca por "${query}" - MyStarMovies`;
             } else if (generosQuery) {
                 const generos = generosQuery.split(',').map(g => decodeURIComponent(g));
-                displayText = Object.keys(generosMap).find(key => 
+                displayText = Object.keys(generosMap).find(key =>
                     generosMap[key].some(g => generos.includes(g))
                 ) || generos[0];
-                url = `${BACKEND_URL}/buscar_por_genero?generos=${encodeURIComponent(generos.join(','))}&pagina=${paginaAtual}${tipo ? `&tipo=${tipo}` : ''}`;
+                url = `${BACKEND_URL}/buscar_por_genero?genero=${encodeURIComponent(generos[0])}&pagina=${paginaAtual}${tipo ? `&tipo=${tipo}` : ''}`;
                 titleElement.textContent = `Gênero ${displayText}${tipo && tipo !== 'todos' ? ` (${tipo.charAt(0).toUpperCase() + tipo.slice(1)})` : ''} - MyStarMovies`;
             }
 
@@ -205,66 +216,40 @@
 
             try {
                 resultadosContainer.innerHTML = '<p>Carregando resultados...</p>';
-                let todosResultados = [];
+                const response = await fetch(url, {
+                    headers: { 'X-API-Key': API_KEY }
+                });
 
-                if (generosQuery) {
-                    const generos = generosQuery.split(',').map(g => decodeURIComponent(g));
-                    const response = await fetch(url, {
-                        headers: { 'X-API-Key': API_KEY }
-                    });
-                    if (!response.ok) {
-                        throw new Error(`Erro ${response.status} ao carregar resultados para gêneros`);
-                    }
-                    const data = await response.json();
-
-                    if (data.mensagem || !data.resultados) {
-                        resultadosContainer.innerHTML = `<p>${data.mensagem || 'Nenhum resultado encontrado para "' + displayText + '"'}</p>`;
-                        return false;
-                    }
-
-                    todosResultados = data.resultados;
-                    totalPaginas = data.total_paginas || 1;
-                } else if (query) {
-                    const response = await fetch(url, {
-                        headers: { 'X-API-Key': API_KEY }
-                    });
-                    if (!response.ok) {
-                        throw new Error(`Erro ${response.status} ao carregar resultados para query ${query}`);
-                    }
-                    const data = await response.json();
-
-                    if (data.mensagem || !data.resultados || !Array.isArray(data.resultados)) {
-                        resultadosContainer.innerHTML = `<p>${data.mensagem || 'Nenhum resultado encontrado para "' + query + '"'}</p>`;
-                        return false;
-                    }
-
-                    todosResultados = data.resultados;
-                    totalPaginas = data.total_paginas || Math.ceil(data.resultados.length / ITEMS_PER_PAGE) || 1;
+                if (!response.ok) {
+                    throw new Error(`Erro ${response.status}: ${await response.text()}`);
                 }
 
-                if (!todosResultados || todosResultados.length === 0) {
-                    resultadosContainer.innerHTML = `<p>Nenhum resultado encontrado para "${displayText}"</p>`;
+                const data = await response.json();
+
+                if (data.mensagem || !data.resultados || !Array.isArray(data.resultados)) {
+                    resultadosContainer.innerHTML = `<p>${data.mensagem || 'Nenhum resultado encontrado para "' + displayText + '"'}</p>`;
                     return false;
                 }
 
-                // Remover duplicatas com base no item.id
-                const resultadosUnicos = Array.from(new Set(todosResultados.map(item => item.id)))
-                    .map(id => todosResultados.find(item => item.id === id));
+                const resultadosUnicos = Array.from(new Set(data.resultados.map(item => item.id)))
+                    .map(id => data.resultados.find(item => item.id === id));
 
-                // Exibir resultados
                 resultadosContainer.innerHTML = '';
-                resultadosUnicos.slice(0, ITEMS_PER_PAGE).forEach(item => {
+                resultadosUnicos.forEach(item => {
                     const itemElement = document.createElement('div');
                     itemElement.classList.add('resultado-item');
                     itemElement.setAttribute('role', 'button');
                     itemElement.setAttribute('tabindex', '0');
                     itemElement.innerHTML = `
-                        <img src="${item.capa || 'https://via.placeholder.com/150'}" alt="${item.titulo}">
-                        <h3>${item.titulo}</h3>
-                        <p>${item.qualidade || 'Qualidade desconhecida'}</p>
-                        <p>${item.tipo.charAt(0).toUpperCase() + item.tipo.slice(1)}</p>
-                        <a href="/PAGES/player.html?id=${item.id}&tipo=${item.tipo}" aria-label="Assistir ${item.titulo}">Assistir</a>
-                    `;
+                <img src="${item.capa || 'https://via.placeholder.com/150'}" alt="${item.titulo}" loading="lazy">
+                <h3>${item.titulo}</h3>
+                <p>${item.qualidade || 'Qualidade desconhecida'}</p>
+                <p>${item.tipo.charAt(0).toUpperCase() + item.tipo.slice(1)}</p>
+                <a href="/PAGES/player.html?id=${item.id}&tipo=${item.tipo}" aria-label="Assistir ${item.titulo}">Assistir</a>
+            `;
+                    itemElement.addEventListener('click', () => {
+                        window.location.href = `/PAGES/player.html?id=${item.id}&tipo=${item.tipo}`;
+                    });
                     itemElement.addEventListener('keydown', (e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
                             e.preventDefault();
@@ -274,12 +259,13 @@
                     resultadosContainer.appendChild(itemElement);
                 });
 
+                totalPaginas = data.total_paginas || 1;
                 atualizarPaginacao(resultadosUnicos.length, totalPaginas);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 return true;
             } catch (error) {
                 console.error('Erro ao carregar resultados:', error);
-                resultadosContainer.innerHTML = '<p>Erro ao carregar resultados. Tente novamente.</p>';
+                resultadosContainer.innerHTML = '<p>Erro ao carregar resultados. Verifique sua conexão ou tente novamente.</p>';
                 return false;
             }
         }
@@ -355,4 +341,5 @@
         });
     </script>
 </body>
+
 </html>
