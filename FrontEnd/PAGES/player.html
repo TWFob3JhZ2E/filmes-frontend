@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -258,19 +259,19 @@
 
             if (result.erro) {
                 playerContainer.innerHTML = '<p class="error-message">Conteúdo não encontrado. Verifique o ID ou tente novamente mais tarde.</p>';
-                document.getElementById("titulo-serie").textContent = "Erro ao carregar";
                 return;
             }
 
             updatePlayerContent(result.data, id, result.type);
 
-            function updatePlayerContent(content, id, type) {
+            function updatePlayerContent(content) {
                 const {
                     titulo = "Título indisponível",
                     descricao = "Descrição não disponível",
                     capa = "/IMG/placeholder.jpg",
                     generos = ["Não especificado"],
-                    qualidade = "Qualidade desconhecida"
+                    qualidade = "Qualidade desconhecida",
+                    type = result.type
                 } = content;
 
                 document.getElementById("titulo-serie").textContent = `Assistindo: ${titulo}`;
@@ -280,10 +281,9 @@
                 document.getElementById("capa").src = capa;
                 document.getElementById("capa").alt = `Capa de ${titulo}`;
 
-                // Ajuste para animes: usar /serie/{id} em vez de /anime/{id}
                 const playerSrc = type === 'anime' 
-                    ? `https://superflixapi.wales/serie/${id}`
-                    : `https://superflixapi.wales/${type}/${id}`;
+                    ? `https://superflixapi.pw/serie/${id}`
+                    : `https://superflixapi.pw/${type}/${id}`;
                 console.log(`Carregando ${type} com URL: ${playerSrc}`);
 
                 const player = document.getElementById("player");
