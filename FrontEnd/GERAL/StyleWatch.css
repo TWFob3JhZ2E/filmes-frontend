@@ -123,7 +123,7 @@ nav ul li.search button:hover {
 
 #player {
   width: 100%;
-  max-height: 600px; /* Reduced from 720px */
+  max-height: 200px; /* Reduced from 720px */
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
   aspect-ratio: 16 / 9;
