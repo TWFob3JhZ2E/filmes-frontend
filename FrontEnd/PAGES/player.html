@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -55,6 +54,28 @@
             min-height: 500px;
             background-color: #000;
         }
+        .episode-controls {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+        .episode-btn {
+            background-color: #ff6200;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        .episode-btn:hover {
+            background-color: #e55a00;
+        }
+        .episode-btn:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -98,6 +119,9 @@
                 <h3 id="movie-name">Nome do Conteúdo</h3>
                 <p id="generos">Gêneros: Carregando...</p>
                 <p id="descricao">Carregando descrição...</p>
+                <div id="episode-controls" class="episode-controls" style="display: none;">
+                    <button id="next-episode-btn" class="episode-btn" aria-label="Próximo Episódio">Próximo Episódio</button>
+                </div>
             </div>
             <img id="capa" src="/IMG/placeholder.jpg" alt="Capa do Conteúdo" />
         </section>
@@ -107,71 +131,11 @@
             <div id="container-6212237595b591e4197a075fd5b8b929"></div>
             <script type="text/javascript">
                 atOptions = {
-                    'key' : '928e31bcb774bbc2d3535533fc03cce0',
-                    'format' : 'iframe',
-                    'height' : 50,
-                    'width' : 320,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/928e31bcb774bbc2d3535533fc03cce0/invoke.js"></script>
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : '928e31bcb774bbc2d3535533fc03cce0',
-                    'format' : 'iframe',
-                    'height' : 50,
-                    'width' : 320,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/928e31bcb774bbc2d3535533fc03cce0/invoke.js"></script>
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : '928e31bcb774bbc2d3535533fc03cce0',
-                    'format' : 'iframe',
-                    'height' : 50,
-                    'width' : 320,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/928e31bcb774bbc2d3535533fc03cce0/invoke.js"></script>
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : '928e31bcb774bbc2d3535533fc03cce0',
-                    'format' : 'iframe',
-                    'height' : 50,
-                    'width' : 320,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/928e31bcb774bbc2d3535533fc03cce0/invoke.js"></script>
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : '928e31bcb774bbc2d3535533fc03cce0',
-                    'format' : 'iframe',
-                    'height' : 50,
-                    'width' : 320,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/928e31bcb774bbc2d3535533fc03cce0/invoke.js"></script>
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : '928e31bcb774bbc2d3535533fc03cce0',
-                    'format' : 'iframe',
-                    'height' : 50,
-                    'width' : 320,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/928e31bcb774bbc2d3535533fc03cce0/invoke.js"></script>
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : '928e31bcb774bbc2d3535533fc03cce0',
-                    'format' : 'iframe',
-                    'height' : 50,
-                    'width' : 320,
-                    'params' : {}
+                    'key': '928e31bcb774bbc2d3535533fc03cce0',
+                    'format': 'iframe',
+                    'height': 50,
+                    'width': 320,
+                    'params': {}
                 };
             </script>
             <script type="text/javascript" src="//www.highperformanceformat.com/928e31bcb774bbc2d3535533fc03cce0/invoke.js"></script>
@@ -180,31 +144,11 @@
 
     <script type="text/javascript">
         atOptions = {
-            'key' : 'ce04a28c61dd91222942a54edcdfefa3',
-            'format' : 'iframe',
-            'height' : 250,
-            'width' : 300,
-            'params' : {}
-        };
-    </script>
-    <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js"></script>
-    <script type="text/javascript">
-        atOptions = {
-            'key' : 'ce04a28c61dd91222942a54edcdfefa3',
-            'format' : 'iframe',
-            'height' : 250,
-            'width' : 300,
-            'params' : {}
-        };
-    </script>
-    <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js"></script>
-    <script type="text/javascript">
-        atOptions = {
-            'key' : 'ce04a28c61dd91222942a54edcdfefa3',
-            'format' : 'iframe',
-            'height' : 250,
-            'width' : 300,
-            'params' : {}
+            'key': 'ce04a28c61dd91222942a54edcdfefa3',
+            'format': 'iframe',
+            'height': 250,
+            'width': 300,
+            'params': {}
         };
     </script>
     <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js"></script>
@@ -221,6 +165,8 @@
             const id = urlParams.get("id");
             const playerContainer = document.getElementById("player-container");
             const loader = document.getElementById("loader");
+            const episodeControls = document.getElementById("episode-controls");
+            const nextEpisodeBtn = document.getElementById("next-episode-btn");
 
             if (!id) {
                 loader.classList.add("hidden");
@@ -262,34 +208,69 @@
                 return;
             }
 
+            let currentSeason = 1;
+            let currentEpisode = 1;
+
             updatePlayerContent(result.data, id, result.type);
 
-            function updatePlayerContent(content) {
+            function updatePlayerContent(content, id, type) {
                 const {
                     titulo = "Título indisponível",
                     descricao = "Descrição não disponível",
                     capa = "/IMG/placeholder.jpg",
                     generos = ["Não especificado"],
-                    qualidade = "Qualidade desconhecida",
-                    type = result.type
+                    qualidade = "Qualidade desconhecida"
                 } = content;
 
-                document.getElementById("titulo-serie").textContent = `Assistindo: ${titulo}`;
+                document.getElementById("titulo-serie").textContent = `Assistindo: ${titulo}${type !== 'filme' ? ` - Temporada ${currentSeason}, Episódio ${currentEpisode}` : ''}`;
                 document.getElementById("movie-name").textContent = titulo;
                 document.getElementById("descricao").textContent = descricao;
                 document.getElementById("generos").textContent = `Gêneros: ${Array.isArray(generos) ? generos.join(", ") : generos}`;
                 document.getElementById("capa").src = capa;
                 document.getElementById("capa").alt = `Capa de ${titulo}`;
 
-                const playerSrc = type === 'anime' 
-                    ? `https://superflixapi.pw/serie/${id}`
-                    : `https://superflixapi.pw/${type}/${id}`;
+                const player = document.getElementById("player");
+                const playerSrc = type === 'filme'
+                    ? `https://superflixapi.pw/filme/${id}#noEpList`
+                    : `https://superflixapi.pw/${type}/${id}/${currentSeason}/${currentEpisode}#noEpList`;
                 console.log(`Carregando ${type} com URL: ${playerSrc}`);
 
-                const player = document.getElementById("player");
                 player.src = playerSrc;
                 player.title = `Assistindo ${titulo}`;
+
+                // Mostrar botão de próximo episódio apenas para séries e animes
+                episodeControls.style.display = type === 'filme' ? 'none' : 'flex';
             }
+
+            nextEpisodeBtn.addEventListener("click", async function () {
+                currentEpisode++;
+                loader.classList.remove("hidden");
+
+                const playerSrc = `https://superflixapi.pw/${result.type}/${id}/${currentSeason}/${currentEpisode}#noEpList`;
+                const player = document.getElementById("player");
+
+                // Tentar carregar o próximo episódio
+                try {
+                    const response = await fetch(`${BACKEND_URL}/${result.type}/detalhes?id=${id}`, {
+                        headers: { 'X-API-Key': API_KEY }
+                    });
+                    if (!response.ok) {
+                        throw new Error("Episódio não encontrado");
+                    }
+                    player.src = playerSrc;
+                    document.getElementById("titulo-serie").textContent = `Assistindo: ${result.data.titulo} - Temporada ${currentSeason}, Episódio ${currentEpisode}`;
+                } catch (error) {
+                    currentEpisode--; // Reverter incremento
+                    loader.classList.add("hidden");
+                    playerContainer.innerHTML = '<p class="error-message">Episódio não encontrado. Você pode ter chegado ao final da temporada.</p>';
+                    setTimeout(() => {
+                        playerContainer.innerHTML = '';
+                        updatePlayerContent(result.data, id, result.type);
+                    }, 3000);
+                }
+
+                loader.classList.add("hidden");
+            });
         });
     </script>
 </body>
