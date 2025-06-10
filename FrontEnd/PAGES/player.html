@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -264,15 +263,17 @@
 
             updatePlayerContent(result.data, id, result.type);
 
-            function updatePlayerContent(content) {
+            function updatePlayerContent(content, id, type) {
                 const {
                     titulo = "Título indisponível",
                     descricao = "Descrição não disponível",
                     capa = "/IMG/placeholder.jpg",
                     generos = ["Não especificado"],
-                    qualidade = "Qualidade desconhecida",
-                    type = result.type
+                    qualidade = "Qualidade desconhecida"
                 } = content;
+
+                // Add type class to player-container
+                playerContainer.classList.add(type);
 
                 document.getElementById("titulo-serie").textContent = `Assistindo: ${titulo}`;
                 document.getElementById("movie-name").textContent = titulo;

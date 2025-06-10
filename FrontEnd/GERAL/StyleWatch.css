@@ -63,11 +63,10 @@ nav ul li a:hover,
 nav ul li a:focus {
   color: #fff;
   background-color: #e50914;
-  transform: translateY(-2px); /* Elevação suave */
+  transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(229, 9, 20, 0.3);
   outline: none;
 }
-
 
 /* Campo de pesquisa */
 nav ul li.search form {
@@ -111,7 +110,6 @@ nav ul li.search button:hover {
   color: #fff;
 }
 
-
 /* --------------------------- Player de Vídeo --------------------------- */
 #player-container {
   text-align: center;
@@ -125,16 +123,16 @@ nav ul li.search button:hover {
 
 #player {
   width: 100%;
-  max-height: 720px; /* Aumentado de 600px para 720px */
+  max-height: 600px; /* Reduced from 720px */
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
-  aspect-ratio: 16 / 9; /* Mantém proporção padrão de vídeo */
+  aspect-ratio: 16 / 9;
 }
 
 #titulo-serie {
   font-family: 'Montserrat', sans-serif;
   font-size: 2.8rem;
-  color: #e50914;
+  color: #e50914; /* Default color */
   margin-bottom: 2rem;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -163,7 +161,7 @@ nav ul li.search button:hover {
 
 #generos {
   font-size: 1.2rem;
-  color: #e50914;
+  color: #e50914; /* Default color */
   font-weight: 500;
   margin-top: 0.5rem;
 }
@@ -197,7 +195,7 @@ nav ul li.search button:hover {
   font-size: 1.2rem;
   font-weight: 600;
   color: #fff;
-  background: linear-gradient(45deg, #e50914, #b20710);
+  background: linear-gradient(45deg, #e50914, #b20710); /* Default filme color */
   border: none;
   border-radius: 50px;
   text-align: center;
@@ -218,6 +216,62 @@ nav ul li.search button:hover {
 .assistir-btn:active {
   transform: translateY(0);
   box-shadow: 0 2px 8px rgba(229, 9, 20, 0.3);
+}
+
+/* --------------------------- Dynamic Color Classes --------------------------- */
+.filme #titulo-serie,
+.filme #generos,
+.filme .assistir-btn {
+  color: #e50914; /* Red for filme */
+}
+
+.filme .assistir-btn {
+  background: linear-gradient(45deg, #e50914, #b20710);
+}
+
+.filme .assistir-btn:hover,
+.filme .assistir-btn:focus {
+  background: linear-gradient(45deg, #b20710, #e50914);
+  box-shadow: 0 4px 15px rgba(229, 9, 20, 0.5);
+}
+
+.serie #titulo-serie,
+.serie #generos,
+.serie .assistir-btn {
+  color: #007bff; /* Blue for série */
+}
+
+.serie .assistir-btn {
+  background: linear-gradient(45deg, #007bff, #0056b3);
+}
+
+.serie .assistir-btn:hover,
+.serie .assistir-btn:focus {
+  background: linear-gradient(45deg, #0056b3, #007bff);
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.5);
+}
+
+.anime #titulo-serie,
+.anime #generos,
+.anime .assistir-btn {
+  color: #28a745; /* Green for anime */
+}
+
+.anime .assistir-btn {
+  background: linear-gradient(45deg, #28a745, #1e7e34);
+}
+
+.anime .assistir-btn:hover,
+.anime .assistir-btn:focus {
+  background: linear-gradient(45deg, #1e7e34, #28a745);
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.5);
+}
+
+/* Ensure the player container has the type class */
+#player-container.filme,
+#player-container.serie,
+#player-container.anime {
+  transition: all 0.3s ease;
 }
 
 /* --------------------------- Propagandas --------------------------- */
@@ -279,7 +333,7 @@ footer p {
   }
 
   #player {
-    max-height: 540px; /* Ajustado proporcionalmente */
+    max-height: 450px; /* Reduced from 540px */
   }
 
   #detalhes-filme {
@@ -314,7 +368,7 @@ footer p {
   }
 
   #player {
-    max-height: 450px; /* Ajustado para telas menores */
+    max-height: 360px; /* Reduced from 450px */
   }
 
   #movie-name {
@@ -341,7 +395,7 @@ footer p {
   }
 
   #player {
-    max-height: 360px; /* Ajustado para telas pequenas */
+    max-height: 300px; /* Reduced from 360px */
   }
 
   #capa {
