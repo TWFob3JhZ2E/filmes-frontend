@@ -117,13 +117,13 @@ nav ul li.search button:hover {
   margin: 3rem auto;
   background-color: #1c1c1c;
   border-radius: 12px;
-  max-width: 1200px;
+  max-width: 1000px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
 }
 
 #player {
   width: 100%;
-  max-height: 200px; /* Reduced from 720px */
+  max-height: 600px; /* Reduced from 720px */
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
   aspect-ratio: 16 / 9;
