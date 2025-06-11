@@ -6,6 +6,7 @@
     <title>Assistir Filme, Série ou Anime - MyStarMovies</title>
     <link rel="stylesheet" href="/GERAL/StyleWatch.css">
     <link rel="icon" href="/IMG/Logo1.png" type="image/x-icon">
+    <link rel="preload" href="https://superflixapi.pw" as="document">
     <style>
         .error-message {
             color: #e50914;
@@ -90,7 +91,7 @@
             <p>Carregando conteúdo, por favor aguarde...</p>
         </div>
         <h2 id="titulo-serie">Carregando título...</h2>
-        <iframe id="player" loading="lazy" frameborder="0" allowfullscreen aria-label="Player de vídeo" sandbox="allow-scripts allow-same-origin"></iframe>
+        <iframe id="player" data-src="" frameborder="0" allowfullscreen aria-label="Player de vídeo" sandbox="allow-scripts allow-same-origin"></iframe>
         <section id="detalhes-filme">
             <div id="info-filme">
                 <h3>Em caso de erro, reinicie a página e bom filme :3</h3>
@@ -114,89 +115,9 @@
                 };
             </script>
             <script type="text/javascript" src="//www.highperformanceformat.com/928e31bcb774bbc2d3535533fc03cce0/invoke.js"></script>
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : '928e31bcb774bbc2d3535533fc03cce0',
-                    'format' : 'iframe',
-                    'height' : 50,
-                    'width' : 320,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/928e31bcb774bbc2d3535533fc03cce0/invoke.js"></script>
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : '928e31bcb774bbc2d3535533fc03cce0',
-                    'format' : 'iframe',
-                    'height' : 50,
-                    'width' : 320,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/928e31bcb774bbc2d3535533fc03cce0/invoke.js"></script>
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : '928e31bcb774bbc2d3535533fc03cce0',
-                    'format' : 'iframe',
-                    'height' : 50,
-                    'width' : 320,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/928e31bcb774bbc2d3535533fc03cce0/invoke.js"></script>
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : '928e31bcb774bbc2d3535533fc03cce0',
-                    'format' : 'iframe',
-                    'height' : 50,
-                    'width' : 320,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/928e31bcb774bbc2d3535533fc03cce0/invoke.js"></script>
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : '928e31bcb774bbc2d3535533fc03cce0',
-                    'format' : 'iframe',
-                    'height' : 50,
-                    'width' : 320,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/928e31bcb774bbc2d3535533fc03cce0/invoke.js"></script>
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : '928e31bcb774bbc2d3535533fc03cce0',
-                    'format' : 'iframe',
-                    'height' : 50,
-                    'width' : 320,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/928e31bcb774bbc2d3535533fc03cce0/invoke.js"></script>
         </section>
     </main>
 
-    <script type="text/javascript">
-        atOptions = {
-            'key' : 'ce04a28c61dd91222942a54edcdfefa3',
-            'format' : 'iframe',
-            'height' : 250,
-            'width' : 300,
-            'params' : {}
-        };
-    </script>
-    <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js"></script>
-    <script type="text/javascript">
-        atOptions = {
-            'key' : 'ce04a28c61dd91222942a54edcdfefa3',
-            'format' : 'iframe',
-            'height' : 250,
-            'width' : 300,
-            'params' : {}
-        };
-    </script>
-    <script type="text/javascript" src="//www.highperformanceformat.com/ce04a28c61dd91222942a54edcdfefa3/invoke.js"></script>
     <script type="text/javascript">
         atOptions = {
             'key' : 'ce04a28c61dd91222942a54edcdfefa3',
@@ -254,9 +175,8 @@
 
             const result = await fetchContent(id);
 
-            loader.classList.add("hidden");
-
             if (result.erro) {
+                loader.classList.add("hidden");
                 playerContainer.innerHTML = '<p class="error-message">Conteúdo não encontrado. Verifique o ID ou tente novamente mais tarde.</p>';
                 return;
             }
@@ -272,7 +192,6 @@
                     qualidade = "Qualidade desconhecida"
                 } = content;
 
-                // Add type class to player-container
                 playerContainer.classList.add(type);
 
                 document.getElementById("titulo-serie").textContent = `Assistindo: ${titulo}`;
@@ -288,8 +207,36 @@
                 console.log(`Carregando ${type} com URL: ${playerSrc}`);
 
                 const player = document.getElementById("player");
-                player.src = playerSrc;
+                player.dataset.src = playerSrc;
                 player.title = `Assistindo ${titulo}`;
+
+                setupLazyLoadIframe();
+
+                player.onload = () => {
+                    loader.classList.add("hidden");
+                };
+            }
+
+            function setupLazyLoadIframe() {
+                const player = document.getElementById("player");
+                if (!player) return;
+
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const iframe = entry.target;
+                            if (iframe.dataset.src) {
+                                iframe.src = iframe.dataset.src;
+                                iframe.removeAttribute("data-src");
+                                observer.unobserve(iframe);
+                            }
+                        }
+                    });
+                }, {
+                    rootMargin: "100px"
+                });
+
+                observer.observe(player);
             }
         });
     </script>
