@@ -99,7 +99,7 @@
                 <p id="generos">Gêneros: Carregando...</p>
                 <p id="descricao">Carregando descrição...</p>
             </div>
-            <img id="capa" src="/IMG/placeholder.jpg" alt="Capa do Conteúdo" />
+            <img id="capa" src="/IMG/placeholder.jpg" alt="Capa do Conteúdo" loading="lazy" />
         </section>
 
         <section class="ads-container" aria-label="Anúncios">
@@ -149,26 +149,40 @@
             }
 
             async function fetchContent(id) {
+                // Verifica cache primeiro
+                const cacheKey = `content_${id}`;
+                const cachedData = localStorage.getItem(cacheKey);
+                if (cachedData) {
+                    const { data, timestamp } = JSON.parse(cachedData);
+                    if (Date.now() - timestamp < 3600000) { // Cache válido por 1 hora
+                        return data;
+                    }
+                }
+
                 const urls = [
                     { url: `${BACKEND_URL}/filme/detalhes?id=${id}`, type: 'filme' },
                     { url: `${BACKEND_URL}/serie/detalhes?id=${id}`, type: 'serie' },
                     { url: `${BACKEND_URL}/anime/detalhes?id=${id}`, type: 'anime' }
                 ];
 
-                for (const { url, type } of urls) {
-                    try {
-                        const response = await fetch(url, {
-                            headers: { 'X-API-Key': API_KEY }
-                        });
-                        if (response.ok) {
-                            const data = await response.json();
-                            return { data, type };
-                        }
-                    } catch (error) {
-                        console.error(`Erro ao buscar ${type}:`, error);
-                    }
+                const promises = urls.map(({ url, type }) =>
+                    fetch(url, { headers: { 'X-API-Key': API_KEY } })
+                        .then(res => res.ok ? res.json().then(data => ({ data, type })) : null)
+                        .catch(error => { console.error(`Erro ao buscar ${type}:`, error); return null; })
+                );
+
+                const results = await Promise.all(promises);
+                const result = results.find(result => result) || { erro: 'Conteúdo não encontrado' };
+
+                if (!result.erro) {
+                    // Armazena no cache
+                    localStorage.setItem(cacheKey, JSON.stringify({
+                        data: result,
+                        timestamp: Date.now()
+                    }));
                 }
-                return { erro: 'Conteúdo não encontrado' };
+
+                return result;
             }
 
             loader.classList.remove("hidden");
