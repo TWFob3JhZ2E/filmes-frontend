@@ -512,3 +512,37 @@ footer > p {
     text-align: center;
   }
 }
+.sugestao-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #2a2a2a;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+.sugestao-item:hover {
+    background-color: #3a3a3a;
+}
+.filtros {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+}
+.filtro {
+    padding: 5px 10px;
+    background-color: #444;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.filtro.ativo {
+    background-color: #ff6200;
+}
+.filtro:hover {
+    background-color: #666;
+}
+.resultados {
+    margin-top: 10px;
+}
