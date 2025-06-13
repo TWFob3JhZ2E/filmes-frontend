@@ -108,35 +108,67 @@
         let paginaAtual = 1;
         const ITEMS_PER_PAGE = 50;
 
-        const generosMap = {
-            'Ação': ['Action', 'Action Epic'],
-            'Animação': ['Animation', 'Computer Animation'],
-            'Aventura': ['Adventure', 'Animal Adventure'],
-            'SuperHeroi': ['Superhero'],
-            'Comédia': ['Comedy', 'Teen Comedy', 'Dark Comedy'],
-            'Aliens': ['Alien Invasion', 'Alien'],
-            'Crime': ['Crime', 'Drug Crime'],
-            'Drama': ['Drama'],
-            'Família': ['Family'],
-            'Fantasia': ['Fantasy', 'Dark Fantasy'],
-            'Faroeste': ['Western'],
-            'Ficção Científica': ['Science fiction'],
-            'Guerra': ['War'],
-            'História': ['History'],
-            'Biografia': ['Biography'],
-            'Lançamentos': ['Lançamentos'],
-            'Mistério': ['Mystery'],
-            'Música': ['Music'],
-            'Luta': ['Boxing'],
-            'Nacional': ['Nacional'],
-            'Romance': ['Romance', 'Tragic Romance', 'Romantic Comedy'],
-            'Suspense': ['Suspense', 'Psychological Thriller', 'Thriller'],
-            'Terror': ['Horror', 'Supernatural Horror']
-        };
+    const generosMap = {
+    
+    'Action': ['Action', 'Action Epic', 'B-Action', 'Car Action', 'Gun Fu', 'One-Person Army Action', 'Buddy Cop', 'Caper', 'Heist', 'Kung Fu', 'Martial Arts', 'Action & Adventure'],
+    'Adventure': ['Adventure', 'Adventure Epic', 'Desert Adventure', 'Jungle Adventure', 'Sea Adventure', 'Globetrotting Adventure', 'Animal Adventure', 'Dinosaur Adventure', 'Swashbuckler', 'Action & Adventure'],
+    'Comedy': ['Comedy', 'Buddy Comedy', 'Dark Comedy', 'High-Concept Comedy', 'Quirky Comedy', 'Raunchy Comedy', 'Screwball Comedy', 'Slapstick', 'Stoner Comedy', 'Parody', 'Satire', 'Body Swap Comedy', 'Sitcom'],
+    'Drama': ['Drama', 'Costume Drama', 'Family Drama', 'Legal Drama', 'Medical Drama', 'Political Drama', 'Psychological Drama', 'Showbiz Drama', 'Teen Drama', 'Workplace Drama', 'Financial Drama', 'Prison Drama', 'Soap', 'Telenovela'],
+    'Fantasy': ['Fantasy', 'Dark Fantasy', 'Fantasy Epic', 'Fairy Tale', 'Supernatural Fantasy', 'Sword & Sorcery', 'Sci-Fi & Fantasy'],
+    'Horror': ['Horror', 'B-Horror', 'Body Horror', 'Folk Horror', 'Found Footage Horror', 'Monster Horror', 'Psychological Horror', 'Slasher Horror', 'Splatter Horror', 'Supernatural Horror', 'Vampire Horror', 'Werewolf Horror', 'Witch Horror', 'Zombie Horror'],
+    'Mystery': ['Mystery', 'Cozy Mystery', 'Suspense Mystery', 'Whodunnit'],
+    'Romance': ['Romance', 'Dark Romance', 'Feel-Good Romance', 'Holiday Romance', 'Romantic Comedy', 'Romantic Epic', 'Steamy Romance', 'Tragic Romance', 'Teen Romance'],
+    'Sci-Fi': ['Sci-Fi', 'Sci-Fi Epic', 'Alien Invasion', 'Cyberpunk', 'Dystopian Sci-Fi', 'Space Sci-Fi', 'Time Travel', 'Artificial Intelligence', 'Sci-Fi & Fantasy'],
+    'Thriller': ['Thriller', 'Conspiracy Thriller', 'Cyber Thriller', 'Erotic Thriller', 'Legal Thriller', 'Political Thriller', 'Psychological Thriller', 'Spy'],
+    'Western': ['Western', 'Classical Western', 'Contemporary Western', 'Spaghetti Western', 'Western Epic', 'Faroeste'],
+    'Animation': ['Animation', 'Adult Animation', 'Computer Animation', 'Hand-Drawn Animation', 'Stop Motion Animation', 'Holiday Animation'],
+    'Biography': ['Biography', 'Docudrama'],
+    'Documentary': ['Documentary', 'Crime Documentary', 'Food Documentary', 'History Documentary', 'Military Documentary', 'Nature Documentary', 'Political Documentary', 'Science & Technology Documentary', 'Sports Documentary', 'Faith & Spirituality Documentary', 'Travel Documentary'],
+    'Family': ['Family', 'Holiday Family', 'Kids', 'Infantil'],
+    'Historical': ['Historical', 'Historical Epic', 'Period Drama', 'Historical Drama'],
+    'Musical': ['Musical', 'Classic Musical', 'Jukebox Musical', 'Pop Musical', 'Rock Musical'],
+    'Sports': ['Sports', 'Baseball', 'Basketball', 'Boxing', 'Football', 'Motorsport', 'Soccer', 'Extreme Sport', 'Water Sport', 'Esports', 'Professional Athlete'],
+    'Crime': ['Crime', 'Gangster', 'Police Procedural', 'Serial Killer', 'Film Noir', 'Drug Crime', 'True Crime'],
+    'Superhero': ['Superhero'],
+    'War': ['War', 'War Epic', 'War & Politics'],
+    'Disaster': ['Disaster'],
+    'Reality': ['Reality', 'Competition'],
+    'Talk': ['Talk'],
+    'Apagar': ['News'],
+
+    'Shounen': ['Shounen', 'Super Power', 'Battle Royale', 'Primarily Teen Cast', 'Henshin', 'Ninja', 'Kaiju', 'Samurai'],
+    'Adventure': ['Adventure', 'Isekai', 'Dungeon', 'Pirates', 'Exploration', 'Lost Civilization'],
+    'Comedy': ['Comedy', 'Slice of Life', 'Parody', 'Slapstick', 'Surreal Comedy', 'Cute Girls Doing Cute Things', 'Cute Boys Doing Cute Things'],
+    'Drama': ['Drama', 'Coming of Age', 'Tragedy', 'Family Life', 'Love Triangle', 'Unrequited Love'],
+    'Fantasy': ['Fantasy', 'Magic', 'Mahou Shoujo', 'Fairy Tale', 'Dragons', 'Elf', 'Witch', 'Kemonomimi', 'Nekomimi'],
+    'Horror': ['Horror', 'Cosmic Horror', 'Body Horror', 'Zombie', 'Vampire', 'Werewolf', 'Ghost', 'Monster Girl', 'Monster Boy'],
+    'Mystery': ['Mystery', 'Detective', 'Conspiracy', 'Death Game'],
+    'Psychological': ['Psychological', 'Philosophy', 'Mental Manipulation', 'Dissociative Identities'],
+    'Sci-Fi': ['Sci-Fi', 'Mecha', 'Cyberpunk', 'Space', 'Space Opera', 'Time Loop', 'Time Manipulation', 'Robots', 'Cyborg', 'Aliens'],
+    'Sports': ['Sports', 'Baseball', 'Basketball', 'Football', 'Tennis', 'Volleyball', 'Boxing', 'Judo', 'Skateboarding', 'Cycling'],
+    'Music': ['Music', 'Idol', 'Band', 'Classical Music', 'Rock Music', 'Musical Theater'],
+    'School': ['School', 'School Club', 'Teens Love'],
+    'Harem': ['Harem', 'Female Harem', 'Male Harem', 'Mixed Gender Harem'],
+    'Shoujo': ['Shoujo', 'Mahou Shoujo', 'Primarily Female Cast'],
+    'Seinen': ['Seinen', 'Primarily Adult Cast', 'Anti-Hero'],
+    'Josei': ['Josei', 'Office Lady', 'Matriarchy'],
+    'Isekai': ['Isekai', 'Reincarnation', 'Virtual World', 'Kingdom Management'],
+    'Historical': ['Historical', 'Medieval', 'Ancient China', 'Samurai', 'Vikings', 'Royal Affairs'],
+    'Martial Arts': ['Martial Arts', 'Kung Fu', 'Swordplay', 'Judo', 'Assassins'],
+    'Ecchi': ['Ecchi', 'Fanservice'],
+    'Yaoi': ['Yaoi', 'Boys Love'],
+    'Yuri': ['Yuri', 'Girls Love'],
+    'Thriller': ['Thriller', 'Espionage', 'Survival', 'Proxy Battle'],
+    'Game': ['Game', 'Death Game', 'E-Sports', 'Card Battle', 'Virtual World'],
+    'Demons': ['Demons', 'Exorcism', 'Gods', 'Angels'],
+    'Vampire': ['Vampire'],
+    'Military': ['Military', 'War', 'Tanks', 'Aviation', 'Strategy'],
+    'Supernatural': ['Supernatural', 'Youkai', 'Shrine Maiden', 'Necromancy', 'Gods'],
+    'Romance': ['Romance', 'Love Triangle', 'Marriage', 'Arranged Marriage', 'Teens Love'],
+};
 
 
         // ... outros scripts mantidos ...
-
         async function carregarResultados() {
             const params = new URLSearchParams(window.location.search);
             const query = params.get('q');
