@@ -169,78 +169,76 @@
 
 
         // ... outros scripts mantidos ...
-        async function carregarResultados() {
-            const params = new URLSearchParams(window.location.search);
-            const query = params.get('q');
-            const generosQuery = params.get('generos');
-            const tipo = params.get('tipo') || 'all';
+     async function carregarResultados() {
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get('q');
+    const generosQuery = params.get('generos');
+    const tipo = params.get('tipo') || 'all';
 
-            const resultadosContainer = document.getElementById('resultados');
-            const generoSpan = document.getElementById('genero');
-            const tipoSpan = document.getElementById('tipo');
+    const resultadosContainer = document.getElementById('resultados');
+    const generoSpan = document.getElementById('genero');
+    const tipoSpan = document.getElementById('tipo');
 
-            console.log('Parâmetros da URL:', { query, generosQuery, tipo }); // Log para depuração
+    console.log('Parâmetros da URL:', { query, generosQuery, tipo }); // Log para depuração
 
-            if (!query && !generosQuery) {
-                resultadosContainer.innerHTML = '<p>Nenhum termo ou gênero especificado</p>';
-                return;
-            }
+    if (!query && !generosQuery) {
+        resultadosContainer.innerHTML = '<p>Nenhum termo ou gênero especificado</p>';
+        return;
+    }
 
-            let url;
-            let displayText;
+    let url;
+    let displayText;
 
-            if (query) {
-                url = `${BACKEND_URL}/buscar?q=${encodeURIComponent(query)}&pagina=${paginaAtual}`;
-                displayText = query;
-                tipoSpan.textContent = 'Busca Geral';
-            } else if (generosQuery) {
-                const generos = generosQuery.split(',').map(g => decodeURIComponent(g));
-                displayText = Object.keys(generosMap).find(key =>
-                    generosMap[key].some(g => generos.includes(g))
-                ) || generos[0];
-                url = `${BACKEND_URL}/buscar_por_genero?genero=${generosQuery}&tipo=${tipo}&pagina=${paginaAtual}`;
-                tipoSpan.textContent = tipo === 'filme' ? 'Filmes' : tipo === 'serie' ? 'Séries' : tipo === 'anime' ? 'Animes' : 'Todos';
-            }
+    if (query) {
+        url = `${BACKEND_URL}/buscar?q=${encodeURIComponent(query)}&pagina=${paginaAtual}`;
+        displayText = query;
+        tipoSpan.textContent = 'Busca Geral';
+    } else if (generosQuery) {
+        const generos = generosQuery.split(',').map(g => decodeURIComponent(g));
+        displayText = generos[0]; // Usa o primeiro gênero decodificado
+        url = `${BACKEND_URL}/buscar_por_genero?genero=${encodeURIComponent(generosQuery)}&tipo=${tipo}&pagina=${paginaAtual}`;
+        tipoSpan.textContent = tipo === 'filme' ? 'Filmes' : tipo === 'serie' ? 'Séries' : tipo === 'anime' ? 'Animes' : 'Todos';
+    }
 
-            generoSpan.textContent = displayText;
+    generoSpan.textContent = displayText;
 
-            try {
-                resultadosContainer.innerHTML = '<p>Carregando...</p>';
-                const response = await fetch(url, {
-                    headers: { 'X-API-Key': API_KEY }
-                });
-                if (!response.ok) {
-                    throw new Error(`Erro ${response.status} ao carregar resultados`);
-                }
-                const data = await response.json();
-
-                console.log('Resposta do backend:', data); // Log para depuração
-
-                if (data.mensagem || !data.resultados || !Array.isArray(data.resultados)) {
-                    resultadosContainer.innerHTML = `<p>${data.mensagem || 'Nenhum resultado encontrado para "' + displayText + '"'}</p>`;
-                    return;
-                }
-
-                resultadosContainer.innerHTML = '';
-                data.resultados.slice(0, ITEMS_PER_PAGE).forEach(item => {
-                    const itemElement = document.createElement('div');
-                    itemElement.classList.add('resultado-item');
-                    itemElement.innerHTML = `
-          <img src="${item.capa || 'https://via.placeholder.com/150'}" alt="${item.titulo}">
-          <h3>${item.titulo}</h3>
-          <p>${item.qualidade || 'Qualidade desconhecida'}</p>
-          <a href="/PAGES/player.html?id=${item.id}&tipo=${item.tipo}">${item.tipo === 'filme' ? 'Assistir Filme' : item.tipo === 'serie' ? 'Assistir Série' : 'Assistir Anime'}</a>
-        `;
-                    resultadosContainer.appendChild(itemElement);
-                });
-
-                atualizarPaginacao(data.resultados.length, data.total_paginas || Math.ceil(data.resultados.length / ITEMS_PER_PAGE));
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } catch (error) {
-                console.error('Erro ao carregar resultados:', error);
-                resultadosContainer.innerHTML = '<p>Erro ao carregar resultados. Tente novamente.</p>';
-            }
+    try {
+        resultadosContainer.innerHTML = '<p>Carregando...</p>';
+        const response = await fetch(url, {
+            headers: { 'X-API-Key': API_KEY }
+        });
+        if (!response.ok) {
+            throw new Error(`Erro ${response.status} ao carregar resultados`);
         }
+        const data = await response.json();
+
+        console.log('Resposta do backend:', data); // Log para depuração
+
+        if (data.mensagem || !data.resultados || !Array.isArray(data.resultados)) {
+            resultadosContainer.innerHTML = `<p>${data.mensagem || 'Nenhum resultado encontrado para "' + displayText + '"'}</p>`;
+            return;
+        }
+
+        resultadosContainer.innerHTML = '';
+        data.resultados.slice(0, ITEMS_PER_PAGE).forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.classList.add('resultado-item');
+            itemElement.innerHTML = `
+                <img src="${item.capa || 'https://via.placeholder.com/150'}" alt="${item.titulo}">
+                <h3>${item.titulo}</h3>
+                <p>${item.qualidade || 'Qualidade desconhecida'}</p>
+                <a href="/PAGES/player.html?id=${item.id}&tipo=${item.tipo}">${item.tipo === 'filme' ? 'Assistir Filme' : item.tipo === 'serie' ? 'Assistir Série' : 'Assistir Anime'}</a>
+            `;
+            resultadosContainer.appendChild(itemElement);
+        });
+
+        atualizarPaginacao(data.total, data.total_paginas || Math.ceil(data.total / ITEMS_PER_PAGE));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (error) {
+        console.error('Erro ao carregar resultados:', error);
+        resultadosContainer.innerHTML = '<p>Erro ao carregar resultados. Tente novamente.</p>';
+    }
+}
 
 
         function atualizarPaginacao(tamanhoPagina, totalPaginas) {
